@@ -7,7 +7,7 @@ que está configurado para rodar os 3 contâineres Docker.
 
 ### Requisitos:
    - Ter o [Docker](https://docs.docker.com/install/) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados na máquina.  
-        - Se vc utiliza Linux, use o comando `sudo apt install docker docker-compose -y`.
+        - Se você utiliza Linux, use o comando `sudo apt install docker docker-compose -y`.
 ### Rodando
 - Para cada projeto, execute './gradlew build'
 - Na pasta raíz do repositório, execute 'sudo docker-compose up'
