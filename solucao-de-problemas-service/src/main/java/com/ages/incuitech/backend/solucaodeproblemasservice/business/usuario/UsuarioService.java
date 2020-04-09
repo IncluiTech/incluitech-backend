@@ -2,6 +2,7 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.usuario;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario.UsuarioRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.exception.ResourceNotFoundException;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.Usuario.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 @Service

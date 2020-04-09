@@ -1,7 +1,7 @@
 package com.ages.incuitech.backend.chatbotservice.usuario;
 
 import com.ages.incuitech.backend.chatbotservice.business.usuario.Usuario;
-import com.ages.incuitech.backend.chatbotservice.business.usuario.UsuarioRepository;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.usuario.UsuarioRepository;
 import com.ages.incuitech.backend.chatbotservice.business.usuario.UsuarioService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

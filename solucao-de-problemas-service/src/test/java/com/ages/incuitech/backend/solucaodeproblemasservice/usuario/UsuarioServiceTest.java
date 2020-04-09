@@ -1,7 +1,7 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.usuario;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.usuario.Usuario;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.usuario.UsuarioRepository;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.Usuario.UsuarioRepository;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.usuario.UsuarioService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -2,6 +2,7 @@ package com.ages.incuitech.backend.chatbotservice.business.usuario;
 
 import com.ages.incuitech.backend.chatbotservice.api.usuario.UsuarioRequest;
 import com.ages.incuitech.backend.chatbotservice.api.exception.ResourceNotFoundException;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.usuario.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 @Service
