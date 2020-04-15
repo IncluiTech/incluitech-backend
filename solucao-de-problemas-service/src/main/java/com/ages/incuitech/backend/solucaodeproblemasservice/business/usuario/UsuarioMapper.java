@@ -20,6 +20,7 @@ public class UsuarioMapper {
     public static ClienteResponse mapToClienteResponse(Usuario usuario) {
         return ClienteResponse.builder()
                 .nome(usuario.getNome())
+                .sobrenome(usuario.getSobrenome())
                 .id(usuario.getId())
                 .email(usuario.getEmail())
                 .especialidades(usuario.getEspecialidades())
