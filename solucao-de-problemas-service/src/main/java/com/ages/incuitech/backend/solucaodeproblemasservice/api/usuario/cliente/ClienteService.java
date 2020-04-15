@@ -19,7 +19,9 @@ public class ClienteService extends GenericCRUDService<Usuario, Long> {
     }
 
     public List<ClienteResponse> findAllClientes() {
-        return this.findAll().stream().map(UsuarioMapper::mapToClienteResponse).collect(Collectors.toList());
+        return this.findAll()
+                .stream()
+                .map(UsuarioMapper::mapToClienteResponse)
+                .collect(Collectors.toList());
     }
-
 }
