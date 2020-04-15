@@ -2,12 +2,14 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.usuario;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.domain.Especialidade;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.domain.StatusCadastro;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
 @Getter
+@Builder
 public class Usuario {
 
     @Id

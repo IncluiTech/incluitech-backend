@@ -10,9 +10,7 @@ public class UsuarioMapper {
     }
 
     public static Usuario mapToModel(UsuarioRequest usuarioRequest) {
-        Usuario usuario = new Usuario();
-        usuario.setNome(usuarioRequest.getNome());
-        return usuario;
+        return Usuario.builder().nome(usuarioRequest.getNome()).build();
     }
 
     public static UsuarioResponse mapToResponse(Usuario usuario) {
