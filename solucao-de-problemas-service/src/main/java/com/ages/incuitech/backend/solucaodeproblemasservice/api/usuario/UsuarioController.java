@@ -16,9 +16,12 @@ import javax.inject.Inject;
 @RequestMapping("v1/user")
 public class UsuarioController {
 
-    @Inject
     private UsuarioService usuarioService;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<UsuarioResponse> inserirUsuario(@RequestBody UsuarioRequest usuarioRequest) {

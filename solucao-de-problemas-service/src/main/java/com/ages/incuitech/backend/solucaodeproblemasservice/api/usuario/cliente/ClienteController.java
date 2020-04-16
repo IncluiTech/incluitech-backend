@@ -11,8 +11,11 @@ import java.util.List;
 @RequestMapping("v1/client")
 public class ClienteController {
 
-    @Inject
     private ClienteService service;
+
+    ClienteController(ClienteService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<ClienteResponse> getAllClients() {
