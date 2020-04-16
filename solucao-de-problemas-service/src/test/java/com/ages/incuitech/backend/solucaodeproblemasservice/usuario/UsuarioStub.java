@@ -10,7 +10,7 @@ public class UsuarioStub {
 
     public static Usuario usuario() {
         Usuario usuario = new Usuario();
-        usuario.setId(1l);
+        usuario.setId(1L);
         usuario.setNome("fulano");
         return usuario;
     }
