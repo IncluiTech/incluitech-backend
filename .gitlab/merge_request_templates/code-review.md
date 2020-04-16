@@ -1,4 +1,4 @@
-[ ] Dar contexto (breve resumo) da task desenvolvida, e explicar solução implementada
+[] Dar contexto (breve resumo) da task desenvolvida, e explicar solução implementada
 [ ] Código na mesma linguagem: português
 [ ] Convenções de naming e de estrutura de diretórios da linguagem: https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html
 [ ] Nomes precisos e consistentes
