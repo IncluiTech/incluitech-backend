@@ -1,4 +1,4 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.domain;
+package com.ages.incuitech.backend.solucaodeproblemasservice.business.domain;
 
 public enum Especialidade {
     CRIANCAS,

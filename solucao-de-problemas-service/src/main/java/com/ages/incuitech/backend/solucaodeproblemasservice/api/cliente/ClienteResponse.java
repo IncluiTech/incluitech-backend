@@ -1,7 +1,7 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario.cliente;
+package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.domain.Especialidade;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.domain.StatusCadastro;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Especialidade;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,5 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api;
+package com.ages.incuitech.backend.solucaodeproblemasservice.business;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.CRUDService;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

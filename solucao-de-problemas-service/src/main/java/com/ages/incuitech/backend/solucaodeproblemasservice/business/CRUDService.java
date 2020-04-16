@@ -1,4 +1,4 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api;
+package com.ages.incuitech.backend.solucaodeproblemasservice.business;
 
 import java.util.List;
 
