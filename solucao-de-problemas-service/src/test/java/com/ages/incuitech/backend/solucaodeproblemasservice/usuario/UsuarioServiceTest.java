@@ -32,7 +32,7 @@ public class UsuarioServiceTest {
     public void shouldReturnUser() {
         Usuario usuarioToGet = UsuarioStub.usuario();
         when(usuarioRepository.findById(any())).thenReturn(Optional.of(usuarioToGet));
-        Usuario usuario = usuarioService.buscar(1l);
+        Usuario usuario = usuarioService.buscar(1L);
 
         assertEquals(usuario.getId(), usuarioToGet.getId());
         assertEquals(usuario.getNome(), usuarioToGet.getNome());

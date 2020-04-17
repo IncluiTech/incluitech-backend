@@ -1,25 +1,31 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente;
 
-
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.exception.ResourceNotFoundException;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.Cliente.ClienteRepository;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.cliente.ClienteRepository;
 import org.springframework.stereotype.Service;
 
-@Service
-public class ClienteService {
-    private ClienteRepository clienteRepository;
+import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    public ClienteService(ClienteRepository clienteRepository){
-        this.clienteRepository = clienteRepository;
+@Service
+public class ClienteService extends GenericCRUDService<Cliente, Long> {
+
+    @Inject
+    public void setRepository(ClienteRepository repository) {
+        this.repository = repository;
+    }
+
+    public List<ClienteResponse> findAllClientes() {
+        return this.findAll()
+                .stream()
+                .map(ClienteMapper::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     //@ToDo adicionar tratamento de excessão de banco
     public Cliente salvar(Cliente cliente) {
-            return clienteRepository.save(cliente);
-    }
-
-    public Cliente buscar(Long id) {
-        return clienteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente com id "+id+" não encontrado."));
+        return repository.save(cliente);
     }
 }

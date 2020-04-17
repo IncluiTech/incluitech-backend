@@ -1,14 +1,19 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.exception.ResourceNotFoundException;
+
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 @RestController
@@ -32,15 +37,8 @@ public class ClienteController {
         return ResponseEntity.ok(ClienteMapper.mapToResponse(clienteSalvo));
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity buscarCliente(@PathVariable Long id){
-        try {
-            log.info("Iniciando busca por usuário com id {}", id);
-            Cliente clienteSalvo = clienteService.buscar(id);
-            log.info("Cliente com id {} encontrado", id);
-            return ResponseEntity.ok(ClienteMapper.mapToResponse(clienteSalvo));
-        } catch (ResourceNotFoundException e) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-        }
+    @GetMapping
+    public List<ClienteResponse> getAllClients() {
+        return this.clienteService.findAllClientes();
     }
 }

@@ -20,6 +20,6 @@ public class UsuarioService {
 
     public Usuario buscar(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário com id "+id+" não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário com id " + id + " não encontrado."));
     }
 }

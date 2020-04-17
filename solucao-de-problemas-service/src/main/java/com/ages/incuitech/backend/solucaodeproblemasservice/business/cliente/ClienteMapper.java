@@ -5,13 +5,21 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteR
 
 public class ClienteMapper {
 
-    public static Cliente mapToModel(ClienteRequest clienteRequest){
-        Cliente cliente = new Cliente();
-        cliente.setNome(clienteRequest.getNome());
-        return cliente;
+    private ClienteMapper() {
     }
 
-    public static ClienteResponse mapToResponse(Cliente cliente){
-        return new ClienteResponse(cliente.getId(), cliente.getNome());
+    public static Cliente mapToModel(ClienteRequest clienteRequest) {
+        return Cliente.builder().nome(clienteRequest.getNome()).build();
+    }
+
+    public static ClienteResponse mapToResponse(Cliente cliente) {
+        return ClienteResponse.builder()
+                .nome(cliente.getNome())
+                .sobrenome(cliente.getSobrenome())
+                .id(cliente.getId())
+                .email(cliente.getEmail())
+                .especialidades(cliente.getEspecialidades())
+                .statusCadastro(cliente.getStatusCadastro())
+                .build();
     }
 }
