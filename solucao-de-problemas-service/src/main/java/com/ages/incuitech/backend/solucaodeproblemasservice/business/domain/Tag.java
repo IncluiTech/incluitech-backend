@@ -1,6 +1,6 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.domain;
 
-public enum Especialidade {
+public enum Tag {
     CRIANCAS,
     ADULTOS,
     EMPRESA,

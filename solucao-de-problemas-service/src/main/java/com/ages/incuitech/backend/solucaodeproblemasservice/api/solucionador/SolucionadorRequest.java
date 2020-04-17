@@ -1,7 +1,6 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
+package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Tag;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,11 +12,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteResponse {
+public class SolucionadorRequest {
+    private Long id;
     private String nome;
     private String sobrenome;
     private String email;
-    private List<Tag> especialidades;
-    private Long id;
-    private StatusCadastro statusCadastro;
+    private String lattes;
+    private List<Tag> tags;
 }
