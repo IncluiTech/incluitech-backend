@@ -1,5 +1,6 @@
-package com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing;
+package com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.AttachmentBotMessagePayload;
 import lombok.*;
 
 @Getter

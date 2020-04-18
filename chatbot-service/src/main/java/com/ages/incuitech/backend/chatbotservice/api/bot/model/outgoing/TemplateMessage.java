@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.AttachmentBotMessage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
