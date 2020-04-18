@@ -1,9 +1,9 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.User;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.UserMessage;
+
+import java.util.HashMap;
 
 public class MessageMapper {
     
@@ -11,12 +11,12 @@ public class MessageMapper {
 
         }
 
-        public static InternalMessage mapToModel(BotMessage message, User user){
+        public static InternalMessage mapToModel(UserMessage message, User user){
                 return InternalMessage.builder()
                         .user(user)
-                        .map(message.getContexto())
-                        .messageType(message.getType())
-                        .payload()
+                        .contexto(new HashMap<String, Object>())
+                        .messageType(MessageType.TEXT)
+                        .payload(message.getEntry().toString())
                         .build();
         }
     
