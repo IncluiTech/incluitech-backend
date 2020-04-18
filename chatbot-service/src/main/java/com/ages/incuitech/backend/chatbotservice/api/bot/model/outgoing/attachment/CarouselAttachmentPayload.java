@@ -7,9 +7,10 @@ import java.util.List;
 @Getter
 @ToString
 public class CarouselAttachmentPayload extends AttachmentBotMessagePayload {
-    public CarouselAttachmentPayload() {
-        super(AttachmentTypes.GENERIC.getValor());
-    }
-
     private List<Card> elements;
+
+    public CarouselAttachmentPayload(List<Card> elementos) {
+        super(AttachmentTypes.GENERIC.getValor());
+        this.elements = elementos;
+    }
 }

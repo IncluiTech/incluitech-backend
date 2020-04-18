@@ -8,11 +8,11 @@ import java.util.Map;
 
 @Getter
 public class ButtonBotMesage extends BotMessage{
-    private String text;
-    private List<Button> buttons;
-    public ButtonBotMesage(Map<String, Object> contexto, String text, List<Button> buttons) {
-        super(contexto, BotMessageType.BUTTON);
-        this.text = text;
-        this.buttons = buttons;
+    private String texto;
+    private List<Button> botoes;
+    public ButtonBotMesage(Map<String, Object> contexto, String texto, List<Button> botoes) {
+        super(contexto, BotMessageType.BOTAO);
+        this.texto = texto;
+        this.botoes = botoes;
     }
 }

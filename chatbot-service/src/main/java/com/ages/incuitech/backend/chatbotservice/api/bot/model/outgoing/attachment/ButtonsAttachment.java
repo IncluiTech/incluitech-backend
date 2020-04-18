@@ -13,7 +13,9 @@ public class ButtonsAttachment extends AttachmentBotMessagePayload {
     private String text;
     private List<Button> buttons;
 
-    public ButtonsAttachment() {
+    public ButtonsAttachment(String texto, List<Button> botoes) {
         super(AttachmentTypes.BUTTON.getValor());
+        this.text = texto;
+        this.buttons = botoes;
     }
 }

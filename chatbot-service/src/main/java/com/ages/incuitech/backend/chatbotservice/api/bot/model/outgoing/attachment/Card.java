@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@ToString
+@ToString @Builder
 public class Card {
     private String title;
     @JsonProperty("image_url")

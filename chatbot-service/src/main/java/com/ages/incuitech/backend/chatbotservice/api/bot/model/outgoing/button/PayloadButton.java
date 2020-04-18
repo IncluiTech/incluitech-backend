@@ -8,7 +8,8 @@ import lombok.*;
 public class PayloadButton extends Button {
     private String payload;
 
-    public PayloadButton() {
-        super(ButtonType.POSTBACK.getType());
+    public PayloadButton(String titulo, String conteudo) {
+        super(ButtonType.POSTBACK.getType(), titulo);
+        this.payload  = conteudo;
     }
 }

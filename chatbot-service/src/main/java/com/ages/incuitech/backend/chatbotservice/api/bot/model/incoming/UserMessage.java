@@ -9,10 +9,6 @@ import lombok.ToString;
 
 import java.util.List;
 
-/**
- * @author ramswaroop
- * @version 31/07/2017
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter @Setter

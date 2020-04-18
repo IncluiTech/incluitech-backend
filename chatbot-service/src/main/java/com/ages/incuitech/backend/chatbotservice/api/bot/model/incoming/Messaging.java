@@ -2,18 +2,19 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-/**
- * Model for the webhook events.
- *
- * @author ramswaroop
- * @version 26/09/2016
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
+@Getter
+@Setter
+@ToString
 public class Messaging {
-    private User sender;
-    private User recipient;
+    private FacebookUser sender;
+    private FacebookUser recipient;
     private Long timestamp;
     private Message message;
     private Postback postback;

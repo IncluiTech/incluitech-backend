@@ -8,9 +8,9 @@ import java.util.Map;
 
 @Getter
 public class CarrouselBotMessage extends BotMessage {
-    private List<Card> elements;
-    public CarrouselBotMessage(Map<String, Object> contexto, List<Card> elements) {
-        super(contexto, BotMessageType.CARROUSEL);
-        this.elements = elements;
+    private List<Card> elementos;
+    public CarrouselBotMessage(Map<String, Object> contexto, List<Card> elementos) {
+        super(contexto, BotMessageType.CARROSSEL);
+        this.elementos = elementos;
     }
 }

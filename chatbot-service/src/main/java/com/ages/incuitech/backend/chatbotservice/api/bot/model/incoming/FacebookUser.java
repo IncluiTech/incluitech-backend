@@ -8,15 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * @author ramswaroop
- * @version 17/09/2016
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter @Setter
 @NoArgsConstructor
 @ToString
-public class User {
+public class FacebookUser {
     private String id;
 }

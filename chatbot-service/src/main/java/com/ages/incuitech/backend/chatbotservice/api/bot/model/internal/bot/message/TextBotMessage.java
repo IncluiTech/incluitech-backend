@@ -8,7 +8,7 @@ import java.util.Map;
 public class TextBotMessage extends BotMessage {
     private String text;
     public TextBotMessage(Map<String, Object> contexto, String text) {
-        super(contexto, BotMessageType.TEXT);
+        super(contexto, BotMessageType.TEXTO);
         this.text = text;
     }
 }
