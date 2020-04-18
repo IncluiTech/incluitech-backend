@@ -7,6 +7,7 @@ import java.util.Map;
 
 @AllArgsConstructor
 @ToString @Getter @Setter
+@Builder
 public class InternalMessage {
     private User user;
     private Map<String, Object> contexto;

@@ -11,7 +11,6 @@ public class MessageMapper {
 
         }
 
-        @GetMapping
         public static InternalMessage mapToModel(BotMessage message, User user){
                 return InternalMessage.builder()
                         .user(user)
