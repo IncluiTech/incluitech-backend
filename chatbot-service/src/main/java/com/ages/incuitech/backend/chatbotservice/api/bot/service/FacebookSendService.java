@@ -1,6 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.service;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.BotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.FacebookMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -25,12 +25,12 @@ public class FacebookSendService {
         this.accessToken = accessToken;
     }
 
-    public void sendMessage(BotMessage botMessage) {
+    public void sendMessage(FacebookMessage botMessage) {
         try {
             log.info("Sending message to facebook " + botMessage);
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeaders.CONTENT_TYPE, Collections.singletonList(MediaType.APPLICATION_JSON_VALUE));
-            HttpEntity<BotMessage> entity = new HttpEntity<>(botMessage, headers);
+            HttpEntity<FacebookMessage> entity = new HttpEntity<>(botMessage, headers);
             restTemplate.postForEntity(getSendAPIUrl(), entity, String.class);
         } catch (HttpStatusCodeException ex) {
             log.error("Error trying to send message to Facebook Send Api", ex);

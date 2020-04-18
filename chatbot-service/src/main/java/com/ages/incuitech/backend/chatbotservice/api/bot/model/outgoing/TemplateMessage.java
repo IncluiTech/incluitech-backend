@@ -5,9 +5,12 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
-@Builder @ToString
+@AllArgsConstructor
+@Builder
+@ToString
 public class TemplateMessage {
     private String text;
     @JsonProperty("quick_replies")

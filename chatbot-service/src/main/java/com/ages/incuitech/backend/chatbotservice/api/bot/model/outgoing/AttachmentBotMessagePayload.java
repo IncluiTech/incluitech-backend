@@ -4,9 +4,12 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
-@Builder @ToString
+@AllArgsConstructor
+@Builder
+@ToString
 public class AttachmentBotMessagePayload {
     @JsonProperty("template_type")
     private String templateType;

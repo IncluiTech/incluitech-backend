@@ -3,9 +3,12 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
-@Builder @ToString
+@AllArgsConstructor
+@Builder
+@ToString
 public class QuickReplyButton {
     @JsonProperty("content_type")
     private String contentType;
