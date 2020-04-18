@@ -1,6 +1,8 @@
 package com.ages.incuitech.backend.chatbotservice.api.entrypoint;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.UserMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MessageMapper;
+import com.ages.incuitech.backend.chatbotservice.business.BotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
+
 @Controller
 @RequestMapping("/webhook")
 public class FacebookController {
@@ -16,6 +20,8 @@ public class FacebookController {
 
     @Value("${facebook.verify.token}")
     private String verifyToken;
+    @Inject
+    private BotService botService;
 
     @GetMapping
     public ResponseEntity<String> verifyWebhook(@RequestParam("hub.verify_token") String verifyToken,
@@ -31,6 +37,7 @@ public class FacebookController {
     @PostMapping
     public ResponseEntity<String> receiverMessage(@RequestBody UserMessage userMessage) {
         log.info("Message Received: " + userMessage);
+        botService.handleMessage(MessageMapper.mensagemDoUsuarioParaMensagemInterna(userMessage));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
