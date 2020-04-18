@@ -11,24 +11,16 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachme
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.CarouselAttachmentPayload;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.TemplateMessage;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MessageMapper {
-    public static FacebookMessage botMessageParaFacebookMessage(BotMessage botMessage, FacebookUser recipient) {
-        if (botMessage instanceof ButtonBotMessage) {
-            return constroiMenssagemDeBotoes((ButtonBotMessage) botMessage, recipient);
-        } else if (botMessage instanceof CarrouselBotMessage) {
-            return constroiMenssagemDeCarrossel((CarrouselBotMessage) botMessage, recipient);
-
-        } else if (botMessage instanceof QuickReplyBotMessage) {
-            return constroiMenssagemQuickReplyParaFacebookMenssage((QuickReplyBotMessage) botMessage,
-                    recipient);
-
-        } else {
-            return constroiTextBotMessageParaFacebookMessage((TextBotMessage) botMessage);
-        }
+    public static List<FacebookMessage> botMessageParaFacebookMessage(List<ComponentBotMessage> componentBotMessages,
+                                                                UsuarioDaMensagem usuarioDaMensagem) {
+        return componentBotMessages
+                .stream()
+                .map(componentBotMessage -> constroiFacebookMessage(componentBotMessage, usuarioDaMensagem))
+                .collect(Collectors.toList());
     }
 
     public static List<MensagemInterna> mensagemDoUsuarioParaMensagemInterna(UserMessage message) {
@@ -40,38 +32,57 @@ public class MessageMapper {
                 ).collect(Collectors.toList());
     }
 
-    private static FacebookMessage constroiTextBotMessageParaFacebookMessage(TextBotMessage textMessage) {
+    private static FacebookMessage constroiFacebookMessage(ComponentBotMessage componentBotMessage,
+                                                           UsuarioDaMensagem usuarioDaMensagem){
+        if (componentBotMessage instanceof ButtonComponentBotMessage) {
+            return constroiMenssagemDeBotoes((ButtonComponentBotMessage) componentBotMessage,
+                    usuarioDaMensagem.getId());
+        } else if (componentBotMessage instanceof CarrouselComponentBotMessage) {
+            return constroiMenssagemDeCarrossel((CarrouselComponentBotMessage) componentBotMessage,
+                    usuarioDaMensagem.getId());
+        } else if (componentBotMessage instanceof QuickReplyComponentBotMessage) {
+            return constroiMenssagemQuickReplyParaFacebookMenssage((QuickReplyComponentBotMessage) componentBotMessage,
+                    usuarioDaMensagem.getId());
+        } else {
+            return constroiTextBotMessageParaFacebookMessage((TextComponentBotMessage) componentBotMessage,
+                    usuarioDaMensagem.getId());
+        }
+    }
+
+    private static FacebookMessage constroiTextBotMessageParaFacebookMessage(TextComponentBotMessage textMessage,
+                                                                             String userId) {
         TemplateMessage template = TemplateMessage.builder()
                 .text(textMessage.getText())
                 .build();
         return new FacebookMessage()
+                .withRecipient(new UserRecipient(userId))
                 .withMessage(template);
     }
 
-    private static FacebookMessage constroiMenssagemQuickReplyParaFacebookMenssage(QuickReplyBotMessage quickReply,
-                                                                                   FacebookUser recipient) {
+    private static FacebookMessage constroiMenssagemQuickReplyParaFacebookMenssage(QuickReplyComponentBotMessage quickReply,
+                                                                                   String userId) {
         TemplateMessage template = TemplateMessage.builder()
                 .quickRepliesButtons(quickReply.getQuickReplyButtons())
                 .text(quickReply.getTexto())
                 .build();
         return new FacebookMessage()
-                .withRecipient(new UserRecipient(recipient.getId()))
+                .withRecipient(new UserRecipient(userId))
                 .withMessage(template);
     }
 
-    private static FacebookMessage constroiMenssagemDeCarrossel(CarrouselBotMessage carrousel,
-                                                                FacebookUser recipient) {
+    private static FacebookMessage constroiMenssagemDeCarrossel(CarrouselComponentBotMessage carrousel,
+                                                                String userId) {
         TemplateMessage template = TemplateMessage.builder()
                 .attachment(new AttachmentBotMessage(
                         new CarouselAttachmentPayload(carrousel.getElementos()))
                 ).build();
         return new FacebookMessage()
-                .withRecipient(new UserRecipient(recipient.getId()))
+                .withRecipient(new UserRecipient(userId))
                 .withMessage(template);
     }
 
-    private static FacebookMessage constroiMenssagemDeBotoes(ButtonBotMessage buttonMessage,
-                                                             FacebookUser recipient) {
+    private static FacebookMessage constroiMenssagemDeBotoes(ButtonComponentBotMessage buttonMessage,
+                                                             String userId) {
         TemplateMessage template = TemplateMessage.builder()
                 .attachment(new AttachmentBotMessage(
                         new ButtonsAttachment(buttonMessage.getTexto(),
@@ -80,7 +91,7 @@ public class MessageMapper {
                 )).build();
         return new FacebookMessage()
                 .withMessage(template)
-                .withRecipient(new UserRecipient(recipient.getId()));
+                .withRecipient(new UserRecipient(userId));
     }
 
     private static MensagemInterna converteMensagemUsarioParaInterna(Messaging messaging) {
@@ -92,12 +103,16 @@ public class MessageMapper {
         } else if (messaging.getMessage().getQuickReply() != null) {
             String conteudo = messaging.getMessage().getQuickReply().getPayload();
             return new MensagemInterna(usuarioDaMensagem, TipoMensagem.BOTAO, conteudo);
-        } else if (!messaging.getMessage().getAttachments().isEmpty()) {
+        } else if (hasAttachment(messaging)) {
             String conteudo = messaging.getMessage().getAttachments().get(0).getPayload().getUrl();
             return new MensagemInterna(usuarioDaMensagem, TipoMensagem.ANEXO, conteudo);
         } else {
             String conteudo = messaging.getMessage().getText();
             return new MensagemInterna(usuarioDaMensagem, TipoMensagem.TEXTO, conteudo);
         }
+    }
+
+    private static boolean hasAttachment(Messaging messaging) {
+        return messaging.getMessage().getAttachments() != null && !messaging.getMessage().getAttachments().isEmpty();
     }
 }

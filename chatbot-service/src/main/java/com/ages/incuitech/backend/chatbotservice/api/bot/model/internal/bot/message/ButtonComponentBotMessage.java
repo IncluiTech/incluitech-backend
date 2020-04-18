@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-public class ButtonBotMessage extends BotMessage{
+public class ButtonComponentBotMessage extends ComponentBotMessage {
     private String texto;
     private List<Button> botoes;
-    public ButtonBotMessage(Map<String, Object> contexto, String texto, List<Button> botoes) {
-        super(contexto, BotMessageType.BOTAO);
+    public ButtonComponentBotMessage(String texto, List<Button> botoes) {
+        super(ComponentBotMessageType.BOTAO);
         this.texto = texto;
         this.botoes = botoes;
     }

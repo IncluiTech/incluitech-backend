@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-public class CarrouselBotMessage extends BotMessage {
+public class CarrouselComponentBotMessage extends ComponentBotMessage {
     private List<Card> elementos;
-    public CarrouselBotMessage(Map<String, Object> contexto, List<Card> elementos) {
-        super(contexto, BotMessageType.CARROSSEL);
+    public CarrouselComponentBotMessage(List<Card> elementos) {
+        super(ComponentBotMessageType.CARROSSEL);
         this.elementos = elementos;
     }
 }

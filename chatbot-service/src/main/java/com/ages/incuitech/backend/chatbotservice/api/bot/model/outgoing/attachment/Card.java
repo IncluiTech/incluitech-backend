@@ -2,16 +2,14 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachm
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.Button;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@ToString @Builder
+@AllArgsConstructor
+@ToString @With
 public class Card {
     private String title;
     @JsonProperty("image_url")

@@ -5,10 +5,10 @@ import lombok.Getter;
 import java.util.Map;
 
 @Getter
-public class TextBotMessage extends BotMessage {
+public class TextComponentBotMessage extends ComponentBotMessage {
     private String text;
-    public TextBotMessage(Map<String, Object> contexto, String text) {
-        super(contexto, BotMessageType.TEXTO);
+    public TextComponentBotMessage(String text) {
+        super(ComponentBotMessageType.TEXTO);
         this.text = text;
     }
 }

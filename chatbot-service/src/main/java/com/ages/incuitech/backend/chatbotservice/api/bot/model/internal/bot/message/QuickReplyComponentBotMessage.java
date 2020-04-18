@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 @Getter @ToString
-public class QuickReplyBotMessage extends BotMessage {
+public class QuickReplyComponentBotMessage extends ComponentBotMessage {
     private String texto;
     private List<QuickReplyButton> quickReplyButtons;
-    public QuickReplyBotMessage(Map<String, Object> contexto, String texto, List<QuickReplyButton> quickReplyButtons) {
-        super(contexto, BotMessageType.QUICK_REPLY);
+    public QuickReplyComponentBotMessage(String texto, List<QuickReplyButton> quickReplyButtons) {
+        super(ComponentBotMessageType.QUICK_REPLY);
         this.texto = texto;
         this.quickReplyButtons = quickReplyButtons;
     }

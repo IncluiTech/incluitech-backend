@@ -2,7 +2,8 @@ package com.ages.incuitech.backend.chatbotservice.api.entrypoint;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.UserMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MessageMapper;
-import com.ages.incuitech.backend.chatbotservice.business.BotService;
+import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
+import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +38,11 @@ public class FacebookController {
     @PostMapping
     public ResponseEntity<String> receiverMessage(@RequestBody UserMessage userMessage) {
         log.info("Message Received: " + userMessage);
-        botService.handleMessage(MessageMapper.mensagemDoUsuarioParaMensagemInterna(userMessage));
+        try {
+            botService.manipulaMensagem(MessageMapper.mensagemDoUsuarioParaMensagemInterna(userMessage));
+        } catch (Exception e) {
+            log.error("Deu ruim pae ", e);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

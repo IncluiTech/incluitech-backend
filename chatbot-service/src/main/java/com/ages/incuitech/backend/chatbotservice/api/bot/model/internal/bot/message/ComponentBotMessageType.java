@@ -2,6 +2,6 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mes
 
 import lombok.AllArgsConstructor;
 
-public enum  BotMessageType {
+public enum ComponentBotMessageType {
     TEXTO, QUICK_REPLY, BOTAO, CARROSSEL
 }
