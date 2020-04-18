@@ -1,6 +1,7 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.rule;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.InternalMessage;
 
 import java.util.Map;
 
