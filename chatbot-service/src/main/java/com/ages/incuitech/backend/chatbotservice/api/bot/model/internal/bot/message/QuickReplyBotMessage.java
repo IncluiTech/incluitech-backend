@@ -2,11 +2,12 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mes
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Map;
 
-@Getter
+@Getter @ToString
 public class QuickReplyBotMessage extends BotMessage {
     private String texto;
     private List<QuickReplyButton> quickReplyButtons;

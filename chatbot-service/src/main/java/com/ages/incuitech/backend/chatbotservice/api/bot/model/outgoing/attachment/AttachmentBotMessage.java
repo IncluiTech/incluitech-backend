@@ -1,15 +1,16 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.AttachmentBotMessagePayload;
-import lombok.*;
+import lombok.Getter;
+import lombok.ToString;
 
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @ToString
 public class AttachmentBotMessage {
     private String type;
     private AttachmentBotMessagePayload payload;
+
+    public AttachmentBotMessage(AttachmentBotMessagePayload payload) {
+        this.payload = payload;
+        this.type = "template";
+    }
 }

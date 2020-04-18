@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@With
 @ToString
 public class FacebookMessage {
     @JsonProperty("messaging_type")
