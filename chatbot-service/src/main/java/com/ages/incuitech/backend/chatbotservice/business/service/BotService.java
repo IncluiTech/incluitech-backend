@@ -4,7 +4,7 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mess
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.ComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MessageMapper;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.MessageMapper;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.UsuarioDaMensagem;
 import com.ages.incuitech.backend.chatbotservice.api.service.FacebookSendService;
 import com.ages.incuitech.backend.chatbotservice.business.conjuto.ConjuntoRegra;

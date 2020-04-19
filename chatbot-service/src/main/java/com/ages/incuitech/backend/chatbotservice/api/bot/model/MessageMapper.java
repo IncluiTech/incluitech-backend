@@ -1,9 +1,12 @@
-package com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message;
+package com.ages.incuitech.backend.chatbotservice.api.bot.model;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.FacebookUser;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.Messaging;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.UserMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoMensagem;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.UsuarioDaMensagem;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.FacebookMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.UserRecipient;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.AttachmentBotMessage;

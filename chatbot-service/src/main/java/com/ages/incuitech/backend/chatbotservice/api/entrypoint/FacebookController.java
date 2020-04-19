@@ -1,9 +1,8 @@
 package com.ages.incuitech.backend.chatbotservice.api.entrypoint;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.UserMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MessageMapper;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.MessageMapper;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
-import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
