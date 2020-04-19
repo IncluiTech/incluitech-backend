@@ -5,6 +5,7 @@ import com.ages.incuitech.backend.chatbotservice.business.conjuto.ConjuntoRegra;
 import com.ages.incuitech.backend.chatbotservice.business.conjuto.cliente.ClienteConjuntoRegras;
 import com.ages.incuitech.backend.chatbotservice.business.conjuto.desconhecido.DesconhecidoConjuntoRegras;
 import com.ages.incuitech.backend.chatbotservice.business.conjuto.solucionador.SolucionadorConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.business.service.BotEngine;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
 import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
@@ -49,10 +50,15 @@ public class Config {
     }
 
     @Bean
+    public BotEngine botEngine(List<ConjuntoRegra> conjuntoRegras) {
+        return new BotEngine(conjuntoRegras);
+    }
+
+    @Bean
     public BotService botService(ContextManager contextManager,
-                                 UserService userService, List<ConjuntoRegra> conjuntoRegras,
+                                UserService userService, BotEngine botEngine,
                                  FacebookSendService facebookSendService) {
-        return new BotService(contextManager, userService, conjuntoRegras, facebookSendService);
+        return new BotService(contextManager, userService, botEngine, facebookSendService);
     }
 
     @Bean

@@ -21,14 +21,14 @@ import java.util.Map;
 public class BotService {
     private final ContextManager contextManager;
     private final UserService userService;
-    private final List<ConjuntoRegra> conjuntoRegra;
+    private final BotEngine botEngine;
     private final FacebookSendService facebookSendService;
 
-    public BotService(ContextManager contextManager, UserService userService, List<ConjuntoRegra> conjuntoRegra,
+    public BotService(ContextManager contextManager, UserService userService, BotEngine botEngine,
                       FacebookSendService facebookSendService) {
         this.contextManager = contextManager;
         this.userService = userService;
-        this.conjuntoRegra = conjuntoRegra;
+        this.botEngine = botEngine;
         this.facebookSendService = facebookSendService;
     }
 
@@ -50,10 +50,7 @@ public class BotService {
     private BotMessage processMessage(MensagemInterna mensagem) {
         try {
             log.debug("Processando mensagem -> " + mensagem);
-            return conjuntoRegra
-                    .stream()
-                    .filter(conjuntoRegra -> conjuntoRegra.seleciona(mensagem.getUsuario().getTipoUsuario()))
-                    .findFirst()
+            return botEngine.selecionaConjunto(mensagem)
                     .flatMap(conjuntoRegra -> conjuntoRegra.processaRegras(mensagem))
                     .orElseGet(this::constroiMensagemDefault);
         } catch (Exception e) {
