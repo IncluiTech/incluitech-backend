@@ -65,7 +65,7 @@ public class SaudacaoInicialRegraBot implements RegraDoBot {
 }
 ```
 Quero que ela só seja acionada se meu contexto estiver vazio então meu método verifica terá a seguinte implementação:
-```
+```java
 @Override
 public boolean verifica(MensagemInterna message) {
     return message.getContexto().isEmpty();
@@ -74,7 +74,7 @@ public boolean verifica(MensagemInterna message) {
 Quero também que, a mensagem gerada por essa regra, seja uma lista de botões um pra iniciar o login, 
 outro direcionado para o site da incluitec e que o contexto da mensagem seja preservado.
 Então meu processa terá a seguinte cara:
-```
+```java
 public BotMessage processa(MensagemInterna message) {
     List<Button> botoes = Arrays.asList(
                     new PayloadButton("Iniciar Login", "INICIAR_LOGIN"),
@@ -86,7 +86,7 @@ public BotMessage processa(MensagemInterna message) {
 }
 ```
 Feito isso, Instanciamos essa Regra na classe DesconhecidoConjuntoRegras em seu contrutor.
-```
+```java
 public DesconhecidoConjuntoRegras() {
         super(Arrays.asList(new SaudacaoInicialRegraBot()));
 }
