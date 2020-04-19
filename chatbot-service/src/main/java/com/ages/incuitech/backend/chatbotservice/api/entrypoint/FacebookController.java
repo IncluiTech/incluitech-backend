@@ -37,11 +37,7 @@ public class FacebookController {
     @PostMapping
     public ResponseEntity<String> receiverMessage(@RequestBody UserMessage userMessage) {
         log.info("Message Received: " + userMessage);
-        try {
-            botService.manipulaMensagem(MessageMapper.mensagemDoUsuarioParaMensagemInterna(userMessage));
-        } catch (Exception e) {
-            log.error("Deu ruim pae ", e);
-        }
+        botService.manipulaMensagem(MessageMapper.mensagemDoUsuarioParaMensagemInterna(userMessage));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
