@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import java.util.Map;
 
+/**
+ * Classe representando uma simples mensagem de texto
+ */
 @Getter
 public class TextComponentBotMessage extends ComponentBotMessage {
     private String text;

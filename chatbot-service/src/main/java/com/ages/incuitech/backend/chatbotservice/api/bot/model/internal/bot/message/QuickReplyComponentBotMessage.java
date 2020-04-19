@@ -7,6 +7,10 @@ import lombok.ToString;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Mensagem do tipo Quick Reply. Constituida por um texto e uma lista de botões de quick reply
+ * @see QuickReplyButton
+ */
 @Getter @ToString
 public class QuickReplyComponentBotMessage extends ComponentBotMessage {
     private String texto;

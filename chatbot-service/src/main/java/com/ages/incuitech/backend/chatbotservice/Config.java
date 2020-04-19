@@ -23,7 +23,7 @@ public class Config {
 
     @Value(("${facebook.send.api.url}"))
     private String sendApiUrl;
-    @Value("${facebook.app.acess.token}")
+    @Value("${facebook.app.access.token}")
     private String accessToken;
 
     @Bean

@@ -2,6 +2,10 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button;
 
 import lombok.*;
 
+/**
+ * Classe de botão representando postback, tipos de botões que enviam o seu {@code payload} de volta para o bot
+ * @see Button
+ */
 @Getter
 @Setter
 @ToString

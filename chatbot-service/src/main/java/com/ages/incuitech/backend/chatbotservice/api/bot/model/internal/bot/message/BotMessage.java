@@ -7,6 +7,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Classe represtantiva de uma mensagm do bot.
+ * Contem o contexto da conversa no momento que a mensagem é gerada
+ * e um lista das mensagem que bot ira falar
+ * @see ComponentBotMessage
+ */
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor
