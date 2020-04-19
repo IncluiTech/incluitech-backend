@@ -11,7 +11,7 @@ import lombok.*;
 @ToString
 public class QuickReplyButton {
     @JsonProperty("content_type")
-    private String contentType;
+    private final String contentType = "text";
     private String title;
     private String payload;
 }

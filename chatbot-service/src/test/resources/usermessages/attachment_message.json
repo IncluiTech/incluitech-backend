@@ -1,0 +1,25 @@
+{
+  "entry": [
+    {
+      "messaging": [
+        {
+          "sender": {
+            "id": "2242"
+          },
+          "recipient": {
+            "id": "recipientId"
+          },
+          "message": {
+            "attachments": [
+              {
+                "payload": {
+                  "url": "url"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
