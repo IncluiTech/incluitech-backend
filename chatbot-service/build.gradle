@@ -24,6 +24,7 @@ dependencies {
     implementation group: 'org.springframework.social', name: 'spring-social-facebook', version: '2.0.3.RELEASE'
     implementation 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    implementation('com.google.code.gson:gson:2.8.6')
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation('org.mockito:mockito-core:2.22.0')

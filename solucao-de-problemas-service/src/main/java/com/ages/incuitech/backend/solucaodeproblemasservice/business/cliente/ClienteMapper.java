@@ -1,16 +1,15 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario.UsuarioRequest;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario.UsuarioResponse;
 
 public class ClienteMapper {
 
     private ClienteMapper() {
     }
 
-    public static Cliente mapToModel(UsuarioRequest usuarioRequest) {
-        return Cliente.builder().nome(usuarioRequest.getNome()).build();
+    public static Cliente mapToModel(ClienteRequest clienteRequest) {
+        return Cliente.builder().nome(clienteRequest.getNome()).build();
     }
 
     public static ClienteResponse mapToResponse(Cliente cliente) {

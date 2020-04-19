@@ -5,13 +5,11 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Stat
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
-
 import java.util.List;
 
 @Getter
 @Builder
 public class Cliente {
-
     @Id
     private Long id;
     private String nome;
@@ -19,5 +17,4 @@ public class Cliente {
     private String email;
     private List<Especialidade> especialidades;
     private StatusCadastro statusCadastro;
-
 }
