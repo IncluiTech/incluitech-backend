@@ -93,7 +93,8 @@ public DesconhecidoConjuntoRegras() {
 ```
 Feito, agora é só rodar a aplicação e testar o seu novo fluxo.
 
-###Certo... Tenho minha aplicação rodando na porta 8080, mas quero testar, como eu faço?
+### Certo... Tenho minha aplicação rodando na porta 8080, mas quero testar, como eu faço?
+
 - Primeiramente, baixe um programa chamado Ngrok (caso conheça algum outra forma de expor sua porta 8080 para o mundo, 
 sinta-se a vontede de utilizá-la).
 - Feito isso, execute o comando no terminal `ngrok http 8080`, ao fazer isso sua porta está exposta pelo link gerado que estará mostando no seu terminal, por 8 horas.
