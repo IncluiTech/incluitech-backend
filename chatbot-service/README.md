@@ -53,7 +53,7 @@ Então vamos dizer que queremos criar uma Regra de Saudação inicial para o flu
 no pacote `[...] business.conjunto.desconhecido.regras` vou criar uma classe como:
 ```java
 public class SaudacaoInicialRegraBot implements RegraDoBot {
-   @Override
+       @Override
        public boolean verifica(MensagemInterna message) {
            return false;
        }
