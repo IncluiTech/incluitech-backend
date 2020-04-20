@@ -14,10 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClienteResponse {
+    private Long id;
     private String nome;
     private String sobrenome;
     private String email;
     private List<Especialidade> especialidades;
-    private Long id;
     private StatusCadastro statusCadastro;
 }

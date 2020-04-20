@@ -2,6 +2,7 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 
 public class ClienteMapper {
 
@@ -9,7 +10,13 @@ public class ClienteMapper {
     }
 
     public static Cliente mapToModel(ClienteRequest clienteRequest) {
-        return Cliente.builder().nome(clienteRequest.getNome()).build();
+        return Cliente.builder()
+                .nome(clienteRequest.getNome())
+                .especialidades(clienteRequest.getEspecialidades())
+                .sobrenome(clienteRequest.getSobrenome())
+                .email(clienteRequest.getEmail())
+                .statusCadastro(StatusCadastro.P)
+                .build();
     }
 
     public static ClienteResponse mapToResponse(Cliente cliente) {
