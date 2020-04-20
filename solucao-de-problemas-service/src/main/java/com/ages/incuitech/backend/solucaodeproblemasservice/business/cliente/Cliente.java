@@ -5,6 +5,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Stat
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
 @Getter
