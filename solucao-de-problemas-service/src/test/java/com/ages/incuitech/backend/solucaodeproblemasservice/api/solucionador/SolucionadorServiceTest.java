@@ -45,7 +45,6 @@ public class SolucionadorServiceTest {
         Optional<SolucionadorResponse> response = solucionadores.stream().filter(solucionadorResponse -> solucionadorResponse.getId().equals(solucionador.getId())).findFirst();
         assertTrue(response.isPresent());
         assertEquals(response.get().getEmail(), solucionador.getEmail());
-        assertEquals(response.get().getTags(), solucionador.getTags());
         assertEquals(response.get().getNome(), solucionador.getNome());
         assertEquals(response.get().getTelefone(), solucionador.getTelefone());
         assertEquals(response.get().getStatusCadastro(), solucionador.getStatusCadastro());

@@ -1,17 +1,49 @@
 GRANT ALL PRIVILEGES ON DATABASE "incluitech" TO "postgres";
 
-create table if not exists usuario(
-    id serial primary key,
-    nome varchar (50) not null,
-    data_criacao timestamp not null default now()
+CREATE TABLE IF NOT EXISTS cliente(
+id SERIAL PRIMARY KEY,
+nome VARCHAR (50) NOT NULL,
+email VARCHAR(50) NOT NULL,
+status_cadastro VARCHAR (50) NOT NULL,
+telefone VARCHAR(11),
+data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-create table if not exists cliente(
-    id serial primary key,
-    nome varchar (50) not null,
-    sobrenome varchar(50) not null,
-    email varchar(50) not null,
-    status_cadastro varchar(1) not null,
-    especialidades varchar(10),
-    data_criacao timestamp not null default now()
+CREATE TABLE IF NOT EXISTS solucionador(
+id SERIAL PRIMARY KEY,
+nome VARCHAR (50) NOT NULL,
+email VARCHAR(50) NOT NULL,
+lattes VARCHAR (50) NOT NULL,
+status_cadastro VARCHAR (50) NOT NULL,
+telefone VARCHAR (11),
+data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
+
+);
+
+CREATE TABLE IF NOT EXISTS tag(
+id SERIAL PRIMARY KEY,
+nome VARCHAR (50) NOT NULL,
+data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS tag_solucionador(
+id SERIAL PRIMARY KEY,
+id_tag SERIAL,
+id_solucionador SERIAL,
+CONSTRAINT FK_id_tag FOREIGN KEY (id_tag)
+REFERENCES tag (id),
+CONSTRAINT FK_id_solucionador FOREIGN KEY (id_solucionador)
+REFERENCES tag (id),
+data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS tag_cliente(
+id SERIAL PRIMARY KEY,
+id_tag SERIAL,
+id_cliente SERIAL,
+CONSTRAINT FK_id_tag FOREIGN KEY (id_tag)
+REFERENCES tag (id),
+CONSTRAINT FK_id_cliente FOREIGN KEY (id_cliente)
+REFERENCES cliente (id),
+data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
 );

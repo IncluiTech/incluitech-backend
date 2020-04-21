@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -20,4 +21,5 @@ public class ClienteResponse {
     private String telefone;
     private List<Tag> tags;
     private StatusCadastro statusCadastro;
+    private LocalDateTime dataCriacao;
 }

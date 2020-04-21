@@ -2,11 +2,13 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionad
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@NoArgsConstructor
 public class SolucionadorMapper {
-
-    private SolucionadorMapper() {
-    }
 
     public static Solucionador mapToModel(SolucionadorRequest solucionadorRequest) {
         return Solucionador
@@ -15,7 +17,8 @@ public class SolucionadorMapper {
                 .telefone(solucionadorRequest.getTelefone())
                 .email(solucionadorRequest.getEmail())
                 .lattes(solucionadorRequest.getLattes())
-                .tags(solucionadorRequest.getTags())
+                .statusCadastro(StatusCadastro.P)
+                .dataCriacao(LocalDateTime.now())
                 .build();
     }
 
@@ -25,8 +28,9 @@ public class SolucionadorMapper {
                 .nome(solucionador.getNome())
                 .telefone(solucionador.getTelefone())
                 .email(solucionador.getEmail())
-                .tags(solucionador.getTags())
+                .lattes(solucionador.getLattes())
                 .statusCadastro(solucionador.getStatusCadastro())
+                .dataCriacao(LocalDateTime.now())
                 .build();
     }
 }

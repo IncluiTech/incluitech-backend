@@ -18,7 +18,6 @@ public class Solucionador {
     private String telefone;
     private String email;
     private String lattes;
-    private List<Tag> tags;
     private LocalDateTime dataCriacao;
     private StatusCadastro statusCadastro;
 }

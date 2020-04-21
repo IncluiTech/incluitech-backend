@@ -11,7 +11,6 @@ public class SolucionadorStub {
         return Solucionador.builder()
                 .id(1L)
                 .email("fulano@gmail.com")
-                .tags(null)
                 .nome("Fulano")
                 .nome("Fulano")
                 .telefone("51999999999")
