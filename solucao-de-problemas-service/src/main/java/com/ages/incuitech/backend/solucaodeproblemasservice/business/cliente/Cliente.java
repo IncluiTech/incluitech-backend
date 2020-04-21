@@ -11,13 +11,11 @@ import java.util.List;
 @Getter
 @Builder
 public class Cliente {
-
     @Id
     private Long id;
     private String nome;
-    private String sobrenome;
+    private String telefone;
     private String email;
-    private List<Tag> especialidades;
+    private List<Tag> tags;
     private StatusCadastro statusCadastro;
-
 }

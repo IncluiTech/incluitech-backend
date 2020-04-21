@@ -17,7 +17,7 @@ import java.util.List;
 public class SolucionadorResponse {
     private Long id;
     private String nome;
-    private String sobrenome;
+    private String telefone;
     private String email;
     private String lattes;
     private List<Tag> tags;

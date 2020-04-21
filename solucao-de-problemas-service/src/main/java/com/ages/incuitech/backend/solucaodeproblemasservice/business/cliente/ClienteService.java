@@ -23,4 +23,9 @@ public class ClienteService extends GenericCRUDService<Cliente, Long> {
                 .map(ClienteMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
+
+    //@ToDo adicionar tratamento de excessão de banco
+    public Cliente salvar(Cliente cliente) {
+        return repository.save(cliente);
+    }
 }

@@ -1,25 +1,31 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario.UsuarioRequest;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario.UsuarioResponse;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 
 public class ClienteMapper {
 
     private ClienteMapper() {
     }
 
-    public static Cliente mapToModel(UsuarioRequest usuarioRequest) {
-        return Cliente.builder().nome(usuarioRequest.getNome()).build();
+    public static Cliente mapToModel(ClienteRequest clienteRequest) {
+        return Cliente.builder()
+                .nome(clienteRequest.getNome())
+                .telefone(clienteRequest.getTelefone())
+                .tags(clienteRequest.getTags())
+                .email(clienteRequest.getEmail())
+                .statusCadastro(StatusCadastro.P)
+                .build();
     }
 
     public static ClienteResponse mapToResponse(Cliente cliente) {
         return ClienteResponse.builder()
                 .nome(cliente.getNome())
-                .sobrenome(cliente.getSobrenome())
                 .id(cliente.getId())
                 .email(cliente.getEmail())
-                .especialidades(cliente.getEspecialidades())
+                .telefone(cliente.getTelefone())
+                .tags(cliente.getTags())
                 .statusCadastro(cliente.getStatusCadastro())
                 .build();
     }

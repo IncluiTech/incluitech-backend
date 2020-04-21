@@ -11,7 +11,7 @@ public class ClienteStub {
         return Cliente.builder()
                 .id(1L)
                 .email("fulano@gmail.com")
-                .especialidades(null)
+                .tags(null)
                 .nome("Fulano")
                 .sobrenome("de Tal")
                 .statusCadastro(StatusCadastro.P)

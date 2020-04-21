@@ -12,15 +12,13 @@ import java.util.List;
 @Getter
 @Builder
 public class Solucionador {
-
     @Id
     private Long id;
     private String nome;
-    private String sobrenome;
+    private String telefone;
     private String email;
     private String lattes;
     private List<Tag> tags;
     private LocalDateTime dataCriacao;
     private StatusCadastro statusCadastro;
-
 }

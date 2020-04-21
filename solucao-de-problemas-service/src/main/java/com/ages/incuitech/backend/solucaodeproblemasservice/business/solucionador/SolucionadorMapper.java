@@ -12,14 +12,18 @@ public class SolucionadorMapper {
         return Solucionador
                 .builder()
                 .nome(solucionadorRequest.getNome())
+                .telefone(solucionadorRequest.getTelefone())
+                .email(solucionadorRequest.getEmail())
+                .lattes(solucionadorRequest.getLattes())
+                .tags(solucionadorRequest.getTags())
                 .build();
     }
 
     public static SolucionadorResponse mapToResponse(Solucionador solucionador) {
         return SolucionadorResponse.builder()
-                .nome(solucionador.getNome())
-                .sobrenome(solucionador.getSobrenome())
                 .id(solucionador.getId())
+                .nome(solucionador.getNome())
+                .telefone(solucionador.getTelefone())
                 .email(solucionador.getEmail())
                 .tags(solucionador.getTags())
                 .statusCadastro(solucionador.getStatusCadastro())

@@ -1,22 +1,20 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
+package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Getter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SolucionadorRequest {
-    private Long id;
+public class ClienteRequest {
     private String nome;
-    private String telefone;
     private String email;
-    private String lattes;
+    private String telefone;
     private List<Tag> tags;
 }

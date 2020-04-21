@@ -44,9 +44,8 @@ public class ClienteServiceTest {
         Optional<ClienteResponse> response = clients.stream().filter(client -> client.getId().equals(cliente.getId())).findFirst();
         assertTrue(response.isPresent());
         assertEquals(response.get().getEmail(), cliente.getEmail());
-        assertEquals(response.get().getEspecialidades(), cliente.getEspecialidades());
+        assertEquals(response.get().getTags(), cliente.getTags());
         assertEquals(response.get().getNome(), cliente.getNome());
-        assertEquals(cliente.getSobrenome(), response.get().getSobrenome());
         assertEquals(response.get().getStatusCadastro(), cliente.getStatusCadastro());
         verify(repository, times(1)).findAll();
 
