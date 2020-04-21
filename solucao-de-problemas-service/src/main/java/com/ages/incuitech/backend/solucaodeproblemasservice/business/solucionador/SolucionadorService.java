@@ -23,4 +23,9 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long> 
                 .map(SolucionadorMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
+
+    //@ToDo adicionar tratamento de excessão de banco
+    public Solucionador salvar(Solucionador solucionador) {
+        return repository.save(solucionador);
+    }
 }
