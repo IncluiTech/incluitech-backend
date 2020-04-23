@@ -48,7 +48,7 @@ public class SolucionadorServiceTest {
         assertEquals(response.get().getNome(), solucionador.getNome());
         assertEquals(response.get().getTelefone(), solucionador.getTelefone());
         assertEquals(response.get().getStatusCadastro(), solucionador.getStatusCadastro());
-        verify(repository, times(1)).findAll();
+        verify(repository).findAll();
 
     }
 }

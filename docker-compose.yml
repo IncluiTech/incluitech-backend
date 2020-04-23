@@ -10,15 +10,15 @@ services:
     container_name: "solucao-de-problemas-service"
     restart: unless-stopped
     environment:
-      - 'spring.datasource.url=jdbc:postgresql://postgres:5432/incluitech'
+      - 'spring.datasource.url=jdbc:postgresql://incluitech-postgres:5432/incluitech'
       - 'spring.datasource.username=postgres'
       - 'spring.datasource.password=postgres'
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - incluitech-postgres
     links:
-      - postgres
+      - incluitech-postgres
 
 
   chatbot-service:
@@ -32,12 +32,12 @@ services:
       - "8081:8080"
 
 
-  postgres:
+  incluitech-postgres:
     build:
       context: database
       dockerfile: Dockerfile
     network_mode: bridge
-    container_name: "postgres"
+    container_name: "incluitech-postgres"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     ports:
