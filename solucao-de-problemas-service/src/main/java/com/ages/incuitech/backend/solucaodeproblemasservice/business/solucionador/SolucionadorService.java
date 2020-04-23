@@ -4,6 +4,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.Sol
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -32,7 +33,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long> 
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
             throw exception;
-        } catch (Exception exception) {
+        } catch (DataAccessException exception) {
             log.error("Erro ao salvar Solucionador: {}", exception.toString());
             throw exception;
         }

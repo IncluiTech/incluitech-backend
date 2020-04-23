@@ -28,7 +28,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteResponse> save(@RequestBody ClienteRequest clienteRequest){
+    public ResponseEntity<ClienteResponse> salvar(@RequestBody ClienteRequest clienteRequest){
         log.info("Salvando cliente: {}", clienteRequest);
         Cliente clienteSalvo = clienteService.salvar(ClienteMapper.mapToModel(clienteRequest));
         log.info("Cliente salvo: {}", clienteSalvo);
