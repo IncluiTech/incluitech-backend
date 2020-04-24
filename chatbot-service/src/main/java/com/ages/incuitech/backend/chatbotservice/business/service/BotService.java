@@ -24,6 +24,13 @@ public class BotService {
     private final BotEngine botEngine;
     private final FacebookSendService facebookSendService;
 
+    @Async
+    public void manipulaEvento(MensagemInterna mensagemInterna){
+        BotMessage botMessage = processMessage(mensagemInterna);
+        facebookSendService.sendMessage(MessageMapper
+                .botMessageParaFacebookMessage(botMessage.getMessages(), mensagemInterna.getUsuario()));
+    }
+
     public BotService(ContextManager contextManager, UserService userService, BotEngine botEngine,
                       FacebookSendService facebookSendService) {
         this.contextManager = contextManager;

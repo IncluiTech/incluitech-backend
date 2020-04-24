@@ -3,6 +3,7 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.FacebookUser;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.Messaging;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.UserMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.api.ApiMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoMensagem;
@@ -14,10 +15,14 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachme
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.CarouselAttachmentPayload;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.TemplateMessage;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MessageMapper {
+
+
+
     public static List<FacebookMessage> botMessageParaFacebookMessage(List<ComponentBotMessage> componentBotMessages,
                                                                 UsuarioDaMensagem usuarioDaMensagem) {
         return componentBotMessages
@@ -113,6 +118,12 @@ public class MessageMapper {
             String conteudo = messaging.getMessage().getText();
             return new MensagemInterna(usuarioDaMensagem, TipoMensagem.TEXTO, conteudo);
         }
+    }
+
+    public static MensagemInterna converteApiMessageParaInterna(ApiMessage messaging){
+        UsuarioDaMensagem usuarioDaMensagem = messaging.getUser();
+        return new MensagemInterna(usuarioDaMensagem, TipoMensagem.EVENTO, messaging.getConteudo(),new HashMap<>());
+
     }
 
     private static boolean hasAttachment(Messaging messaging) {
