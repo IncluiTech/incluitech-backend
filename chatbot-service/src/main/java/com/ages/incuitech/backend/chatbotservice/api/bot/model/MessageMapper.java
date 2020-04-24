@@ -9,6 +9,7 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoMensagem;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.UsuarioDaMensagem;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.FacebookMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.MessageType;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.UserRecipient;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.AttachmentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.ButtonsAttachment;
@@ -22,13 +23,20 @@ import java.util.stream.Collectors;
 public class MessageMapper {
 
 
+    private static final String ACCOUNT_UPDATE_TAG = "ACCOUNT_UPDATE";
 
     public static List<FacebookMessage> botMessageParaFacebookMessage(List<ComponentBotMessage> componentBotMessages,
-                                                                UsuarioDaMensagem usuarioDaMensagem) {
+                                                                      MensagemInterna mensagemInterna) {
         return componentBotMessages
                 .stream()
-                .map(componentBotMessage -> constroiFacebookMessage(componentBotMessage, usuarioDaMensagem))
-                .collect(Collectors.toList());
+                .map(componentBotMessage -> {
+                    FacebookMessage facebookMessage = constroiFacebookMessage(componentBotMessage,
+                            mensagemInterna.getUsuario());
+                    if (TipoMensagem.EVENTO.equals(mensagemInterna.getTipo())){
+                        return facebookMessage.withMessageType(MessageType.MESSAGE_TAG.name())
+                                .withTag(ACCOUNT_UPDATE_TAG);
+                    } else return facebookMessage;
+                }).collect(Collectors.toList());
     }
 
     public static List<MensagemInterna> mensagemDoUsuarioParaMensagemInterna(UserMessage message) {
