@@ -1,0 +1,19 @@
+{
+  "entry": [
+    {
+      "messaging": [
+        {
+          "sender": {
+            "id": "2242"
+          },
+          "recipient": {
+            "id": "recipientId"
+          },
+          "postback": {
+            "payload": "BUTTON_PAYLOAD"
+          }
+        }
+      ]
+    }
+  ]
+}

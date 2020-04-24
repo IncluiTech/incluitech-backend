@@ -1,0 +1,21 @@
+{
+  "entry": [
+    {
+      "messaging": [
+        {
+          "sender": {
+            "id": "2242"
+          },
+          "recipient": {
+            "id": "recipientId"
+          },
+          "message": {
+            "quick_reply": {
+              "payload": "QUICK_REPLY_BUTTON"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
