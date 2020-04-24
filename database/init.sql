@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS cliente(
 id SERIAL PRIMARY KEY,
 nome VARCHAR (50) NOT NULL,
 email VARCHAR(50) NOT NULL,
-status_cadastro VARCHAR (50) NOT NULL,
-telefone VARCHAR(11),
+status_cadastro VARCHAR (20) NOT NULL,
+telefone VARCHAR(12),
 data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
@@ -14,8 +14,8 @@ id SERIAL PRIMARY KEY,
 nome VARCHAR (50) NOT NULL,
 email VARCHAR(50) NOT NULL,
 lattes VARCHAR (50) NOT NULL,
-status_cadastro VARCHAR (50) NOT NULL,
-telefone VARCHAR (11),
+status_cadastro VARCHAR (20) NOT NULL,
+telefone VARCHAR (12),
 data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
 
 );
@@ -27,9 +27,9 @@ data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS tag_solucionador(
-id SERIAL PRIMARY KEY,
-id_tag SERIAL,
-id_solucionador SERIAL,
+id_tag INTEGER,
+id_solucionador INTEGER,
+constraint chave_primaria_composta primary key (id_tag, id_solucionador),
 CONSTRAINT FK_id_tag FOREIGN KEY (id_tag)
 REFERENCES tag (id),
 CONSTRAINT FK_id_solucionador FOREIGN KEY (id_solucionador)
@@ -38,9 +38,9 @@ data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS tag_cliente(
-id SERIAL PRIMARY KEY,
-id_tag SERIAL,
-id_cliente SERIAL,
+id_tag INTEGER,
+id_cliente INTEGER,
+constraint chave_primaria_composta primary key (id_tag, id_cliente),
 CONSTRAINT FK_id_tag FOREIGN KEY (id_tag)
 REFERENCES tag (id),
 CONSTRAINT FK_id_cliente FOREIGN KEY (id_cliente)
