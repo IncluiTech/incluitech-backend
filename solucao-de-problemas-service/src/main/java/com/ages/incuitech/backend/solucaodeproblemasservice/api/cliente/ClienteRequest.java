@@ -1,6 +1,6 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Especialidade;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ClienteRequest {
     private String nome;
-    private String sobrenome;
-    private List<Especialidade> especialidades;
     private String email;
+    private String telefone;
+    private List<Tag> tags;
 }

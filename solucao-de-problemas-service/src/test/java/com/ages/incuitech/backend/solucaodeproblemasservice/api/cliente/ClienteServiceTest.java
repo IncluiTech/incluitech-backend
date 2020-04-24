@@ -3,7 +3,6 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.cliente.ClienteRepository;
-import com.ages.incuitech.backend.solucaodeproblemasservice.usuario.ClienteStub;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,9 +14,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
@@ -25,30 +25,29 @@ import static org.mockito.Mockito.*;
 public class ClienteServiceTest {
 
     @InjectMocks
-    private ClienteService clienteService;
+    private ClienteService ClienteService;
 
     @Mock
     private ClienteRepository repository;
 
 
     @Test
-    public void findAllClientesShouldReturnClient() {
+    public void findAllClienteesShouldReturnCliente() {
         // arrange
-        Cliente cliente = ClienteStub.getModelStub();
-        when(repository.findAll()).thenReturn(Lists.newArrayList(cliente));
+        Cliente Cliente = ClienteStub.getModelStub();
+        when(repository.findAll()).thenReturn(Lists.newArrayList(Cliente));
 
         // act
-        List<ClienteResponse> clients = clienteService.findAllClientes();
+        List<ClienteResponse> Clientes = ClienteService.findAllClientes();
 
         // assert
-        Optional<ClienteResponse> response = clients.stream().filter(client -> client.getId().equals(cliente.getId())).findFirst();
+        Optional<ClienteResponse> response = Clientes.stream().filter(ClienteResponse -> ClienteResponse.getId().equals(Cliente.getId())).findFirst();
         assertTrue(response.isPresent());
-        assertEquals(response.get().getEmail(), cliente.getEmail());
-        assertEquals(response.get().getEspecialidades(), cliente.getEspecialidades());
-        assertEquals(response.get().getNome(), cliente.getNome());
-        assertEquals(cliente.getSobrenome(), response.get().getSobrenome());
-        assertEquals(response.get().getStatusCadastro(), cliente.getStatusCadastro());
-        verify(repository, times(1)).findAll();
+        assertEquals(response.get().getEmail(), Cliente.getEmail());
+        assertEquals(response.get().getNome(), Cliente.getNome());
+        assertEquals(response.get().getTelefone(), Cliente.getTelefone());
+        assertEquals(response.get().getStatusCadastro(), Cliente.getStatusCadastro());
+        verify(repository).findAll();
 
     }
 }

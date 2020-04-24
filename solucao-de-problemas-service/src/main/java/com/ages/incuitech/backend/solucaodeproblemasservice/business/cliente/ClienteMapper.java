@@ -3,30 +3,31 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@NoArgsConstructor
 public class ClienteMapper {
-
-    private ClienteMapper() {
-    }
 
     public static Cliente mapToModel(ClienteRequest clienteRequest) {
         return Cliente.builder()
                 .nome(clienteRequest.getNome())
-                .especialidades(clienteRequest.getEspecialidades())
-                .sobrenome(clienteRequest.getSobrenome())
+                .telefone(clienteRequest.getTelefone())
                 .email(clienteRequest.getEmail())
                 .statusCadastro(StatusCadastro.P)
+                .dataCriacao(LocalDateTime.now())
                 .build();
     }
 
     public static ClienteResponse mapToResponse(Cliente cliente) {
         return ClienteResponse.builder()
                 .nome(cliente.getNome())
-                .sobrenome(cliente.getSobrenome())
                 .id(cliente.getId())
                 .email(cliente.getEmail())
-                .especialidades(cliente.getEspecialidades())
+                .telefone(cliente.getTelefone())
                 .statusCadastro(cliente.getStatusCadastro())
+                .dataCriacao(cliente.getDataCriacao())
                 .build();
     }
 }

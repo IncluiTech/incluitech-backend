@@ -1,4 +1,4 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.usuario;
+package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
@@ -11,9 +11,9 @@ public class ClienteStub {
         return Cliente.builder()
                 .id(1L)
                 .email("fulano@gmail.com")
-                .especialidades(null)
                 .nome("Fulano")
-                .sobrenome("de Tal")
+                .nome("Fulano")
+                .telefone("51999999999")
                 .statusCadastro(StatusCadastro.P)
                 .build();
     }
