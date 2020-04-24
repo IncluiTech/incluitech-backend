@@ -1,4 +1,4 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
+package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Tag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
@@ -14,12 +14,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteResponse {
+public class SolucionadorResponse {
     private Long id;
     private String nome;
-    private String email;
     private String telefone;
+    private String email;
+    private String lattes;
     private List<Tag> tags;
-    private StatusCadastro statusCadastro;
     private LocalDateTime dataCriacao;
+    private StatusCadastro statusCadastro;
 }
