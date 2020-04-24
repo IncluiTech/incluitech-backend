@@ -33,6 +33,13 @@ public class BotService {
     }
 
     @Async
+    public void manipulaEvento(MensagemInterna mensagemInterna){
+        BotMessage botMessage = processMessage(mensagemInterna);
+        facebookSendService.sendMessage(MessageMapper
+                .botMessageParaFacebookMessage(botMessage.getMessages(), mensagemInterna));
+    }
+
+    @Async
     public void manipulaMensagem(List<MensagemInterna> mensagensInternas) {
         mensagensInternas.forEach(mensagem -> {
             UsuarioDaMensagem usuarioDaMensagem = userService.getUsuario(mensagem.getUsuario().getId());
@@ -42,7 +49,7 @@ public class BotService {
             BotMessage botMessage = processMessage(mensagem);
             contextManager.saveContexto(mensagem.getUsuario(), botMessage.getContexto());
             facebookSendService.sendMessage(MessageMapper
-                    .botMessageParaFacebookMessage(botMessage.getMessages(), usuarioDaMensagem)
+                    .botMessageParaFacebookMessage(botMessage.getMessages(), mensagem)
             );
         });
     }

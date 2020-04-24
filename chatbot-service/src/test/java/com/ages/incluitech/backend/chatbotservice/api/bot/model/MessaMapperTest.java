@@ -91,11 +91,11 @@ public class MessaMapperTest {
     @Test
     public void shouldTranslateBotTextMessageToFacebookSenderMessage() {
         //given:
-        UsuarioDaMensagem usuarioDaMensagem = new UsuarioDaMensagem("2242");
+        MensagemInterna mensagemInterna = buildInternalMessage();
         ComponentBotMessage botMessage = new TextComponentBotMessage("Olá eu sou a helena");
         //when:
         List<FacebookMessage> messages = MessageMapper
-                .botMessageParaFacebookMessage(Collections.singletonList(botMessage), usuarioDaMensagem);
+                .botMessageParaFacebookMessage(Collections.singletonList(botMessage), mensagemInterna);
         //then:
         Assert.assertEquals(1, messages.size());
         Assert.assertEquals("2242", messages.get(0).getRecipient().getId());
@@ -105,7 +105,7 @@ public class MessaMapperTest {
     @Test
     public void shouldTranslateBotButtonMessageToFacebookSenderMessage() {
         //given:
-        UsuarioDaMensagem usuarioDaMensagem = new UsuarioDaMensagem("2242");
+        MensagemInterna mensagemInterna = buildInternalMessage();
         List<Button> buttons = Arrays.asList(
                 new PayloadButton("titulo1", "CONTEUDO_1"),
                 new LinkButton("titulo2", "url")
@@ -113,7 +113,7 @@ public class MessaMapperTest {
         ComponentBotMessage botMessage = new ButtonComponentBotMessage("texto ants do botão", buttons);
         //when:
         List<FacebookMessage> messages = MessageMapper
-                .botMessageParaFacebookMessage(Collections.singletonList(botMessage), usuarioDaMensagem);
+                .botMessageParaFacebookMessage(Collections.singletonList(botMessage), mensagemInterna);
         //then:
         Assert.assertEquals(1, messages.size());
         Assert.assertEquals("2242", messages.get(0).getRecipient().getId());
@@ -131,7 +131,7 @@ public class MessaMapperTest {
     @Test
     public void shouldTranslateBotQuickReplyMessageToFacebookSenderMessage() {
         //given:
-        UsuarioDaMensagem usuarioDaMensagem = new UsuarioDaMensagem("2242");
+        MensagemInterna mensagemInterna = buildInternalMessage();
         List<QuickReplyButton> quickReplyButtons = Arrays.asList(
                 new QuickReplyButton("Titulo", "conteudo"),
                 new QuickReplyButton("Titulo1", "conteudo1")
@@ -140,7 +140,7 @@ public class MessaMapperTest {
                 quickReplyButtons);
         //when:
         List<FacebookMessage> messages = MessageMapper
-                .botMessageParaFacebookMessage(Collections.singletonList(botMessage), usuarioDaMensagem);
+                .botMessageParaFacebookMessage(Collections.singletonList(botMessage), mensagemInterna);
         //then:
         Assert.assertEquals(1, messages.size());
         Assert.assertEquals("2242", messages.get(0).getRecipient().getId());
@@ -155,7 +155,7 @@ public class MessaMapperTest {
     @Test
     public void shouldTranslateBotCarouselMessageToFacebookSenderMessage() {
         //given:
-        UsuarioDaMensagem usuarioDaMensagem = new UsuarioDaMensagem("2242");
+        MensagemInterna mensagemInterna = buildInternalMessage();
         List<Button> buttonsFirstCard = Collections.singletonList(
                 new PayloadButton("titulo", "CONTEUDO_1")
         );
@@ -171,7 +171,7 @@ public class MessaMapperTest {
         );
         //when:
         List<FacebookMessage> messages = MessageMapper
-                .botMessageParaFacebookMessage(Collections.singletonList(botMessage), usuarioDaMensagem);
+                .botMessageParaFacebookMessage(Collections.singletonList(botMessage), mensagemInterna);
         //then:
         Assert.assertEquals(1, messages.size());
         Assert.assertEquals("2242", messages.get(0).getRecipient().getId());
@@ -186,6 +186,14 @@ public class MessaMapperTest {
         Assert.assertEquals("SecondCard", carouselComponentBotMessage.getElements().get(1).getTitle());
         Assert.assertEquals("SecondCardSubTitle", carouselComponentBotMessage.getElements().get(1).getSubtitle());
         Assert.assertEquals(buttonsSecondCard, carouselComponentBotMessage.getElements().get(1).getButtons());
+    }
+
+    private MensagemInterna buildInternalMessage() {
+        return new MensagemInterna(
+                new UsuarioDaMensagem("2242"),
+                TipoMensagem.TEXTO,
+                "conteudoTest"
+        );
     }
 
     private UserMessage getUserMessage(String fileName) throws IOException {
