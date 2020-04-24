@@ -1,9 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Map;
 
