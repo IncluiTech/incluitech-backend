@@ -22,9 +22,15 @@ public class ContatoMessageProvider implements BotMessageProvider<TipoContato> {
                         new TextComponentBotMessage("Por favor, insira seu telefone: ")
                 );
 
+        Function<Map<String, Object>, BotMessage> emailETelefoneProvider = contexto ->
+                new BotMessage(contexto).withMessages(
+                        new TextComponentBotMessage("Primeiro, por favor, insira seu email: ")
+                );
+
         this.contatoToProviderMap = Map.of(
                 TipoContato.EMAIL, emailProvider,
-                TipoContato.TELEFONE, telefoneProvider
+                TipoContato.TELEFONE, telefoneProvider,
+                TipoContato.EMAIL_E_TELEFONE, emailETelefoneProvider
         );
     }
 

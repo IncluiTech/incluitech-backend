@@ -10,7 +10,7 @@ import java.util.Arrays;
 public enum TipoContato {
     EMAIL("email"),
     TELEFONE("telefone"),
-    EMAIL_E_TELEFONE("");
+    EMAIL_E_TELEFONE("emailETelefone");
     private String propriedade;
 
     public static TipoContato getFromTexto(String texto) {
