@@ -15,7 +15,7 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
     public BotMessage processa(MensagemInterna message) {
         String payload = message.getConteudo();
         TipoUsuario tipoUsuario = TipoUsuario.getFromTipo(payload);
-        message.getContexto().put("tipoUsuario", tipoUsuario);
+        message.getUsuario().setTipoUsuario(tipoUsuario);
         return null;
     }
 }
