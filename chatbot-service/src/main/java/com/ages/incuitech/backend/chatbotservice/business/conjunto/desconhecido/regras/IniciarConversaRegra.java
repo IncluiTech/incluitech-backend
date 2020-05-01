@@ -18,7 +18,6 @@ public class IniciarConversaRegra implements RegraDoBot {
     @Override
     public BotMessage processa(MensagemInterna message) {
         Map<String, Object> contexto = new HashMap<>();
-        contexto.put("jaFezSaudacao", true);
         contexto.put("aguardandoDefinicaoContato", true);
         return new BotMessage(contexto).withMessages(
                 new TextComponentBotMessage("Olá, Eu Sou a Helena! Consultora e especialista da Incluitec."),

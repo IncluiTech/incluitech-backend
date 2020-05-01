@@ -24,10 +24,12 @@ public class EscolhaContatoRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
+        message.getContexto().put("aguardandoDefinicaoContato", false);
         String payload = message.getConteudo();
         TipoContato contatoEscolhido = TipoContato.getFromTexto(payload);
         if (Objects.nonNull(contatoEscolhido)) {
             message.getContexto().put("tipoContato", contatoEscolhido);
+            message.getContexto().put("aguardandoContato", true);
             return provider.provide(contatoEscolhido, message.getContexto());
         }
 
