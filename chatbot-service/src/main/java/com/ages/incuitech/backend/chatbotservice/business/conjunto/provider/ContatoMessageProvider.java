@@ -4,7 +4,6 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mess
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.domain.TipoContato;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -15,16 +14,12 @@ public class ContatoMessageProvider implements BotMessageProvider<TipoContato> {
     public ContatoMessageProvider() {
         Function<Map<String, Object>, BotMessage> emailProvider = contexto ->
                 new BotMessage(contexto).withMessages(
-                        Collections.singletonList(
-                                new TextComponentBotMessage("Por favor, insira seu email: ")
-                        )
+                        new TextComponentBotMessage("Por favor, insira seu email: ")
                 );
 
         Function<Map<String, Object>, BotMessage> telefoneProvider = contexto ->
                 new BotMessage(contexto).withMessages(
-                        Collections.singletonList(
-                                new TextComponentBotMessage("Por favor, insira seu telefone: ")
-                        )
+                        new TextComponentBotMessage("Por favor, insira seu telefone: ")
                 );
 
         this.contatoToProviderMap = Map.of(
