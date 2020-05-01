@@ -3,7 +3,7 @@ package com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.regras.*;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.provider.ContatoMessageProvider;
+import com.ages.incuitech.backend.chatbotservice.business.provider.ContatoMessageProvider;
 
 import java.util.Arrays;
 

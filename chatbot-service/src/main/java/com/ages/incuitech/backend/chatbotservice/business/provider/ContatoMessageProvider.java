@@ -1,8 +1,8 @@
-package com.ages.incuitech.backend.chatbotservice.business.conjunto.provider;
+package com.ages.incuitech.backend.chatbotservice.business.provider;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.domain.TipoContato;
+import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
 
 import java.util.Map;
 import java.util.function.Function;

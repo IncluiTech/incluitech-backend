@@ -7,7 +7,7 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.domain.TipoContato;
+import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
 
 import java.util.Map;
 import java.util.Objects;

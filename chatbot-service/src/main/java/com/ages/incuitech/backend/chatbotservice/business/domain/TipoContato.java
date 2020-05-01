@@ -1,4 +1,4 @@
-package com.ages.incuitech.backend.chatbotservice.business.conjunto.domain;
+package com.ages.incuitech.backend.chatbotservice.business.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
