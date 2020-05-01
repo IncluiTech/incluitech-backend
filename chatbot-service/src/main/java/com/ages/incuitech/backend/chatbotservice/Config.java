@@ -1,10 +1,10 @@
 package com.ages.incuitech.backend.chatbotservice;
 
 import com.ages.incuitech.backend.chatbotservice.api.service.FacebookSendService;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.ConjuntoRegra;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.cliente.ClienteConjuntoRegras;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.desconhecido.DesconhecidoConjuntoRegras;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.solucionador.SolucionadorConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.cliente.ClienteConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.DesconhecidoConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.SolucionadorConjuntoRegras;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotEngine;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
 import com.ages.incuitech.backend.chatbotservice.business.service.UserService;

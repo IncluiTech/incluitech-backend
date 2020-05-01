@@ -7,7 +7,6 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.MessageMapper;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.UsuarioDaMensagem;
 import com.ages.incuitech.backend.chatbotservice.api.service.FacebookSendService;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.ConjuntoRegra;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
