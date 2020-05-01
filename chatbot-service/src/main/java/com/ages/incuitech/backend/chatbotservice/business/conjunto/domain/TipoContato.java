@@ -8,14 +8,14 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum TipoContato {
-    EMAIL("Email"),
-    TELEFONE("Telefone/Whatsapp"),
-    EMAIL_E_TELEFONE("Email e Telefone");
-    private String texto;
+    EMAIL("email"),
+    TELEFONE("telefone"),
+    EMAIL_E_TELEFONE("");
+    private String propriedade;
 
     public static TipoContato getFromTexto(String texto) {
         return Arrays.stream(TipoContato.values())
-                .filter(contato -> contato.texto.equals(texto))
+                .filter(contato -> contato.propriedade.equals(texto))
                 .findAny()
                 .orElse(null);
     }
