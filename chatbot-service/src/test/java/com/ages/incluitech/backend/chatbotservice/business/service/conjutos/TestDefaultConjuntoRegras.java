@@ -1,7 +1,7 @@
 package com.ages.incluitech.backend.chatbotservice.business.service.conjutos;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.ConjuntoRegra;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
 
 import java.util.Collections;
 
