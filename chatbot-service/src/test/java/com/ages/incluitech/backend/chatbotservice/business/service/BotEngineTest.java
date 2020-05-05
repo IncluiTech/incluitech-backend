@@ -8,18 +8,11 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoMensagem;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.UsuarioDaMensagem;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.FacebookMessage;
-import com.ages.incuitech.backend.chatbotservice.api.service.FacebookSendService;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.ConjuntoRegra;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.cliente.ClienteConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotEngine;
-import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
-import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
-import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.*;
 
