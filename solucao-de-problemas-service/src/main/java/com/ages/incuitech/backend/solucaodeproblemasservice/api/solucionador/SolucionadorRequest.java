@@ -18,5 +18,6 @@ public class SolucionadorRequest {
     private String telefone;
     private String email;
     private String lattes;
+    private String facebookId;
     private List<Tag> tags;
 }

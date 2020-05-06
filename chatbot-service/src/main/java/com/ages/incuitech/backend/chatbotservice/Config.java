@@ -10,6 +10,7 @@ import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
 import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.MemoryContextManager;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,10 +38,10 @@ public class Config {
     }
 
     @Bean
-    public List<ConjuntoRegra> conjuntoRegras() {
+    public List<ConjuntoRegra> conjuntoRegras(SolucaoDeProblemasClient client) {
         return Arrays.asList(new ClienteConjuntoRegras(),
                 new SolucionadorConjuntoRegras(),
-                new DesconhecidoConjuntoRegras()
+                new DesconhecidoConjuntoRegras(client)
         );
     }
 
