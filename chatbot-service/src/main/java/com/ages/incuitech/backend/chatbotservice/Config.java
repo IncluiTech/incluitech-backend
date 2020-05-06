@@ -33,8 +33,8 @@ public class Config {
     }
 
     @Bean
-    public UserService userService(RestTemplate restTemplate) {
-        return new UserService(restTemplate);
+    public UserService userService(SolucaoDeProblemasClient client) {
+        return new UserService(client);
     }
 
     @Bean
@@ -57,7 +57,7 @@ public class Config {
 
     @Bean
     public BotService botService(ContextManager contextManager,
-                                UserService userService, BotEngine botEngine,
+                                 UserService userService, BotEngine botEngine,
                                  FacebookSendService facebookSendService) {
         return new BotService(contextManager, userService, botEngine, facebookSendService);
     }

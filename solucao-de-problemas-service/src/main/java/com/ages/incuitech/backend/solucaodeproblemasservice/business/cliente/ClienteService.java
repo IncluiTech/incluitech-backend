@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class ClienteService extends GenericCRUDService<Cliente, Long> {
+public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRepository> {
 
     @Inject
     public void setRepository(ClienteRepository repository) {
