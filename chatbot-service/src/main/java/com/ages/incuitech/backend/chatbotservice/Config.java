@@ -10,6 +10,7 @@ import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
 import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.MemoryContextManager;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +33,8 @@ public class Config {
     }
 
     @Bean
-    public UserService userService(RestTemplate restTemplate) {
-        return new UserService(restTemplate);
+    public UserService userService(SolucaoDeProblemasClient client) {
+        return new UserService(client);
     }
 
     @Bean
@@ -56,7 +57,7 @@ public class Config {
 
     @Bean
     public BotService botService(ContextManager contextManager,
-                                UserService userService, BotEngine botEngine,
+                                 UserService userService, BotEngine botEngine,
                                  FacebookSendService facebookSendService) {
         return new BotService(contextManager, userService, botEngine, facebookSendService);
     }
