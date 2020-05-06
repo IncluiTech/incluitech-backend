@@ -2,11 +2,16 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message
 
 import lombok.*;
 
-@RequiredArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
+@NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class UsuarioDaMensagem {
-    private final String id;
+    private String id;
     private TipoUsuario tipoUsuario;
+
+    public UsuarioDaMensagem(String id) {
+        this.id = id;
+    }
 }

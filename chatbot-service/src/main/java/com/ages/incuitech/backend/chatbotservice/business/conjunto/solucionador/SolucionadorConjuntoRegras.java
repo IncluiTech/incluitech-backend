@@ -2,13 +2,15 @@ package com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.regras.SolucionadorInicialRegra;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class SolucionadorConjuntoRegras extends ConjuntoRegra {
     public SolucionadorConjuntoRegras() {
-        super(Collections.emptyList());
+        super(Arrays.asList(
+                new SolucionadorInicialRegra()
+        ));
     }
 
     @Override
