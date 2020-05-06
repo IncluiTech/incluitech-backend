@@ -19,6 +19,7 @@ public class SolucionadorMapper {
                 .lattes(solucionadorRequest.getLattes())
                 .statusCadastro(StatusCadastro.P)
                 .dataCriacao(LocalDateTime.now())
+                .facebookId(solucionadorRequest.getFacebookId())
                 .build();
     }
 
@@ -31,6 +32,7 @@ public class SolucionadorMapper {
                 .lattes(solucionador.getLattes())
                 .statusCadastro(solucionador.getStatusCadastro())
                 .dataCriacao(LocalDateTime.now())
+                .facebookId(solucionador.getFacebookId())
                 .build();
     }
 }

@@ -23,4 +23,5 @@ public class SolucionadorResponse {
     private List<Tag> tags;
     private LocalDateTime dataCriacao;
     private StatusCadastro statusCadastro;
+    private String facebookId;
 }
