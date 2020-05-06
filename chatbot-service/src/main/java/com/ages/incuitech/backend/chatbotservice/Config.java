@@ -10,6 +10,7 @@ import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
 import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.MemoryContextManager;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

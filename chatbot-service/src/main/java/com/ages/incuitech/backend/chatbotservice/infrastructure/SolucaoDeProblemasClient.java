@@ -24,7 +24,7 @@ public class SolucaoDeProblemasClient {
     public void saveSolucionador(SolucionadorRequest solucionadorRequest) {
         HttpEntity<SolucionadorRequest> request = new HttpEntity<>(solucionadorRequest);
 
-        log.info(String.format("Iniciando chamada REST para solucao-de-problemas-service para salvar solucionador:  %s" , solucionadorRequest));
+        log.info(String.format("Iniciando chamada REST para solucao-de-problemas-service para salvar solucionador:  %s", solucionadorRequest));
 
         try {
             restTemplate.postForEntity(properties.getUrl()
@@ -35,4 +35,11 @@ public class SolucaoDeProblemasClient {
             throw error;
         }
     }
+
+    public SolucionadorRequest getByFacebookId(String facebookId) {
+        ResponseEntity<SolucionadorRequest> response = restTemplate
+                .getForEntity(properties.getUrl() + properties.getUri() + "/" + facebookId, SolucionadorRequest.class);
+        return response.getBody();
+    }
+
 }
