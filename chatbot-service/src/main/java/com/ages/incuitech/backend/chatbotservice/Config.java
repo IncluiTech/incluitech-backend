@@ -38,9 +38,9 @@ public class Config {
     }
 
     @Bean
-    public List<ConjuntoRegra> conjuntoRegras() {
+    public List<ConjuntoRegra> conjuntoRegras(SolucaoDeProblemasClient client) {
         return Arrays.asList(new ClienteConjuntoRegras(),
-                new SolucionadorConjuntoRegras(),
+                new SolucionadorConjuntoRegras(client),
                 new DesconhecidoConjuntoRegras()
         );
     }

@@ -2,10 +2,7 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mes
 
 import lombok.*;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -25,7 +22,7 @@ public class BotMessage {
     private List<ComponentBotMessage> messages = Collections.emptyList();
 
     public BotMessage withMessages(ComponentBotMessage... messages) {
-        this.messages = Arrays.asList(messages);
+        this.messages = new ArrayList<>(Arrays.asList(messages));
         return this;
     }
 
