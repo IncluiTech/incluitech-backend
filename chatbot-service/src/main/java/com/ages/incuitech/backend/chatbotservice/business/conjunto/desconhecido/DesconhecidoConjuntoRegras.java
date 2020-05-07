@@ -8,16 +8,19 @@ import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.regras.TipoUsuarioInformadoRegra;
 import com.ages.incuitech.backend.chatbotservice.business.provider.ContatoMessageProvider;
 import com.ages.incuitech.backend.chatbotservice.business.provider.UsuarioGreetingMessageProvider;
+import com.ages.incuitech.backend.chatbotservice.business.service.FacebookService;
 
 import java.util.Arrays;
 
 public class DesconhecidoConjuntoRegras extends ConjuntoRegra {
-    public DesconhecidoConjuntoRegras() {
+
+
+    public DesconhecidoConjuntoRegras(FacebookService service) {
         super(Arrays.asList(
                 new TipoUsuarioInformadoRegra(new UsuarioGreetingMessageProvider()),
                 new ContatoInformadoRegra(),
                 new EscolhaContatoRegra(new ContatoMessageProvider()),
-                new IniciarConversaRegra()
+                new IniciarConversaRegra(service)
         ));
     }
 

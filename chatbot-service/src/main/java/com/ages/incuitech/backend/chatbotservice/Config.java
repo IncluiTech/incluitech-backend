@@ -7,6 +7,7 @@ import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.SolucionadorConjuntoRegras;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotEngine;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
+import com.ages.incuitech.backend.chatbotservice.business.service.FacebookService;
 import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.MemoryContextManager;
@@ -24,8 +25,12 @@ public class Config {
 
     @Value(("${facebook.send.api.url}"))
     private String sendApiUrl;
+
     @Value("${facebook.app.access.token}")
     private String accessToken;
+
+    @Value("spring.social.facebook.graphUrl")
+    private String graphURL;
 
     @Bean
     public ContextManager contextManager() {
@@ -38,10 +43,15 @@ public class Config {
     }
 
     @Bean
-    public List<ConjuntoRegra> conjuntoRegras() {
+    public FacebookService facebookService(RestTemplate template) {
+        return new FacebookService(template, graphURL, accessToken);
+    }
+
+    @Bean
+    public List<ConjuntoRegra> conjuntoRegras(FacebookService service) {
         return Arrays.asList(new ClienteConjuntoRegras(),
                 new SolucionadorConjuntoRegras(),
-                new DesconhecidoConjuntoRegras()
+                new DesconhecidoConjuntoRegras(service)
         );
     }
 
