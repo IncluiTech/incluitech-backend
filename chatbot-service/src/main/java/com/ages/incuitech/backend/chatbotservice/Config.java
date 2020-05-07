@@ -29,7 +29,7 @@ public class Config {
     @Value("${facebook.app.access.token}")
     private String accessToken;
 
-    @Value("spring.social.facebook.graphUrl")
+    @Value("${spring.social.facebook.graphUrl}")
     private String graphURL;
 
     @Bean

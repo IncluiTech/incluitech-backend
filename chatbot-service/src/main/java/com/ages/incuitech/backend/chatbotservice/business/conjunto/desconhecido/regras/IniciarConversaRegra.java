@@ -9,8 +9,6 @@ import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 import com.ages.incuitech.backend.chatbotservice.business.domain.FacebookProfile;
 import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
 import com.ages.incuitech.backend.chatbotservice.business.service.FacebookService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +34,7 @@ public class IniciarConversaRegra implements RegraDoBot {
 
         contexto.put("aguardandoDefinicaoContato", true);
         return new BotMessage(contexto).withMessages(
-                new TextComponentBotMessage("Olá " + contexto.get("primeiroNome") + ", Eu Sou a Helena! Consultora e especialista da Incluitec."),
+                new TextComponentBotMessage("Olá " + contexto.get("nome") + ", Eu Sou a Helena! Consultora e especialista da Incluitec."),
                 new TextComponentBotMessage("Vi que é sua primeira vez por aqui, então antes de começarmos, " +
                         "preciso de algumas informações suas para entrar em contato."),
                 new TextComponentBotMessage("Para isso preciso que responda algumas perguntas: "),
