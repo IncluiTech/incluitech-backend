@@ -1,14 +1,11 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.business.tag;
+package com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.TagSolucionador.Tag_SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.tag.TagResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagRepository;
-
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tag_solucionador.Tag_SolucionadorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -19,27 +16,23 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class TagService extends GenericCRUDService<Tag, Long> {
+public class Tag_SolucionadorService extends GenericCRUDService<Tag_Solucionador, Long> {
 
     @Inject
-    public void setRepository(TagRepository repository) {
-
+    public void setRepository(Tag_SolucionadorRepository repository) {
         this.repository = repository;
     }
 
-    public List<TagResponse> findAllTags() {
+    public List<Tag_SolucionadorResponse> findAllTag_Solucionadores() {
         return this.findAll()
                 .stream()
-                .map(TagMapper::mapToResponse)
+                .map(Tag_SolucionadorMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
 
-    public Tag salvar(Tag tag) {
+    public Tag_Solucionador salvar(Tag_Solucionador tag_solucionador) {
         try {
-        	if (!tagExist(tag)) {
-        	    return repository.save(tag);
-        	}
-        	return null;
+            return repository.save(tag_solucionador);
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
             throw exception;
@@ -48,22 +41,4 @@ public class TagService extends GenericCRUDService<Tag, Long> {
             throw exception;
         }
     }
-
-
-
-
-
-    private boolean tagExist(Tag tag) {
-		
-		List<TagResponse> tags = findAllTags();
-		
-		for (int i=0;i<tags.size();i++) {
-			if (tags.get(i).getNome().equals(tag.getNome())) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
 }
