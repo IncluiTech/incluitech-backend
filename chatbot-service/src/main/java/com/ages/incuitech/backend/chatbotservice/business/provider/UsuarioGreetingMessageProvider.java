@@ -16,7 +16,7 @@ public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUs
         Function<Map<String, Object>, BotMessage> clienteProvider = contexto -> null;
         Function<Map<String, Object>, BotMessage> solucionadorProvider = contexto ->
                 new BotMessage(contexto).withMessages(
-                        new QuickReplyComponentBotMessage("Legal, agora me fale um pouco mais sobre você. Você está vinculado a algum tipo de instituição?",
+                        new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",
                                 new QuickReplyButton("Sim", SimNao.SIM.getTexto()),
                                 new QuickReplyButton("Não", SimNao.NAO.getTexto())
                         )

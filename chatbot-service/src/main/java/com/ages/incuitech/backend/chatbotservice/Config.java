@@ -48,9 +48,9 @@ public class Config {
     }
 
     @Bean
-    public List<ConjuntoRegra> conjuntoRegras(FacebookService service) {
+    public List<ConjuntoRegra> conjuntoRegras(SolucaoDeProblemasClient client, FacebookService service) {
         return Arrays.asList(new ClienteConjuntoRegras(),
-                new SolucionadorConjuntoRegras(),
+                new SolucionadorConjuntoRegras(client),
                 new DesconhecidoConjuntoRegras(service)
         );
     }

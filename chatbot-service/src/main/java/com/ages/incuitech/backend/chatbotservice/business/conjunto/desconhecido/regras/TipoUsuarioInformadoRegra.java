@@ -1,6 +1,7 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.regras;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
@@ -16,7 +17,8 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().containsKey("aguardandoTipoUsuario");
+        return message.getContexto().containsKey("aguardandoTipoUsuario")
+                && message.getContexto().get("aguardandoTipoUsuario").equals(true);
     }
 
     @Override
@@ -24,6 +26,9 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
         String payload = message.getConteudo();
         TipoUsuario tipoUsuario = TipoUsuario.getFromTipo(payload);
         message.getUsuario().setTipoUsuario(tipoUsuario);
-        return provider.provide(tipoUsuario, message.getContexto());
+        message.getContexto().put("aguardandoTipoUsuario", false);
+        BotMessage botMessage = provider.provide(tipoUsuario, message.getContexto());
+        botMessage.getMessages().add(0, new TextComponentBotMessage("Legal, agora me fale um pouco mais sobre você."));
+        return botMessage;
     }
 }
