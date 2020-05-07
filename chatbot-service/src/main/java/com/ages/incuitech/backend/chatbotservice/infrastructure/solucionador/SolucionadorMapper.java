@@ -10,8 +10,9 @@ public class SolucionadorMapper {
     }
 
     public static SolucionadorRequest criarRequestAPartirDeContexto(Map<String, Object> contexto, String facebookId) {
+        String nome = contexto.getOrDefault("nome", "") + " " + contexto.getOrDefault("sobrenome", "");
         return SolucionadorRequest.builder()
-                .nome("default")
+                .nome(nome)
                 .lattes((String) contexto.get("lattes"))
                 .telefone((String) contexto.get(TipoContato.TELEFONE.getPropriedade()))
                 .email((String) contexto.get(TipoContato.EMAIL.getPropriedade()))
