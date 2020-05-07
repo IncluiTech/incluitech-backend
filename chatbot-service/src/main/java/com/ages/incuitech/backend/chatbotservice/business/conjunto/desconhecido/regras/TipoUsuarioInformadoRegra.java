@@ -6,18 +6,24 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.UsuarioDaMensagem;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
+import com.ages.incuitech.backend.chatbotservice.business.provider.BotMessageProvider;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.SolucionadorRequest;
 
 import java.util.Map;
 
+import static com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.SolucionadorMapper.criarRequestAPartirDeContexto;
+
 
 public class TipoUsuarioInformadoRegra implements RegraDoBot {
 
     private SolucaoDeProblemasClient client;
+    private BotMessageProvider<TipoUsuario> provider;
 
-    public TipoUsuarioInformadoRegra(SolucaoDeProblemasClient client) {
+
+    public TipoUsuarioInformadoRegra(SolucaoDeProblemasClient client, BotMessageProvider<TipoUsuario> provider) {
         this.client = client;
+        this.provider = provider;
     }
 
     @Override
@@ -33,18 +39,12 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
         this.salvarUsuario(message.getContexto(), message.getUsuario(), tipoUsuario);
         message.getUsuario().setTipoUsuario(tipoUsuario);
         message.getContexto().put("aguardandoTipoUsuario", false);
-        return null;
+        return provider.provide(tipoUsuario, message.getContexto());
     }
 
     private void salvarUsuario(Map<String, Object> contexto, UsuarioDaMensagem usuario, TipoUsuario tipoUsuario) {
         if (tipoUsuario == TipoUsuario.SOLUCIONADOR) {
-            SolucionadorRequest request = SolucionadorRequest.builder()
-                    .nome("default")
-                    .telefone((String) contexto.get(TipoContato.TELEFONE.getPropriedade()))
-                    .email((String) contexto.get(TipoContato.EMAIL.getPropriedade()))
-                    .facebookId(usuario.getId())
-                    .build();
-            client.saveSolucionador(request);
+            client.saveSolucionador(criarRequestAPartirDeContexto(contexto, usuario.getId()));
         }
     }
 }

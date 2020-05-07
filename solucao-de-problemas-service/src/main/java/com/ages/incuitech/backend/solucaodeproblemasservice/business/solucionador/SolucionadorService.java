@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class SolucionadorService extends GenericCRUDService<Solucionador, Long> {
+public class SolucionadorService extends GenericCRUDService<Solucionador, Long, SolucionadorRepository> {
 
     @Inject
     public void setRepository(SolucionadorRepository repository) {
@@ -37,5 +37,10 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long> 
             log.error("Erro ao salvar Solucionador: {}", exception.toString());
             throw exception;
         }
+    }
+
+    public SolucionadorResponse findByFacebookId(String facecbookId) {
+        Solucionador solucionador = this.repository.findByIdFacebook(facecbookId);
+        return solucionador != null ? SolucionadorMapper.mapToResponse(solucionador) : null;
     }
 }

@@ -4,8 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public class GenericCRUDService<T, ID> implements CRUDService<T, ID> {
-    protected CrudRepository<T, ID> repository;
+public class GenericCRUDService<T, ID, R extends CrudRepository<T, ID>> implements CRUDService<T, ID> {
+    protected R repository;
 
     public T save(T entity) {
         return repository.save(entity);

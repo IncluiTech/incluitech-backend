@@ -23,4 +23,10 @@ public class QuickReplyComponentBotMessage extends ComponentBotMessage {
         this.texto = texto;
         this.quickReplyButtons = Arrays.asList(quickReplyButtons);
     }
+
+    public QuickReplyComponentBotMessage(String texto, List<QuickReplyButton> quickReplyButtons) {
+        super(ComponentBotMessageType.QUICK_REPLY);
+        this.texto = texto;
+        this.quickReplyButtons = quickReplyButtons;
+    }
 }
