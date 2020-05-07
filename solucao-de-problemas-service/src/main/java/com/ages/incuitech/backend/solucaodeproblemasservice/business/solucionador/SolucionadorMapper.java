@@ -13,6 +13,7 @@ public class SolucionadorMapper {
     public static Solucionador mapToModel(SolucionadorRequest solucionadorRequest) {
         return Solucionador
                 .builder()
+                .id(solucionadorRequest.getId())
                 .nome(solucionadorRequest.getNome())
                 .telefone(solucionadorRequest.getTelefone())
                 .email(solucionadorRequest.getEmail())

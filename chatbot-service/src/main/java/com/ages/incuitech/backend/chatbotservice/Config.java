@@ -51,7 +51,7 @@ public class Config {
     public List<ConjuntoRegra> conjuntoRegras(SolucaoDeProblemasClient client, FacebookService service) {
         return Arrays.asList(new ClienteConjuntoRegras(),
                 new SolucionadorConjuntoRegras(client),
-                new DesconhecidoConjuntoRegras(service)
+                new DesconhecidoConjuntoRegras(client, service)
         );
     }
 
