@@ -20,14 +20,14 @@ public class SolucionadorController {
 
     private SolucionadorService service;
 
-    SolucionadorController(SolucionadorService service) {
+    public SolucionadorController(SolucionadorService service) {
         this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<SolucionadorResponse> salvar(@RequestBody SolucionadorRequest solucionadorRequest){
         log.info("Salvando solucionador: {}", solucionadorRequest);
-        Solucionador solucionadorSalvo = service.salvar(SolucionadorMapper.mapToModel(solucionadorRequest));
+        Solucionador solucionadorSalvo = service.salvar(solucionadorRequest);
         log.info("solucionador salvo: {}", solucionadorSalvo);
         return ResponseEntity.ok(SolucionadorMapper.mapToResponse(solucionadorSalvo));
     }

@@ -1,7 +1,5 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tag_solucionador.Tag_SolucionadorRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

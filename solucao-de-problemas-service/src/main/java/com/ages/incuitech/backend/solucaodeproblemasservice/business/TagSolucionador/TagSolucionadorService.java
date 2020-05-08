@@ -1,10 +1,7 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.tagSolucionador.Tag_SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tag_solucionador.Tag_SolucionadorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -16,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class Tag_SolucionadorService extends GenericCRUDService<Tag_Solucionador, Long> {
+public class TagSolucionadorService extends GenericCRUDService<Tag_Solucionador, Long> {
 
     @Inject
     public void setRepository(Tag_SolucionadorRepository repository) {
