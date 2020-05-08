@@ -16,6 +16,6 @@ public class Tag {
 	private Long id;
 	private String nome;
 	private LocalDateTime dataCriacao;
-	private StatusCadastro statusCadastro;
+	
 
 }

@@ -17,7 +17,7 @@ public class TagMapper {
                 .builder()
                 .id(tagRequest.getId())
                 .nome(tagRequest.getNome())
-                .statusCadastro(StatusCadastro.P)
+               
                 .dataCriacao(LocalDateTime.now())
                 .build();
     }
@@ -26,7 +26,7 @@ public class TagMapper {
         return TagResponse.builder()
                 .id(tag.getId())
                 .nome(tag.getNome())
-                .statusCadastro(tag.getStatusCadastro())
+                
                 .dataCriacao(LocalDateTime.now())
                 .build();
     }

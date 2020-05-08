@@ -4,6 +4,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.Sol
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador.Tag_Solucionador;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador.Tag_SolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -45,7 +46,12 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long> 
 
     private void connectTag_Solucionador(SolucionadorRequest solucionadorRequest) {
         List<String> tags = solucionadorRequest.getTags();
-        Tag_Solucionador tag_solucionador = new Tag_Solucionador(0,0,0,null,null);
+      
+        Tag_SolucionadorService tag_solucionador_service = null;
+  //      Tag_Solucionador tag_solucionador = new Tag_Solucionador(null, null, null, null, null);
+  //      tag_solucionador_service.salvar(tag_solucionador);
+        
+      //  tag_solucionador.
         /*
         private Long id;
     private Long id_tag;

@@ -1,7 +1,7 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.TagSolucionador.Tag_SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.tagSolucionador.Tag_SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;

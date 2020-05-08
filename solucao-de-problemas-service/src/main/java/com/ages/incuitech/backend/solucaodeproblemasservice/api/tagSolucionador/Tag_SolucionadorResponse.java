@@ -1,4 +1,4 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.TagSolucionador;
+package com.ages.incuitech.backend.solucaodeproblemasservice.api.tagSolucionador;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Tag;
