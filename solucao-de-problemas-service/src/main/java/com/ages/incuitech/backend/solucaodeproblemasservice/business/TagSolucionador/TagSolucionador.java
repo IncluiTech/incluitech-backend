@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @AllArgsConstructor
-public class Tag_Solucionador {
+public class TagSolucionador {
     @Id
-    private Long id_tag;
-    private Long id_solucionador;
+    private Long idTag;
+    private Long idSolucionador;
     private LocalDateTime dataCriacao;
 }

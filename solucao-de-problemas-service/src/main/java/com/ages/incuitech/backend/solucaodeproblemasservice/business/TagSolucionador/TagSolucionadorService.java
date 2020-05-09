@@ -2,7 +2,7 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucio
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.tagSolucionador.Tag_SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tag_solucionador.Tag_SolucionadorRepository;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tag_solucionador.TagSolucionadorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -13,21 +13,21 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class TagSolucionadorService extends GenericCRUDService<Tag_Solucionador, Long> {
+public class TagSolucionadorService extends GenericCRUDService<TagSolucionador, Long> {
 
     @Inject
-    public void setRepository(Tag_SolucionadorRepository repository) {
+    public void setRepository(TagSolucionadorRepository repository) {
         this.repository = repository;
     }
 
     public List<Tag_SolucionadorResponse> findAllTag_Solucionadores() {
         return this.findAll()
                 .stream()
-                .map(Tag_SolucionadorMapper::mapToResponse)
+                .map(TagSolucionadorMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
 
-    public Tag_Solucionador salvar(Tag_Solucionador tag_solucionador) {
+    public TagSolucionador salvar(TagSolucionador tag_solucionador) {
         try {
             return repository.save(tag_solucionador);
         } catch (IllegalArgumentException exception) {

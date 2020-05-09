@@ -3,7 +3,7 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionad
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador.Tag_Solucionador;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador.TagSolucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador.TagSolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
@@ -13,6 +13,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,13 +53,16 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long> 
     }
 
     private void connectTagSolucionador(Solucionador solucionador, List<String> tags) {
+        log.info("Salvando associacoes");
         for (String tag: tags) {
             Tag tagSalva = tagService.salvar(tag);
-            tag_solucionadorService.salvar(Tag_Solucionador
+            TagSolucionador tagSolucionador = tag_solucionadorService.salvar(TagSolucionador
                     .builder()
-                    .id_solucionador(solucionador.getId())
-                    .id_tag(tagSalva.getId())
+                    .idSolucionador(solucionador.getId())
+                    .idTag(tagSalva.getId())
+                    .dataCriacao(LocalDateTime.now())
                     .build());
+            log.info(tagSolucionador.getIdTag()+" | "+tagSolucionador.getIdSolucionador());
         }
     }
 }

@@ -7,21 +7,21 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-public class Tag_SolucionadorMapper {
+public class TagSolucionadorMapper {
 
-    public static Tag_Solucionador mapToModel(Tag_SolucionadorRequest tag_solucionadorRequest) {
-        return Tag_Solucionador
+    public static TagSolucionador mapToModel(Tag_SolucionadorRequest tag_solucionadorRequest) {
+        return TagSolucionador
                 .builder()
-                .id_tag(tag_solucionadorRequest.getId_tag())
-                .id_solucionador(tag_solucionadorRequest.getId_solucionador())
+                .idTag(tag_solucionadorRequest.getId_tag())
+                .idSolucionador(tag_solucionadorRequest.getId_solucionador())
                 .dataCriacao(LocalDateTime.now())
                 .build();
     }
 
-    public static Tag_SolucionadorResponse mapToResponse(Tag_Solucionador tag_solucionador) {
+    public static Tag_SolucionadorResponse mapToResponse(TagSolucionador tag_solucionador) {
         return Tag_SolucionadorResponse.builder()
-                .id_tag(tag_solucionador.getId_tag())
-                .id_solucionador(tag_solucionador.getId_solucionador())
+                .id_tag(tag_solucionador.getIdTag())
+                .id_solucionador(tag_solucionador.getIdSolucionador())
                 .dataCriacao(LocalDateTime.now())
                 .build();
     }
