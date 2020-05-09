@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class TagService extends GenericCRUDService<Tag, Long> {
+public class TagService extends GenericCRUDService<Tag, Long, TagRepository> {
 
     @Inject
     public void setRepository(TagRepository repository) {
@@ -33,10 +33,7 @@ public class TagService extends GenericCRUDService<Tag, Long> {
     public Tag salvar(String tag) {
         try {
             Optional<Tag> tagOptional = buscarTagPorNome(tag);
-        	if (tagOptional.isEmpty()) {
-        	    return repository.save(Tag.builder().nome(tag).dataCriacao(LocalDateTime.now()).build());
-        	}
-        	return tagOptional.get();
+            return tagOptional.orElseGet(() -> repository.save(Tag.builder().nome(tag).dataCriacao(LocalDateTime.now()).build()));
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
             throw exception;

@@ -1,7 +1,6 @@
-package com.ages.incuitech.backend.chatbotservice.business.conjuto;
+package com.ages.incuitech.backend.chatbotservice.business.conjunto;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.ComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 

@@ -6,7 +6,8 @@ nome VARCHAR (50) NOT NULL,
 email VARCHAR(50) NOT NULL,
 status_cadastro VARCHAR (20) NOT NULL,
 telefone VARCHAR(12),
-data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
+data_criacao TIMESTAMP NOT NULL DEFAULT NOW(),
+facebook_id VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS solucionador(
@@ -16,8 +17,8 @@ email VARCHAR(50) NOT NULL,
 lattes VARCHAR (50) NOT NULL,
 status_cadastro VARCHAR (20) NOT NULL,
 telefone VARCHAR (12),
-data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
-
+data_criacao TIMESTAMP NOT NULL DEFAULT NOW(),
+facebook_id VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tag(

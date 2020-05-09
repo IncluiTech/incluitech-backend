@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class MessaMapperTest {
 
@@ -132,12 +133,10 @@ public class MessaMapperTest {
     public void shouldTranslateBotQuickReplyMessageToFacebookSenderMessage() {
         //given:
         MensagemInterna mensagemInterna = buildInternalMessage();
-        List<QuickReplyButton> quickReplyButtons = Arrays.asList(
+        ComponentBotMessage botMessage = new QuickReplyComponentBotMessage("texto do quickReply",
                 new QuickReplyButton("Titulo", "conteudo"),
                 new QuickReplyButton("Titulo1", "conteudo1")
         );
-        ComponentBotMessage botMessage = new QuickReplyComponentBotMessage("texto do quickReply",
-                quickReplyButtons);
         //when:
         List<FacebookMessage> messages = MessageMapper
                 .botMessageParaFacebookMessage(Collections.singletonList(botMessage), mensagemInterna);
@@ -164,7 +163,7 @@ public class MessaMapperTest {
         );
         ComponentBotMessage botMessage = new CarrouselComponentBotMessage(
                 Arrays.asList(new Card().withTitle("FirstCard")
-                        .withSubtitle("FirstCardSubTitle").withButtons(buttonsFirstCard),
+                                .withSubtitle("FirstCardSubTitle").withButtons(buttonsFirstCard),
                         new Card().withTitle("SecondCard")
                                 .withSubtitle("SecondCardSubTitle").withButtons(buttonsSecondCard)
                 )
@@ -198,13 +197,13 @@ public class MessaMapperTest {
 
     private UserMessage getUserMessage(String fileName) throws IOException {
         ClassLoader loader = getClass().getClassLoader();
-        File file = new File(loader.getResource("usermessages/" + fileName + ".json").getFile());
+        File file = new File(Objects.requireNonNull(loader.getResource("usermessages/" + fileName + ".json")).getFile());
         String content = new String(Files.readAllBytes(file.toPath()));
         return mapper.readValue(content, UserMessage.class);
 
     }
 
-    private <T>T convertAttachemntPayloadTo(Class<T> type, List<FacebookMessage> messages) {
+    private <T> T convertAttachemntPayloadTo(Class<T> type, List<FacebookMessage> messages) {
         return type.cast(messages.get(0).getMessage().getAttachment().getPayload());
     }
 }

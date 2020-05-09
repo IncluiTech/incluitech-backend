@@ -1,15 +1,16 @@
 package com.ages.incuitech.backend.chatbotservice;
 
 import com.ages.incuitech.backend.chatbotservice.api.service.FacebookSendService;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.ConjuntoRegra;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.cliente.ClienteConjuntoRegras;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.desconhecido.DesconhecidoConjuntoRegras;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.solucionador.SolucionadorConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.cliente.ClienteConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.DesconhecidoConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.SolucionadorConjuntoRegras;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotEngine;
 import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
 import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.MemoryContextManager;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,15 +33,15 @@ public class Config {
     }
 
     @Bean
-    public UserService userService(RestTemplate restTemplate) {
-        return new UserService(restTemplate);
+    public UserService userService(SolucaoDeProblemasClient client) {
+        return new UserService(client);
     }
 
     @Bean
-    public List<ConjuntoRegra> conjuntoRegras() {
+    public List<ConjuntoRegra> conjuntoRegras(SolucaoDeProblemasClient client) {
         return Arrays.asList(new ClienteConjuntoRegras(),
                 new SolucionadorConjuntoRegras(),
-                new DesconhecidoConjuntoRegras()
+                new DesconhecidoConjuntoRegras(client)
         );
     }
 
@@ -56,7 +57,7 @@ public class Config {
 
     @Bean
     public BotService botService(ContextManager contextManager,
-                                UserService userService, BotEngine botEngine,
+                                 UserService userService, BotEngine botEngine,
                                  FacebookSendService facebookSendService) {
         return new BotService(contextManager, userService, botEngine, facebookSendService);
     }

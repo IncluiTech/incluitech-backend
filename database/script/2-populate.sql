@@ -1,16 +1,16 @@
 -- CLIENTE
-INSERT INTO cliente (nome, email, status_cadastro, telefone) VALUES ('João das Neves', 'joao@email.com', 'A', '051999992222');
-INSERT INTO cliente (nome, email, status_cadastro, telefone) VALUES ('Pedro Pedroca', 'pedro@email.com', 'A', '062999993333');
-INSERT INTO cliente (nome, email, status_cadastro, telefone) VALUES ('Isabela a Bela', 'isabela@email.com', 'P', '051988884444');
-INSERT INTO cliente (nome, email, status_cadastro, telefone) VALUES ('Letícia de la Notícia', 'leticia@email.com', 'P', '062977775555');
-INSERT INTO cliente (nome, email, status_cadastro, telefone) VALUES ('Paulo Aristóteles', 'paulo@email.com', 'R', '051966667777');
+INSERT INTO cliente (nome, email, status_cadastro, telefone, facebook_id) VALUES ('João das Neves', 'joao@email.com', 'A', '051999992222', '1');
+INSERT INTO cliente (nome, email, status_cadastro, telefone, facebook_id) VALUES ('Pedro Pedroca', 'pedro@email.com', 'A', '062999993333', '2');
+INSERT INTO cliente (nome, email, status_cadastro, telefone, facebook_id) VALUES ('Isabela a Bela', 'isabela@email.com', 'P', '051988884444', '3');
+INSERT INTO cliente (nome, email, status_cadastro, telefone, facebook_id) VALUES ('Letícia de la Notícia', 'leticia@email.com', 'P', '062977775555', '4');
+INSERT INTO cliente (nome, email, status_cadastro, telefone, facebook_id) VALUES ('Paulo Aristóteles', 'paulo@email.com', 'R', '051966667777', '5');
 
 -- SOLUCIONADOR
-INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone) VALUES ('Alan Turing', 'alanturing@email.com', 'http://lattes.cnpq.br/', 'A', '051999999999');
-INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone) VALUES ('Ada Lovelace', 'adalovelace@email.com', 'http://lattes.cnpq.br/', 'A', '062999999999');
-INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone) VALUES ('Margaret Hamilton', 'margarethamilton@email.com', 'http://lattes.cnpq.br/', 'P', '051988888888');
-INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone) VALUES ('Grady Booch', 'gradybooch@email.com', 'http://lattes.cnpq.br/', 'P', '062977777777');
-INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone) VALUES ('Darth Vader', 'darthvader@email.com', 'http://lattes.cnpq.br/', 'R', '051966666666');
+INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone, facebook_id) VALUES ('Alan Turing', 'alanturing@email.com', 'http://lattes.cnpq.br/', 'A', '051999999999', '1');
+INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone, facebook_id) VALUES ('Ada Lovelace', 'adalovelace@email.com', 'http://lattes.cnpq.br/', 'A', '062999999999', '2');
+INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone, facebook_id) VALUES ('Margaret Hamilton', 'margarethamilton@email.com', 'http://lattes.cnpq.br/', 'P', '051988888888', '3');
+INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone, facebook_id) VALUES ('Grady Booch', 'gradybooch@email.com', 'http://lattes.cnpq.br/', 'P', '062977777777', '4');
+INSERT INTO solucionador (nome, email, lattes, status_cadastro, telefone, facebook_id) VALUES ('Darth Vader', 'darthvader@email.com', 'http://lattes.cnpq.br/', 'R', '051966666666', '5');
 
 -- TAG
 INSERT INTO tag (nome) VALUES ('CRIANÇAS');

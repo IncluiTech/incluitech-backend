@@ -5,7 +5,7 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mess
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoMensagem;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.PayloadButton;
-import com.ages.incuitech.backend.chatbotservice.business.conjuto.RegraDoBot;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 
 import java.util.Collections;
 import java.util.HashMap;

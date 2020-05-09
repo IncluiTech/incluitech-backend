@@ -6,7 +6,6 @@ services:
     build:
       context: ./solucao-de-problemas-service
       dockerfile: Dockerfile
-    network_mode: bridge
     container_name: "solucao-de-problemas-service"
     restart: unless-stopped
     environment:
@@ -15,6 +14,8 @@ services:
       - 'spring.datasource.password=postgres'
     ports:
       - "8080:8080"
+    networks:
+      - incluitechnet
     depends_on:
       - incluitech-postgres
     links:
@@ -25,22 +26,25 @@ services:
     build:
       context: ./chatbot-service
       dockerfile: Dockerfile
-    network_mode: bridge
     container_name: "chatbot-service"
     restart: unless-stopped
     environment:
       - 'facebook.send.api.url=https://graph.facebook.com/v6.0/me/messages'
       - 'facebook.app.access.token=EAAJPdsGTOhgBAEyHFpXqSZASZAHwCgRInVDC8mLOrZADX8PPDZBQ3xbQaptFOysgl3isrUn8c2CCXUA9J3oZBpZAJpgGNNrnpMY8Ao0LBwNoM87OBULVcBKSbsZAnwK7FJcqPtIlf5vHYC7qENTfZAKoUxZBEOT5P9aoeDkXSZB6GeuiTz0PDU9Fsm'
       - 'facebook.verify.token=tokenToVerify'
+      - 'url.solucao-de-problemas-service=http://solucao-de-problemas-service:8080/'
     ports:
       - "8081:8080"
+    networks:
+      - incluitechnet
+    depends_on:
+      - solucao-de-problemas-service
 
 
   incluitech-postgres:
     build:
       context: database
       dockerfile: Dockerfile
-    network_mode: bridge
     container_name: "incluitech-postgres"
     volumes:
       - postgres-data:/var/lib/postgresql/data
@@ -50,7 +54,12 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=incluitech
+    networks:
+      - incluitechnet
     restart: unless-stopped
 
 volumes:
   postgres-data:
+
+networks:
+  incluitechnet:

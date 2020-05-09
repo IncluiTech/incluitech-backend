@@ -18,4 +18,5 @@ public class SolucionadorRequest {
     private String email;
     private String lattes;
     private List<String> tags;
+    private String facebookId;
 }

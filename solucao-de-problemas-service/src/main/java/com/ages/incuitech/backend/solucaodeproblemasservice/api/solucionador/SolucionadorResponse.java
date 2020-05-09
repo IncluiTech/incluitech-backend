@@ -1,6 +1,5 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Tag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +19,8 @@ public class SolucionadorResponse {
     private String telefone;
     private String email;
     private String lattes;
-    private List<Tag> tags;
+    private List<String> tags;
     private LocalDateTime dataCriacao;
     private StatusCadastro statusCadastro;
+    private String facebookId;
 }

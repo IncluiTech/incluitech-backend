@@ -1,4 +1,4 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.business.TagSolucionador;
+package com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
