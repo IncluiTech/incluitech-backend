@@ -27,9 +27,10 @@ data_criacao TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS tag_solucionador(
+id_tag_solucionador SERIAL PRIMARY KEY,
 id_tag INTEGER,
 id_solucionador INTEGER,
-constraint chave_primaria_tag_solucionador primary key (id_tag, id_solucionador),
+constraint chave_primaria_tag_solucionador primary key (id_tag_solucionador),
 CONSTRAINT FK_id_tag_solucionador FOREIGN KEY (id_tag)
 REFERENCES tag (id),
 CONSTRAINT FK_id_solucionador FOREIGN KEY (id_solucionador)

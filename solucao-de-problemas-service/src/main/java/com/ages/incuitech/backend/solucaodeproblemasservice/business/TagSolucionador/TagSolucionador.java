@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TagSolucionador {
     @Id
+    private Long idTagSolucionador;
     private Long idTag;
     private Long idSolucionador;
     private LocalDateTime dataCriacao;
