@@ -29,11 +29,11 @@ public class ConfirmarTagsRegra implements RegraDoBot {
     public BotMessage processa(MensagemInterna message) {
         if (message.getConteudo().equals(SIM.name())) {
             message.getContexto().put("aguardandoLattes", true);
-            message.getContexto().put("aguardandoConfirmacaoTags", false);
+            message.getContexto().remove("aguardandoConfirmacaoTags");
             return this.pedirLattes(message);
         }
 
-        message.getContexto().put("aguardandoConfirmacaoTags", false);
+        message.getContexto().remove("aguardandoConfirmacaoTags");
         BotMessage botMessage = provider.provide(TipoUsuario.SOLUCIONADOR, message.getContexto());
         botMessage.getMessages().add(0, new TextComponentBotMessage("Então, por favor, repita a seleção de tags."));
         return botMessage;
@@ -42,7 +42,7 @@ public class ConfirmarTagsRegra implements RegraDoBot {
     private BotMessage pedirLattes(MensagemInterna message) {
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage("Agora preciso que insira o link de seu currículo Lattes:",
-                        new QuickReplyButton("Não possuo um currículo Lattes", NAO.name())
+                        new QuickReplyButton("Não possuo", NAO.name())
                 )
         );
     }

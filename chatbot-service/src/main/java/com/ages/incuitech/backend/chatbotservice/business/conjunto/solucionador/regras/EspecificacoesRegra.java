@@ -17,8 +17,7 @@ import static java.util.stream.Collectors.toList;
 public class EspecificacoesRegra implements RegraDoBot {
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().containsKey("aguardandoEspecificacaoDeArea")
-                && message.getContexto().get("aguardandoEspecificacaoDeArea").equals(true);
+        return message.getContexto().get("aguardandoEspecificacaoDeArea").equals(true);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class EspecificacoesRegra implements RegraDoBot {
     }
 
     private void atualizarContexto(MensagemInterna message) {
-        message.getContexto().put("aguardandoEspecificacaoDeArea", false);
+        message.getContexto().remove("aguardandoEspecificacaoDeArea");
         message.getContexto().put("aguardandoConfirmacaoTags", true);
     }
 
@@ -77,7 +76,9 @@ public class EspecificacoesRegra implements RegraDoBot {
         List<String> tags = this.getTagsFromContexto(message);
         List<String> defaults = new ArrayList<>(Arrays.asList("TDAH", "Crianças", "Finalizar Tags"));
         defaults.removeAll(tags);
-        List<QuickReplyButton> buttons = defaults.stream().map(tag -> new QuickReplyButton(tag, tag)).collect(toList());
+        List<QuickReplyButton> buttons = defaults.stream()
+                .map(tag -> new QuickReplyButton(tag, tag))
+                .collect(toList());
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage("Por favor, selecione uma especificação abaixo", buttons)
         );
