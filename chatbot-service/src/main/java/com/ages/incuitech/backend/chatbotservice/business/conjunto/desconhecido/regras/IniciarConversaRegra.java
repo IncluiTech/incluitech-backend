@@ -28,9 +28,8 @@ public class IniciarConversaRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        Map<String, Object> contexto = new HashMap<>();
-
-        this.buscarNomeDoUsuarioESalvarNoContexto(contexto, message.getUsuario().getId());
+        Map<String, String> nomeESobrenome = this.buscarNomeDoUsuario(message.getUsuario().getId());
+        Map<String, Object> contexto = new HashMap<>(nomeESobrenome);
 
         contexto.put("aguardandoDefinicaoContato", true);
         return new BotMessage(contexto).withMessages(
@@ -46,9 +45,8 @@ public class IniciarConversaRegra implements RegraDoBot {
         );
     }
 
-    private void buscarNomeDoUsuarioESalvarNoContexto(Map<String, Object> contexto, String id) {
+    private Map<String, String> buscarNomeDoUsuario(String id) {
         FacebookProfile perfil = this.facebookService.getProfile(id);
-        contexto.put("nome", perfil.getFirstName());
-        contexto.put("sobrenome", perfil.getLastName());
+        return Map.of("nome", perfil.getFirstName(), "sobrenome", perfil.getLastName());
     }
 }
