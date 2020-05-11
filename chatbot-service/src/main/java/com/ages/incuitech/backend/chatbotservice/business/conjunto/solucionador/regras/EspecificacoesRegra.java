@@ -24,7 +24,7 @@ public class EspecificacoesRegra implements RegraDoBot {
     @Override
     public BotMessage processa(MensagemInterna message) {
         if (this.isPrimeiraInteracao(message.getConteudo())) {
-            boolean confirmarTags = message.getConteudo().equals(NAO.getTexto());
+            boolean confirmarTags = message.getConteudo().equals(NAO.name());
             return confirmarTags ? this.confirmarTags(message) : this.perguntarSobreAreaDeAtuacao(message);
         }
 
@@ -54,8 +54,8 @@ public class EspecificacoesRegra implements RegraDoBot {
 
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage(mensagem,
-                        new QuickReplyButton("É isso aí!", SIM.getTexto()),
-                        new QuickReplyButton("Não", NAO.getTexto())
+                        new QuickReplyButton("É isso aí!", SIM.name()),
+                        new QuickReplyButton("Não", NAO.name())
                 )
         );
     }
@@ -84,6 +84,6 @@ public class EspecificacoesRegra implements RegraDoBot {
     }
 
     private boolean isPrimeiraInteracao(String payload) {
-        return payload.equals(SIM.getTexto()) || payload.equals(NAO.getTexto());
+        return payload.equals(SIM.name()) || payload.equals(NAO.name());
     }
 }

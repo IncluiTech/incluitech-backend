@@ -4,10 +4,12 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mess
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
-import com.ages.incuitech.backend.chatbotservice.business.domain.SimNao;
 
 import java.util.Map;
 import java.util.function.Function;
+
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
 
 public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUsuario> {
     private Map<TipoUsuario, Function<Map<String, Object>, BotMessage>> usuarioToProviderMap;
@@ -17,8 +19,8 @@ public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUs
         Function<Map<String, Object>, BotMessage> solucionadorProvider = contexto ->
                 new BotMessage(contexto).withMessages(
                         new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",
-                                new QuickReplyButton("Sim", SimNao.SIM.getTexto()),
-                                new QuickReplyButton("Não", SimNao.NAO.getTexto())
+                                new QuickReplyButton("Sim", SIM.name()),
+                                new QuickReplyButton("Não", NAO.name())
                         )
                 );
 

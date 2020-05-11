@@ -9,6 +9,8 @@ import com.ages.incuitech.backend.chatbotservice.business.domain.SimNao;
 
 import java.util.*;
 
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
 import static java.util.stream.Collectors.toList;
 
 public class SolucionadorInicialRegra implements RegraDoBot {
@@ -20,7 +22,7 @@ public class SolucionadorInicialRegra implements RegraDoBot {
     @Override
     public BotMessage processa(MensagemInterna message) {
         if (this.isPrimeiraInteracao(message.getConteudo())) {
-            boolean vinculadoInstituicoes = message.getConteudo().equals(SimNao.SIM.getTexto());
+            boolean vinculadoInstituicoes = message.getConteudo().equals(SIM.name());
             return vinculadoInstituicoes ? this.perguntarSobreInstituicoes(message) : this.perguntarSobreAreaDeAtuacao(message);
         }
 
@@ -36,7 +38,7 @@ public class SolucionadorInicialRegra implements RegraDoBot {
     }
 
     private boolean isPrimeiraInteracao(String conteudo) {
-        return conteudo.equals(SimNao.SIM.getTexto()) || conteudo.equals(SimNao.NAO.getTexto());
+        return conteudo.equals(SIM.name()) || conteudo.equals(NAO.name());
     }
 
     private BotMessage perguntarSobreInstituicoes(MensagemInterna message) {
@@ -57,8 +59,8 @@ public class SolucionadorInicialRegra implements RegraDoBot {
         message.getContexto().put("aguardandoEspecificacaoDeArea", true);
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage("Gostaria de especificar mais sua àrea de atuação?",
-                        new QuickReplyButton("Sim", SimNao.SIM.getTexto()),
-                        new QuickReplyButton("Não", SimNao.NAO.getTexto())
+                        new QuickReplyButton("Sim", SIM.name()),
+                        new QuickReplyButton("Não", NAO.name())
                 )
         );
 

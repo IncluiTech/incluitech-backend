@@ -27,7 +27,7 @@ public class LattesRegra implements RegraDoBot {
     @Override
     public BotMessage processa(MensagemInterna message) {
         String conteudo = message.getConteudo();
-        if (conteudo.equals(NAO.getTexto())) {
+        if (conteudo.equals(NAO.name())) {
             return new BotMessage(message.getContexto()).withMessages(
                     new TextComponentBotMessage("Sem problemas! Agora irei enviar seu perfil para os especialistas " +
                             "da Incluitec, para que ele seja aprovado.Vou te avisar assim que estiver tudo certo."
