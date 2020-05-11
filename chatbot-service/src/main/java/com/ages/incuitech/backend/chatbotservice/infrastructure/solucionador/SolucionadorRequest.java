@@ -6,17 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SolucionadorRequest {
+public class SolucionadorRequest implements Serializable {
+    private Long id;
     private String nome;
-    private String email;
     private String telefone;
+    private String email;
     private String lattes;
-    private List<Especialidade> especialidades;
     private String facebookId;
+    private List<Especialidade> especialidades;
 }

@@ -41,7 +41,7 @@ public class Config {
     public List<ConjuntoRegra> conjuntoRegras(SolucaoDeProblemasClient client) {
         return Arrays.asList(new ClienteConjuntoRegras(),
                 new SolucionadorConjuntoRegras(client),
-                new DesconhecidoConjuntoRegras()
+                new DesconhecidoConjuntoRegras(client)
         );
     }
 
