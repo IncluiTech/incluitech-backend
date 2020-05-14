@@ -28,8 +28,7 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().containsKey("aguardandoTipoUsuario")
-                && message.getContexto().get("aguardandoTipoUsuario").equals(true);
+        return message.getContexto().get("aguardandoTipoUsuario").equals(true);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
         TipoUsuario tipoUsuario = TipoUsuario.getFromTipo(payload);
         this.salvarUsuario(message.getContexto(), message.getUsuario(), tipoUsuario);
         message.getUsuario().setTipoUsuario(tipoUsuario);
-        message.getContexto().put("aguardandoTipoUsuario", false);
+        message.getContexto().remove("aguardandoTipoUsuario");
         return provider.provide(tipoUsuario, message.getContexto());
     }
 

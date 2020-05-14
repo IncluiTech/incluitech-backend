@@ -30,7 +30,7 @@ public class SolucaoDeProblemasClient {
         } catch (HttpStatusCodeException error) {
             log.error(String.format(
                     "Erro na chamada REST para solucao-de-problemas-service para salvar solucionador: %s. reponse {%s}",
-                    gson.toJson(request), error.getMessage()));
+                    gson.toJson(solucionadorRequest), error.getMessage()));
             throw error;
         }
     }
