@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FacebookProfile implements Serializable {
+public class FacebookProfile {
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
