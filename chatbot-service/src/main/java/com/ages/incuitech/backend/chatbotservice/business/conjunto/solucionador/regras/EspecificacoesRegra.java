@@ -1,18 +1,14 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.regras;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.*;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
-import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
-import static java.util.stream.Collectors.toList;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.*;
+import static java.util.stream.Collectors.*;
 
 public class EspecificacoesRegra implements RegraDoBot {
     @Override
@@ -61,7 +57,7 @@ public class EspecificacoesRegra implements RegraDoBot {
     }
 
     private void atualizarContexto(MensagemInterna message) {
-        message.getContexto().put("aguardandoEspecificacaoDeArea", false);
+        message.getContexto().remove("aguardandoEspecificacaoDeArea");
         message.getContexto().put("aguardandoConfirmacaoTags", true);
     }
 

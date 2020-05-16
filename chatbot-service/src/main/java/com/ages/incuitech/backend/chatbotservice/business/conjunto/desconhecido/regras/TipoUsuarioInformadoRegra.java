@@ -38,7 +38,7 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
         TipoUsuario tipoUsuario = TipoUsuario.getFromTipo(payload);
         this.salvarUsuario(message.getContexto(), message.getUsuario(), tipoUsuario);
         message.getUsuario().setTipoUsuario(tipoUsuario);
-        message.getContexto().put("aguardandoTipoUsuario", false);
+        message.getContexto().remove("aguardandoTipoUsuario");
         BotMessage botMessage = provider.provide(tipoUsuario, message.getContexto());
         botMessage.getMessages().add(0, new TextComponentBotMessage("Legal, agora me fale um pouco mais sobre você."));
         return botMessage;

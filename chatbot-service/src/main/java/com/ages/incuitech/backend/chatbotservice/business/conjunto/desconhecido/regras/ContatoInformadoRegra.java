@@ -64,8 +64,8 @@ public class ContatoInformadoRegra implements RegraDoBot {
     }
 
     private BotMessage seguirParProximoPasso(Map<String, Object> contexto) {
-        contexto.put("aguardandoContato", false);
-        contexto.put("aguardandoTipoUsuario", true);
+        contexto.remove("aguardandoContato");
+        contexto.remove("aguardandoTipoUsuario");
         return new BotMessage(contexto).withMessages(
                 new QuickReplyComponentBotMessage("Antes de seguirmos para o seu perfil, me diga, o que você procura?",
                         new QuickReplyButton("Busco soluções", TipoUsuario.CLIENTE.getTipo()),

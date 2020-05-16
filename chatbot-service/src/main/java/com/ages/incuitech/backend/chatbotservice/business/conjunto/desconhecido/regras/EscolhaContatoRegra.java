@@ -24,7 +24,7 @@ public class EscolhaContatoRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        message.getContexto().put("aguardandoDefinicaoContato", false);
+        message.getContexto().remove("aguardandoDefinicaoContato");
         String payload = message.getConteudo();
         TipoContato tipoContato = TipoContato.getFromTexto(payload);
         if (Objects.nonNull(tipoContato)) {
