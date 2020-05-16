@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
@@ -42,5 +43,12 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public SolucionadorResponse findByFacebookId(String facecbookId) {
         Solucionador solucionador = this.repository.findByIdFacebook(facecbookId);
         return solucionador != null ? SolucionadorMapper.mapToResponse(solucionador) : null;
+    }
+
+    public SolucionadorResponse update(SolucionadorRequest request) {
+        Solucionador entity = this.repository.findByIdFacebook(request.getFacebookId());
+        request.setId(entity.getId());
+        Solucionador updated = this.update(SolucionadorMapper.mapToModel(request));
+        return SolucionadorMapper.mapToResponse(updated);
     }
 }
