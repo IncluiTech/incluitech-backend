@@ -12,6 +12,7 @@ public class SolucionadorMapper {
     public static SolucionadorRequest criarRequestAPartirDeContexto(Map<String, Object> contexto, String facebookId) {
         return SolucionadorRequest.builder()
                 .nome("default")
+                .lattes((String) contexto.get("lattes"))
                 .telefone((String) contexto.get(TipoContato.TELEFONE.getPropriedade()))
                 .email((String) contexto.get(TipoContato.EMAIL.getPropriedade()))
                 .facebookId(facebookId)
