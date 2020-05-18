@@ -1,9 +1,6 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 

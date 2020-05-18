@@ -75,4 +75,11 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         Solucionador solucionador = this.repository.findByIdFacebook(facecbookId);
         return solucionador != null ? SolucionadorMapper.mapToResponse(solucionador) : null;
     }
+
+    public SolucionadorResponse update(SolucionadorRequest request) {
+        Solucionador entity = this.repository.findByIdFacebook(request.getFacebookId());
+        request.setId(entity.getId());
+        Solucionador updated = this.update(SolucionadorMapper.mapToModel(request));
+        return SolucionadorMapper.mapToResponse(updated);
+    }
 }
