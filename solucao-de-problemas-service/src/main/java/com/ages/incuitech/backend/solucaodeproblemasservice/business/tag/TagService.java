@@ -22,7 +22,11 @@ public class TagService extends GenericCRUDService<Tag, Long, TagRepository> {
     public Tag salvar(String tag) {
         try {
             Optional<Tag> tagOptional = buscarTagPorNome(tag);
-            return tagOptional.orElseGet(() -> repository.save(Tag.builder().nome(tag).dataCriacao(LocalDateTime.now()).build()));
+            return tagOptional.orElseGet(() ->
+                    repository.save(Tag.builder()
+                            .nome(tag)
+                            .dataCriacao(LocalDateTime.now())
+                            .build()));
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
             throw exception;
