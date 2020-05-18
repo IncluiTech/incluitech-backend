@@ -33,13 +33,7 @@ public class TagService extends GenericCRUDService<Tag, Long, TagRepository> {
     }
 
     private Optional<Tag> buscarTagPorNome(String tag) {
-        Iterable<Tag> tags = repository.findAll();
-		for (Tag tagLista: tags) {
-			if (tagLista.equals(tag)) {
-				return Optional.of(tagLista);
-			}
-		}
-		return Optional.empty();
+        return repository.findByNome(tag);
 	}
 
 }

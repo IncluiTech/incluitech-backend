@@ -42,7 +42,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public SolucionadorResponse salvar(SolucionadorRequest solucionadorRequest) {
         try {
             Solucionador solucionadorSalvo = repository.save(SolucionadorMapper.mapToModel(solucionadorRequest));
-            List<Tag> tagsSalvas = connectTagSolucionador(solucionadorSalvo, solucionadorRequest.getTags());
+            List<Tag> tagsSalvas = conectarTagSolucionador(solucionadorSalvo, solucionadorRequest.getTags());
             return SolucionadorMapper.mapToResponse(solucionadorSalvo, tagsSalvas);
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
@@ -54,7 +54,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     }
 
 
-    private List<Tag> connectTagSolucionador(Solucionador solucionador, List<String> tags) {
+    private List<Tag> conectarTagSolucionador(Solucionador solucionador, List<String> tags) {
         List<Tag> tagsSalvas = new ArrayList<>();
         Tag tagSalva;
         for (String tag : tags) {
