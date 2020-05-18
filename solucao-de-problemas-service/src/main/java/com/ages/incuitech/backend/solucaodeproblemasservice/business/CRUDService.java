@@ -3,13 +3,13 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business;
 import java.util.List;
 
 public interface CRUDService<T, ID> {
-    T save(T entity);
+  T save(T entity);
 
-    T update(T entity);
+  T update(T entity);
 
-    void delete(T entity);
+  void delete(T entity);
 
-    List<T> findAll();
+  List<T> findAll();
 
-    T findById(ID id);
+  T findById(ID id);
 }

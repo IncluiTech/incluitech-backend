@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class SolucaoDeProblemasProperties {
-    @Value("${url.solucao-de-problemas-service}")
-    private String url;
+  @Value("${url.solucao-de-problemas-service}")
+  private String url;
 
-    @Value("${uri.salvar-solucionador}")
-    private String uri;
+  @Value("${uri.salvar-solucionador}")
+  private String uri;
 }

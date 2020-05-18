@@ -2,19 +2,19 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario;
 
 public class UsuarioRequest {
 
-    private String nome;
+  private String nome;
 
-    public UsuarioRequest() { }
-    public UsuarioRequest(String nome) {
-        this.nome = nome;
-    }
+  public UsuarioRequest() {}
 
-    public String getNome() {
-        return nome;
-    }
+  public UsuarioRequest(String nome) {
+    this.nome = nome;
+  }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public String getNome() {
+    return nome;
+  }
 
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 }

@@ -1,9 +1,8 @@
 package com.ages.incuitech.backend.chatbotservice.business.domain;
 
 public enum Especialidade {
-    CRIANCAS,
-    ADULTOS,
-    EMPRESA,
-    ESCOLA
+  CRIANCAS,
+  ADULTOS,
+  EMPRESA,
+  ESCOLA
 }
-

@@ -8,10 +8,10 @@ import lombok.*;
 @Setter
 @ToString
 public class UsuarioDaMensagem {
-    private String id;
-    private TipoUsuario tipoUsuario;
+  private String id;
+  private TipoUsuario tipoUsuario;
 
-    public UsuarioDaMensagem(String id) {
-        this.id = id;
-    }
+  public UsuarioDaMensagem(String id) {
+    this.id = id;
+  }
 }

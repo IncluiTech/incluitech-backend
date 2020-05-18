@@ -7,8 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface SolucionadorRepository extends CrudRepository<Solucionador, Long> {
 
-    @Query("SELECT * FROM Solucionador WHERE facebook_id = :facebookId")
-    Solucionador findByIdFacebook(@Param("facebookId") String facebookId);
-
+  @Query("SELECT * FROM Solucionador WHERE facebook_id = :facebookId")
+  Solucionador findByIdFacebook(@Param("facebookId") String facebookId);
 }
-

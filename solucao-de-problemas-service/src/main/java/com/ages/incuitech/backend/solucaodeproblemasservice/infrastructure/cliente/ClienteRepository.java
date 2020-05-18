@@ -3,6 +3,4 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.clie
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ClienteRepository extends CrudRepository<Cliente, Long> {
-}
-
+public interface ClienteRepository extends CrudRepository<Cliente, Long> {}

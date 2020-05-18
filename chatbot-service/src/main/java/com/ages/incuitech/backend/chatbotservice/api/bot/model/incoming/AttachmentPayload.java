@@ -1,6 +1,5 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -10,10 +9,11 @@ import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @ToString
 public class AttachmentPayload {
-    private String url;
-    private String title;
+  private String url;
+  private String title;
 }

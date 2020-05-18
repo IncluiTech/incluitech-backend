@@ -8,14 +8,13 @@ import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
 @Getter
 @Setter
 @ToString
 public class Messaging {
-    private FacebookUser sender;
-    private FacebookUser recipient;
-    private Long timestamp;
-    private Message message;
-    private Postback postback;
+  private FacebookUser sender;
+  private FacebookUser recipient;
+  private Long timestamp;
+  private Message message;
+  private Postback postback;
 }

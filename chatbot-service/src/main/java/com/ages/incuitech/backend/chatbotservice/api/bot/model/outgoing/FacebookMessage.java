@@ -11,9 +11,10 @@ import lombok.*;
 @With
 @ToString
 public class FacebookMessage {
-    @JsonProperty("messaging_type")
-    private String messageType = MessageType.RESPONSE.name();
-    private String tag;
-    private UserRecipient recipient;
-    private TemplateMessage message;
+  @JsonProperty("messaging_type")
+  private String messageType = MessageType.RESPONSE.name();
+
+  private String tag;
+  private UserRecipient recipient;
+  private TemplateMessage message;
 }

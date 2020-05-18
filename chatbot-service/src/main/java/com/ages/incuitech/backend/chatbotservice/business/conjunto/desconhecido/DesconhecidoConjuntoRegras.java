@@ -9,22 +9,21 @@ import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.
 import com.ages.incuitech.backend.chatbotservice.business.provider.ContatoMessageProvider;
 import com.ages.incuitech.backend.chatbotservice.business.provider.UsuarioGreetingMessageProvider;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
-
 import java.util.Arrays;
 
 public class DesconhecidoConjuntoRegras extends ConjuntoRegra {
 
-    public DesconhecidoConjuntoRegras(SolucaoDeProblemasClient client) {
-        super(Arrays.asList(
-                new TipoUsuarioInformadoRegra(client, new UsuarioGreetingMessageProvider()),
-                new ContatoInformadoRegra(),
-                new EscolhaContatoRegra(new ContatoMessageProvider()),
-                new IniciarConversaRegra()
-        ));
-    }
+  public DesconhecidoConjuntoRegras(SolucaoDeProblemasClient client) {
+    super(
+        Arrays.asList(
+            new TipoUsuarioInformadoRegra(client, new UsuarioGreetingMessageProvider()),
+            new ContatoInformadoRegra(),
+            new EscolhaContatoRegra(new ContatoMessageProvider()),
+            new IniciarConversaRegra()));
+  }
 
-    @Override
-    public boolean seleciona(TipoUsuario tipoUsuario) {
-        return tipoUsuario == null;
-    }
+  @Override
+  public boolean seleciona(TipoUsuario tipoUsuario) {
+    return tipoUsuario == null;
+  }
 }

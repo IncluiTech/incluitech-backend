@@ -4,14 +4,14 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario.UsuarioR
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.usuario.Usuario;
 
 public class UsuarioStub {
-    public static UsuarioRequest usuarioRequest() {
-        return new UsuarioRequest("fulano");
-    }
+  public static UsuarioRequest usuarioRequest() {
+    return new UsuarioRequest("fulano");
+  }
 
-    public static Usuario usuario() {
-        Usuario usuario = new Usuario();
-        usuario.setId(1L);
-        usuario.setNome("fulano");
-        return usuario;
-    }
+  public static Usuario usuario() {
+    Usuario usuario = new Usuario();
+    usuario.setId(1L);
+    usuario.setNome("fulano");
+    return usuario;
+  }
 }

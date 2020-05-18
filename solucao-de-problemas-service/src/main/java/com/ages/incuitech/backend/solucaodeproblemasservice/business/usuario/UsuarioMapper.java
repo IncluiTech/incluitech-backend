@@ -5,13 +5,13 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.usuario.UsuarioR
 
 public class UsuarioMapper {
 
-    public static Usuario mapToModel(UsuarioRequest usuarioRequest) {
-        Usuario usuario = new Usuario();
-        usuario.setNome(usuarioRequest.getNome());
-        return usuario;
-    }
+  public static Usuario mapToModel(UsuarioRequest usuarioRequest) {
+    Usuario usuario = new Usuario();
+    usuario.setNome(usuarioRequest.getNome());
+    return usuario;
+  }
 
-    public static UsuarioResponse mapToResponse(Usuario usuario) {
-        return new UsuarioResponse(usuario.getId(), usuario.getNome());
-    }
+  public static UsuarioResponse mapToResponse(Usuario usuario) {
+    return new UsuarioResponse(usuario.getId(), usuario.getNome());
+  }
 }

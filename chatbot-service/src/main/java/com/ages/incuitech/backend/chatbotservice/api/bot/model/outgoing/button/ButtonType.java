@@ -6,8 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum ButtonType {
-    WEB_URL("web_url"),
-    POSTBACK("postback");
+  WEB_URL("web_url"),
+  POSTBACK("postback");
 
-    private String type;
+  private String type;
 }

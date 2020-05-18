@@ -6,9 +6,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum StatusCadastro {
-    A("APROVADO"),
-    P("PENDENTE_APROVACAO"),
-    R("REPROVADO");
+  A("APROVADO"),
+  P("PENDENTE_APROVACAO"),
+  R("REPROVADO");
 
-    private String texto;
+  private String texto;
 }

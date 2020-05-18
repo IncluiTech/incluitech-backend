@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 /**
- * Classe representando um botão de quickreply
- * Diferente da classe Button, QuickReply somem ao serem selecianados
+ * Classe representando um botão de quickreply Diferente da classe Button, QuickReply somem ao serem
+ * selecianados
+ *
  * @see Button
  */
 @Getter
@@ -15,8 +16,9 @@ import lombok.*;
 @Builder
 @ToString
 public class QuickReplyButton {
-    @JsonProperty("content_type")
-    private final String contentType = "text";
-    private String title;
-    private String payload;
+  @JsonProperty("content_type")
+  private final String contentType = "text";
+
+  private String title;
+  private String payload;
 }

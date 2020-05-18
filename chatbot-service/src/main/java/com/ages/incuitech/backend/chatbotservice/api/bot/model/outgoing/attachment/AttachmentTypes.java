@@ -6,7 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum AttachmentTypes {
-    GENERIC("generic"),BUTTON("button");
+  GENERIC("generic"),
+  BUTTON("button");
 
-    private String valor;
+  private String valor;
 }

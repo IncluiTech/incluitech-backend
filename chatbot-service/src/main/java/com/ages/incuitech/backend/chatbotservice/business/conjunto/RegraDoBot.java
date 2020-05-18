@@ -4,7 +4,7 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mess
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 
 public interface RegraDoBot {
-    boolean verifica(MensagemInterna message);
+  boolean verifica(MensagemInterna message);
 
-    BotMessage processa(MensagemInterna message);
+  BotMessage processa(MensagemInterna message);
 }

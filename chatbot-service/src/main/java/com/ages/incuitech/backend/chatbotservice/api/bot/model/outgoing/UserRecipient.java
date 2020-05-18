@@ -6,5 +6,5 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class UserRecipient {
-    private String id;
+  private String id;
 }

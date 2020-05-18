@@ -6,13 +6,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FilterConfig {
-    @Bean
-    public FilterRegistrationBean<AuthFilter> loggingFilter(){
-        FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean();
+  @Bean
+  public FilterRegistrationBean<AuthFilter> loggingFilter() {
+    FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean();
 
-        registrationBean.setFilter(new AuthFilter());
-        registrationBean.addUrlPatterns("/v1/user/*");
+    registrationBean.setFilter(new AuthFilter());
+    registrationBean.addUrlPatterns("/v1/user/*");
 
-        return registrationBean;
-    }
+    return registrationBean;
+  }
 }

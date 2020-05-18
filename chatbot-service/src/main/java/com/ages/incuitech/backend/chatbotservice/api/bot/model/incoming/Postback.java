@@ -9,10 +9,11 @@ import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @ToString
 public class Postback {
-    private String title;
-    private String payload;
+  private String title;
+  private String payload;
 }

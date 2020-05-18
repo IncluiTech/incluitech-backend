@@ -6,16 +6,16 @@ import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblem
 import com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.SolucionadorRequest;
 
 public class UserService {
-    private SolucaoDeProblemasClient client;
+  private SolucaoDeProblemasClient client;
 
-    public UserService(SolucaoDeProblemasClient client) {
-        this.client = client;
-    }
+  public UserService(SolucaoDeProblemasClient client) {
+    this.client = client;
+  }
 
-    public UsuarioDaMensagem getUsuario(String userId) {
-        SolucionadorRequest request = this.client.getByFacebookId(userId);
-        return request != null
-                ? new UsuarioDaMensagem(request.getFacebookId(), TipoUsuario.SOLUCIONADOR)
-                : new UsuarioDaMensagem(userId);
-    }
+  public UsuarioDaMensagem getUsuario(String userId) {
+    SolucionadorRequest request = this.client.getByFacebookId(userId);
+    return request != null
+        ? new UsuarioDaMensagem(request.getFacebookId(), TipoUsuario.SOLUCIONADOR)
+        : new UsuarioDaMensagem(userId);
+  }
 }
