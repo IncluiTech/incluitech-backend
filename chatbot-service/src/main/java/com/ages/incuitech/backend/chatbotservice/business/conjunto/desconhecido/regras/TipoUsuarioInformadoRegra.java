@@ -27,7 +27,7 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().get("aguardandoTipoUsuario").equals(true);
+        return Boolean.TRUE.equals(message.getContexto().get("aguardandoTipoUsuario"));
     }
 
     @Override
