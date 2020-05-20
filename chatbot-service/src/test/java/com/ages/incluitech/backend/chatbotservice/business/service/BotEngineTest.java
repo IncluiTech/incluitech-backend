@@ -34,7 +34,7 @@ public class BotEngineTest {
                 new UsuarioDaMensagem("123", TipoUsuario.CLIENTE),
                 TipoMensagem.BOTAO,
                 "conteudo",
-                new Context()
+                new Contexto()
         );
         //when
         Optional<ConjuntoRegra> conjuntoRegra = botEngine.selecionaConjunto(mensagemInterna);
@@ -50,7 +50,7 @@ public class BotEngineTest {
     @Test
     public void shouldAlterContext() {
         //given:
-        Context contexto = new Context();
+        Contexto contexto = new Contexto();
         contexto.put("valor", "qualquerUm");
         MensagemInterna mensagemInterna = new MensagemInterna(
                 new UsuarioDaMensagem("123", TipoUsuario.CLIENTE),
@@ -79,7 +79,7 @@ public class BotEngineTest {
                 new UsuarioDaMensagem("123", TipoUsuario.SOLUCIONADOR),
                 TipoMensagem.BOTAO,
                 "conteudo",
-                new Context()
+                new Contexto()
         );
         //when
         Optional<ConjuntoRegra> conjuntoRegra = botEngine.selecionaConjunto(mensagemInterna);

@@ -9,21 +9,21 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class ContatoMessageProvider implements BotMessageProvider<TipoContato> {
-    private Map<TipoContato, Function<Context, BotMessage>> contatoToProviderMap;
+    private Map<TipoContato, Function<Contexto, BotMessage>> contatoToProviderMap;
 
 
     public ContatoMessageProvider() {
-        Function<Context, BotMessage> emailProvider = contexto ->
+        Function<Contexto, BotMessage> emailProvider = contexto ->
                 new BotMessage(contexto).withMessages(
                         new TextComponentBotMessage("Por favor, insira seu email: ")
                 );
 
-        Function<Context, BotMessage> telefoneProvider = contexto ->
+        Function<Contexto, BotMessage> telefoneProvider = contexto ->
                 new BotMessage(contexto).withMessages(
                         new TextComponentBotMessage("Por favor, insira seu telefone: ")
                 );
 
-        Function<Context, BotMessage> emailETelefoneProvider = contexto ->
+        Function<Contexto, BotMessage> emailETelefoneProvider = contexto ->
                 new BotMessage(contexto).withMessages(
                         new TextComponentBotMessage("Primeiro, por favor, insira seu email: ")
                 );
@@ -36,7 +36,7 @@ public class ContatoMessageProvider implements BotMessageProvider<TipoContato> {
     }
 
     @Override
-    public BotMessage provide(TipoContato contato, Context contexto) {
+    public BotMessage provide(TipoContato contato, Contexto contexto) {
         return this.contatoToProviderMap.get(contato).apply(contexto);
     }
 

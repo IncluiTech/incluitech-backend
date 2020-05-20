@@ -4,10 +4,10 @@ import java.util.*;
 
 import static java.util.Objects.*;
 
-public class Context {
+public class Contexto {
     private Map<String, Object> contexto;
 
-    public Context() {
+    public Contexto() {
         this.contexto = new HashMap<>();
     }
 

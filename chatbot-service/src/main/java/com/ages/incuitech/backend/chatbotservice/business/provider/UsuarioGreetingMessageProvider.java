@@ -11,11 +11,11 @@ import java.util.function.*;
 import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.*;
 
 public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUsuario> {
-    private Map<TipoUsuario, Function<Context, BotMessage>> usuarioToProviderMap;
+    private Map<TipoUsuario, Function<Contexto, BotMessage>> usuarioToProviderMap;
 
     public UsuarioGreetingMessageProvider() {
-        Function<Context, BotMessage> clienteProvider = contexto -> null;
-        Function<Context, BotMessage> solucionadorProvider = contexto ->
+        Function<Contexto, BotMessage> clienteProvider = contexto -> null;
+        Function<Contexto, BotMessage> solucionadorProvider = contexto ->
                 new BotMessage(contexto).withMessages(
                         new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",
                                 new QuickReplyButton("Sim", SIM.name()),
@@ -30,7 +30,7 @@ public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUs
     }
 
     @Override
-    public BotMessage provide(TipoUsuario tipoUsuario, Context contexto) {
+    public BotMessage provide(TipoUsuario tipoUsuario, Contexto contexto) {
         return this.usuarioToProviderMap.get(tipoUsuario).apply(contexto);
     }
 }
