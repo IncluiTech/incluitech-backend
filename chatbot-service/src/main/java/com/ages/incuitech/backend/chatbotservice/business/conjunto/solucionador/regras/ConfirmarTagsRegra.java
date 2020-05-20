@@ -1,16 +1,12 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.regras;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
-import com.ages.incuitech.backend.chatbotservice.business.provider.BotMessageProvider;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.*;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.*;
+import com.ages.incuitech.backend.chatbotservice.business.provider.*;
 
-import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
-import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.*;
 
 public class ConfirmarTagsRegra implements RegraDoBot {
 
