@@ -1,12 +1,11 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.tag.TagStub;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.SolucionadorStub;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.TagStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
 import org.assertj.core.util.Lists;

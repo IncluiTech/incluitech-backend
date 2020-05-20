@@ -1,5 +1,6 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
+package com.ages.incuitech.backend.solucaodeproblemasservice.api.stub;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
 
@@ -7,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SolucionadorStub {
-    private SolucionadorStub() {
-    }
 
     public static Solucionador getModelStub() {
         return Solucionador.builder()
