@@ -1,8 +1,10 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
@@ -14,8 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -24,12 +25,19 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
 
     private TagService tagService;
     private TagSolucionadorService tagSolucionadorService;
+    private ChatBotClient client;
 
     @Inject
-    public void setRepository(SolucionadorRepository repository, TagService tagService, TagSolucionadorService tagSolucionadorService) {
+    public void setRepository(
+            SolucionadorRepository repository,
+            TagService tagService,
+            TagSolucionadorService tagSolucionadorService,
+            ChatBotClient client
+    ) {
         this.repository = repository;
         this.tagService = tagService;
         this.tagSolucionadorService = tagSolucionadorService;
+        this.client = client;
     }
 
     public List<SolucionadorResponse> findAllSolucionadores() {
@@ -55,6 +63,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
 
 
     private List<Tag> conectarTagSolucionador(Solucionador solucionador, List<String> tags) {
+        if (tags == null || tags.isEmpty()) return Collections.emptyList();
         List<Tag> tagsSalvas = new ArrayList<>();
         Tag tagSalva;
         for (String tag : tags) {
@@ -81,5 +90,10 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         request.setId(entity.getId());
         Solucionador updated = this.update(SolucionadorMapper.mapToModel(request));
         return SolucionadorMapper.mapToResponse(updated);
+    }
+
+    public void aprovarCadastro(String facebookId) {
+        this.repository.aprovarCadastro(facebookId);
+        this.client.enviarMensagemCadastroSucesso(facebookId);
     }
 }
