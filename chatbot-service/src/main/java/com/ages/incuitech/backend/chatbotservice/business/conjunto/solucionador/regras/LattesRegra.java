@@ -21,7 +21,7 @@ public class LattesRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().get("aguardandoLattes").equals(true)
+        return message.getContexto().propertyIsEqualsTo("aguardandoLattes", true)
                 && this.validarTipoMensagem(message);
     }
 

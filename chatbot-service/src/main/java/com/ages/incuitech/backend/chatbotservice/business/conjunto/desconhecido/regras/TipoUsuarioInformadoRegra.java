@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.regras;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
@@ -8,8 +9,6 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 import com.ages.incuitech.backend.chatbotservice.business.provider.BotMessageProvider;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
-
-import java.util.Map;
 
 import static com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.SolucionadorMapper.criarRequestAPartirDeContexto;
 
@@ -27,7 +26,7 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().get("aguardandoTipoUsuario").equals(true);
+        return message.getContexto().propertyIsEqualsTo("aguardandoTipoUsuario", true);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
         return botMessage;
     }
 
-    private void salvarUsuario(Map<String, Object> contexto, UsuarioDaMensagem usuario, TipoUsuario tipoUsuario) {
+    private void salvarUsuario(Contexto contexto, UsuarioDaMensagem usuario, TipoUsuario tipoUsuario) {
         if (tipoUsuario == TipoUsuario.SOLUCIONADOR) {
             client.saveSolucionador(criarRequestAPartirDeContexto(contexto, usuario.getId()));
         }
