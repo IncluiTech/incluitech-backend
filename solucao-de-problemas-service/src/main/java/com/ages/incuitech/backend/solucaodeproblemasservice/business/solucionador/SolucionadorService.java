@@ -6,6 +6,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUD
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagSolucionadorRepository;
@@ -35,7 +36,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public List<SolucionadorResponse> findAllSolucionadores() {
         return this.findAll()
                 .stream()
-                .map(SolucionadorMapper::mapToResponse)
+                .map(solucionador -> SolucionadorMapper.mapToResponseWithTags(solucionador, buscarTags(solucionador.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -64,6 +65,12 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         request.setId(entity.getId());
         Solucionador updated = this.update(SolucionadorMapper.mapToModel(request));
         return SolucionadorMapper.mapToResponse(updated);
+    }
+
+    private List<String> buscarTags(Long solucionadorId) {
+        return tagSolucionadorRepository.findTagsOfSolucionador(solucionadorId).stream()
+                .map(UserTag::getTagName)
+                .collect(Collectors.toList());
     }
 
     private List<Tag> salvarTags(List<String> tags) {

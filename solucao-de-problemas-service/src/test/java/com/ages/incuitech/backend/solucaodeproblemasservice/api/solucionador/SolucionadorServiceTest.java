@@ -2,6 +2,7 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.SolucionadorStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.TagStub;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.UserTagStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
@@ -10,6 +11,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.soluc
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagSolucionadorRepository;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -45,6 +47,7 @@ public class SolucionadorServiceTest {
 		// arrange
 		Solucionador solucionador = SolucionadorStub.getModelStub();
 		when(repository.findAll()).thenReturn(Lists.newArrayList(solucionador));
+		when(tagSolucionadorRepository.findTagsOfSolucionador(1L)).thenReturn(UserTagStub.getUserTagStub());
 
 		// act
 		List<SolucionadorResponse> solucionadores = solucionadorService.findAllSolucionadores();
@@ -58,6 +61,11 @@ public class SolucionadorServiceTest {
 		assertEquals(response.get().getNome(), solucionador.getNome());
 		assertEquals(response.get().getTelefone(), solucionador.getTelefone());
 		assertEquals(response.get().getStatusCadastro(), solucionador.getStatusCadastro());
+		assertFalse(response.get().getTags().isEmpty());
+		Assertions.assertEquals(response.get().getTags().size(), 3);
+		Assertions.assertEquals(response.get().getTags().get(0), "TDAH");
+		Assertions.assertEquals(response.get().getTags().get(1), "CRINACAS");
+		Assertions.assertEquals(response.get().getTags().get(2), "ESCOLA");
 		verify(repository).findAll();
 
 	}

@@ -29,7 +29,7 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
     public List<ClienteResponse> findAllClientes() {
         return this.findAll()
                 .stream()
-                .map((Cliente cliente) -> ClienteMapper.mapToResponseWithTags(cliente, findTags(cliente.getId())))
+                .map(cliente -> ClienteMapper.mapToResponseWithTags(cliente, findTags(cliente.getId())))
                 .collect(Collectors.toList());
     }
 
