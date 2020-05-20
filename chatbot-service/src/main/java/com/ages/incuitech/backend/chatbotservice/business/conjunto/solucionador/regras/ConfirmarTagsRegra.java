@@ -34,6 +34,7 @@ public class ConfirmarTagsRegra implements RegraDoBot {
         }
 
         message.getContexto().remove("aguardandoConfirmacaoTags");
+        message.getContexto().put("primeiraMensagemUsuarioComTipo", true);
         BotMessage botMessage = provider.provide(TipoUsuario.SOLUCIONADOR, message.getContexto());
         botMessage.getMessages().add(0, new TextComponentBotMessage("Então, por favor, repita a seleção de tags."));
         return botMessage;
