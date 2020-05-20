@@ -16,6 +16,8 @@ import java.time.*;
 import java.util.*;
 import java.util.stream.*;
 
+import static java.util.Objects.*;
+
 @Slf4j
 @Service
 public class SolucionadorService extends GenericCRUDService<Solucionador, Long, SolucionadorRepository> {
@@ -45,6 +47,11 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public SolucionadorResponse salvar(SolucionadorRequest solucionadorRequest) {
         try {
             Solucionador solucionadorSalvo = repository.save(SolucionadorMapper.mapToModel(solucionadorRequest));
+
+            if (isNull(solucionadorRequest.getTags())) {
+                return SolucionadorMapper.mapToResponse(solucionadorSalvo);
+            }
+
             List<Tag> tags = salvarTags(solucionadorRequest.getTags());
             salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
             return SolucionadorMapper.mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
