@@ -47,16 +47,16 @@ INSERT INTO tag_cliente (id_tag, id_cliente) VALUES (9, 5);
 INSERT INTO tag_cliente (id_tag, id_cliente) VALUES (10, 5);
 
 -- ASSOCIAÇÃO TAG COM SOLUCIONADOR
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (11, 1);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (12, 1);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (13, 2);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (14, 2);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (15, 3);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (16, 3);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (17, 4);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (18, 4);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (19, 5);
-INSERT INTO tag_solucionador (id_tag, tag_solucionador) VALUES (20, 5);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (11, 1);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (12, 1);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (13, 2);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (14, 2);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (15, 3);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (16, 3);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (17, 4);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (18, 4);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (19, 5);
+INSERT INTO tag_solucionador (id_tag, id_solucionador) VALUES (20, 5);
 
 
 
