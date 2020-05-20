@@ -127,7 +127,7 @@ public class MessageMapper {
         }
     }
 
-    public static MensagemInterna criarMensagemInternaComUsuario(UsuarioDaMensagem usuarioDaMensagem) {
+    public static MensagemInterna criarMensagemInternaSucessoCadastro(UsuarioDaMensagem usuarioDaMensagem) {
         return new MensagemInterna(usuarioDaMensagem, TipoMensagem.EVENTO, "", new Contexto());
     }
 

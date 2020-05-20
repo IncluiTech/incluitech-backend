@@ -12,21 +12,19 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.*;
 
 @Controller
-@RequestMapping("/event")
-public class EventController {
-    private static final Logger log = LoggerFactory.getLogger(EventController.class);
+@RequestMapping("/v1/notificacao")
+public class NotificacaoController {
+    private static final Logger log = LoggerFactory.getLogger(NotificacaoController.class);
+    private final NotificacaoService service;
 
-    @Inject
-    private BotService botService;
-
-    @Inject
-    private UserService userService;
+    public NotificacaoController(NotificacaoService service) {
+        this.service = service;
+    }
 
     @PutMapping("/{facebookId}")
     public ResponseEntity<String> notificarUsuarioCadastrado(@PathVariable("facebookId") String facebookId) {
         log.info("Facebook id received: " + facebookId);
-        UsuarioDaMensagem usuario = userService.getUsuario(facebookId);
-        botService.manipulaEvento(MessageMapper.criarMensagemInternaComUsuario(usuario));
+        this.service.enviarNotificacaoSucessoCadastro(facebookId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
