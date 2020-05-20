@@ -4,10 +4,10 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
 
 public class TagStub {
 
-	    public static Tag getModelStub() {
+	    public static Tag buildTagStub(Long id, String name) {
 	        return Tag.builder()
-					.id(1L)
-	                .nome("Fulano")	                       
+					.id(id)
+	                .nome(name)
 	                .build();
 	    }
 }

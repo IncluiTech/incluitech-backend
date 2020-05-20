@@ -3,18 +3,18 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionad
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagSolucionadorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 public class SolucionadorService extends GenericCRUDService<Solucionador, Long, SolucionadorRepository> {
 
     private TagService tagService;
-    private TagSolucionadorService tagSolucionadorService;
+    private TagSolucionadorRepository tagSolucionadorRepository;
 
     @Inject
-    public void setRepository(SolucionadorRepository repository, TagService tagService, TagSolucionadorService tagSolucionadorService) {
+    public void setRepository(SolucionadorRepository repository, TagService tagService, TagSolucionadorRepository tagSolucionadorRepository) {
         this.repository = repository;
         this.tagService = tagService;
-        this.tagSolucionadorService = tagSolucionadorService;
+        this.tagSolucionadorRepository = tagSolucionadorRepository;
     }
 
     public List<SolucionadorResponse> findAllSolucionadores() {
@@ -42,8 +42,9 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public SolucionadorResponse salvar(SolucionadorRequest solucionadorRequest) {
         try {
             Solucionador solucionadorSalvo = repository.save(SolucionadorMapper.mapToModel(solucionadorRequest));
-            List<Tag> tagsSalvas = conectarTagSolucionador(solucionadorSalvo, solucionadorRequest.getTags());
-            return SolucionadorMapper.mapToResponse(solucionadorSalvo, tagsSalvas);
+            List<Tag> tags = salvarTags(solucionadorRequest.getTags());
+            salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
+            return SolucionadorMapper.mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
             throw exception;
@@ -52,24 +53,6 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
             throw exception;
         }
     }
-
-
-    private List<Tag> conectarTagSolucionador(Solucionador solucionador, List<String> tags) {
-        List<Tag> tagsSalvas = new ArrayList<>();
-        Tag tagSalva;
-        for (String tag : tags) {
-            tagSalva = tagService.salvar(tag);
-            tagsSalvas.add(tagSalva);
-            tagSolucionadorService.salvar(TagSolucionador
-                    .builder()
-                    .idSolucionador(solucionador.getId())
-                    .idTag(tagSalva.getId())
-                    .dataCriacao(LocalDateTime.now())
-                    .build());
-        }
-        return tagsSalvas;
-    }
-
 
     public SolucionadorResponse findByFacebookId(String facecbookId) {
         Solucionador solucionador = this.repository.findByIdFacebook(facecbookId);
@@ -81,5 +64,21 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         request.setId(entity.getId());
         Solucionador updated = this.update(SolucionadorMapper.mapToModel(request));
         return SolucionadorMapper.mapToResponse(updated);
+    }
+
+    private List<Tag> salvarTags(List<String> tags) {
+        return tags.stream()
+                .map(tagService::salvar)
+                .collect(Collectors.toList());
+    }
+
+    private void salvarTagsSolucionador(Long solucionadorId, List<Tag> tags) {
+        tagSolucionadorRepository.saveAll(tags.stream().map(tag ->
+                TagSolucionador.builder()
+                        .idTag(tag.getId())
+                        .dataCriacao(LocalDateTime.now())
+                        .idSolucionador(solucionadorId)
+                        .build()
+        ).collect(Collectors.toList()));
     }
 }

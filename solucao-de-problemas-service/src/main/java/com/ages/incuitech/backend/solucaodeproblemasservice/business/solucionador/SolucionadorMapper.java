@@ -40,17 +40,7 @@ public class SolucionadorMapper {
                 .build();
     }
 
-    public static SolucionadorResponse mapToResponse(Solucionador solucionador, List<Tag> tagsSalvas) {
-        return SolucionadorResponse.builder()
-                .id(solucionador.getId())
-                .nome(solucionador.getNome())
-                .telefone(solucionador.getTelefone())
-                .email(solucionador.getEmail())
-                .lattes(solucionador.getLattes())
-                .statusCadastro(solucionador.getStatusCadastro())
-                .dataCriacao(solucionador.getDataCriacao())
-                .facebookId(solucionador.getFacebookId())
-                .tags(tagsSalvas.stream().map(Tag::getNome).collect(Collectors.toList()))
-                .build();
+    public static SolucionadorResponse mapToResponseWithTags(Solucionador solucionador, List<String> tags) {
+        return mapToResponse(solucionador).withTags(tags);
     }
 }

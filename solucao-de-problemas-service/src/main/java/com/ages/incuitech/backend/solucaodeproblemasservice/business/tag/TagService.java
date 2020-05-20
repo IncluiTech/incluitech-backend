@@ -27,11 +27,8 @@ public class TagService extends GenericCRUDService<Tag, Long, TagRepository> {
                             .nome(tag)
                             .dataCriacao(LocalDateTime.now())
                             .build()));
-        } catch (IllegalArgumentException exception) {
-            log.error("Erro ao salvar Solucionador: dados incorretos.");
-            throw exception;
         } catch (DataAccessException exception) {
-            log.error("Erro ao salvar Solucionador: {}", exception.toString());
+            log.error("Erro ao salvar Tag: {}", exception.toString());
             throw exception;
         }
     }
