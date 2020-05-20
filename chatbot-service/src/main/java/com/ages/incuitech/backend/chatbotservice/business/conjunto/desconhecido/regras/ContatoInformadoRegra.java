@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.regras;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
@@ -9,20 +10,18 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.Q
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class ContatoInformadoRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().containsKey("aguardandoContato")
-                && message.getContexto().get("aguardandoContato").equals(true);
+        return message.getContexto().propertyIsEqualsTo("aguardandoContato", true);
     }
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        Map<String, Object> contexto = message.getContexto();
+        Contexto contexto = message.getContexto();
         TipoContato tipoContato = (TipoContato) contexto.get("tipoContato");
         String contato = message.getConteudo();
 
@@ -35,7 +34,7 @@ public class ContatoInformadoRegra implements RegraDoBot {
 
     }
 
-    private BotMessage handleEmailETelefone(MensagemInterna message, Map<String, Object> contexto, String contato) {
+    private BotMessage handleEmailETelefone(MensagemInterna message, Contexto contexto, String contato) {
         boolean isEmailDefined = Objects.nonNull(message.getContexto().get(TipoContato.EMAIL.getPropriedade()));
         boolean isTelefoneDefined = Objects.nonNull(message.getContexto().get(TipoContato.TELEFONE.getPropriedade()));
 
@@ -52,18 +51,18 @@ public class ContatoInformadoRegra implements RegraDoBot {
         return null;
     }
 
-    private BotMessage pedirTelefoneParaUsuario(Map<String, Object> contexto) {
+    private BotMessage pedirTelefoneParaUsuario(Contexto contexto) {
         contexto.put("aguardandoContato", true);
         return new BotMessage(contexto).withMessages(
                 new TextComponentBotMessage("Agora, insira seu telefone:")
         );
     }
 
-    private void setPropertyInContext(Map<String, Object> contexto, String property, String value) {
+    private void setPropertyInContext(Contexto contexto, String property, String value) {
         contexto.put(property, value);
     }
 
-    private BotMessage seguirParProximoPasso(Map<String, Object> contexto) {
+    private BotMessage seguirParProximoPasso(Contexto contexto) {
         contexto.put("aguardandoContato", false);
         contexto.put("aguardandoTipoUsuario", true);
         return new BotMessage(contexto).withMessages(

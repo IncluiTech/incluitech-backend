@@ -16,7 +16,6 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachme
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.CarouselAttachmentPayload;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.TemplateMessage;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -130,7 +129,7 @@ public class MessageMapper {
 
     public static MensagemInterna converteApiMessageParaInterna(ApiMessage messaging){
         UsuarioDaMensagem usuarioDaMensagem = messaging.getUser();
-        return new MensagemInterna(usuarioDaMensagem, TipoMensagem.EVENTO, messaging.getConteudo(),new HashMap<>());
+        return new MensagemInterna(usuarioDaMensagem, TipoMensagem.EVENTO, messaging.getConteudo(), new Contexto());
 
     }
 

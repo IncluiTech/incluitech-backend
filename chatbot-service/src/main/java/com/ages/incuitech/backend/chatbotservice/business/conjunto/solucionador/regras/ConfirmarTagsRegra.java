@@ -22,7 +22,7 @@ public class ConfirmarTagsRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().get("aguardandoConfirmacaoTags").equals(true);
+        return message.getContexto().propertyIsEqualsTo("aguardandoConfirmacaoTags", true);
     }
 
     @Override

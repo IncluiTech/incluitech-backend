@@ -2,6 +2,7 @@ package com.ages.incluitech.backend.chatbotservice.business.service;
 
 import com.ages.incluitech.backend.chatbotservice.business.service.conjutos.TestClienteMockedConjutoRegras;
 import com.ages.incluitech.backend.chatbotservice.business.service.conjutos.TestDefaultConjuntoRegras;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.ComponentBotMessageType;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
@@ -33,7 +34,7 @@ public class BotEngineTest {
                 new UsuarioDaMensagem("123", TipoUsuario.CLIENTE),
                 TipoMensagem.BOTAO,
                 "conteudo",
-                new HashMap<>()
+                new Contexto()
         );
         //when
         Optional<ConjuntoRegra> conjuntoRegra = botEngine.selecionaConjunto(mensagemInterna);
@@ -49,7 +50,7 @@ public class BotEngineTest {
     @Test
     public void shouldAlterContext() {
         //given:
-        Map<String, Object> contexto = new HashMap<>();
+        Contexto contexto = new Contexto();
         contexto.put("valor", "qualquerUm");
         MensagemInterna mensagemInterna = new MensagemInterna(
                 new UsuarioDaMensagem("123", TipoUsuario.CLIENTE),
@@ -78,7 +79,7 @@ public class BotEngineTest {
                 new UsuarioDaMensagem("123", TipoUsuario.SOLUCIONADOR),
                 TipoMensagem.BOTAO,
                 "conteudo",
-                new HashMap<>()
+                new Contexto()
         );
         //when
         Optional<ConjuntoRegra> conjuntoRegra = botEngine.selecionaConjunto(mensagemInterna);
