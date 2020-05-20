@@ -7,8 +7,6 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.Q
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
 
-import java.util.*;
-
 public class IniciarConversaRegra implements RegraDoBot {
     @Override
     public boolean verifica(MensagemInterna message) {
@@ -17,7 +15,7 @@ public class IniciarConversaRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        Context contexto = new Context();
+        Contexto contexto = new Contexto();
         contexto.put("aguardandoDefinicaoContato", true);
         return new BotMessage(contexto).withMessages(
                 new TextComponentBotMessage("Olá, Eu Sou a Helena! Consultora e especialista da Incluitec."),

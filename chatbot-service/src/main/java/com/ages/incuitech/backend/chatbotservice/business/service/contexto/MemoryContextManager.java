@@ -8,22 +8,22 @@ import java.util.Map;
 
 public class MemoryContextManager implements ContextManager {
 
-    private Map<String, Context> inMemoryContext;
+    private Map<String, Contexto> inMemoryContext;
 
     public MemoryContextManager() {
         this.inMemoryContext = new HashMap<>();
     }
 
     @Override
-    public Context getContexto(UsuarioDaMensagem usuarioDaMensagem) {
-        Context contexto = inMemoryContext.get(usuarioDaMensagem.getId());
+    public Contexto getContexto(UsuarioDaMensagem usuarioDaMensagem) {
+        Contexto contexto = inMemoryContext.get(usuarioDaMensagem.getId());
         return contexto == null
-                ? new Context()
+                ? new Contexto()
                 : contexto;
     }
 
     @Override
-    public void saveContexto(UsuarioDaMensagem usuarioDaMensagem, Context contexto) {
+    public void saveContexto(UsuarioDaMensagem usuarioDaMensagem, Contexto contexto) {
         inMemoryContext.put(usuarioDaMensagem.getId(), contexto);
     }
 }

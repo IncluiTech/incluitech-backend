@@ -9,7 +9,6 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.P
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 
 import java.util.Collections;
-import java.util.HashMap;
 
 public class ClientePerguntaMockedRegra implements RegraDoBot {
     @Override
@@ -19,7 +18,7 @@ public class ClientePerguntaMockedRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        return new BotMessage(new Context(), Collections.singletonList(new ButtonComponentBotMessage("Texto",
+        return new BotMessage(new Contexto(), Collections.singletonList(new ButtonComponentBotMessage("Texto",
                 Collections.singletonList(new PayloadButton("titulo", "conteudo"))
         )));
     }

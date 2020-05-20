@@ -12,9 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 public class BotService {
@@ -43,7 +41,7 @@ public class BotService {
         mensagensInternas.forEach(mensagem -> {
             UsuarioDaMensagem usuarioDaMensagem = userService.getUsuario(mensagem.getUsuario().getId());
             mensagem.getUsuario().setTipoUsuario(usuarioDaMensagem.getTipoUsuario());
-            Context contexto = contextManager.getContexto(mensagem.getUsuario());
+            Contexto contexto = contextManager.getContexto(mensagem.getUsuario());
             mensagem.setContexto(contexto);
             BotMessage botMessage = processMessage(mensagem);
             contextManager.saveContexto(mensagem.getUsuario(), botMessage.getContexto());
@@ -69,13 +67,13 @@ public class BotService {
         List<ComponentBotMessage> componentBotMessages = Collections.singletonList(
                 new TextComponentBotMessage("Desculpa, não entendi, pode tentar de outra forma?")
         );
-        return new BotMessage(new Context(), componentBotMessages);
+        return new BotMessage(new Contexto(), componentBotMessages);
     }
 
     private BotMessage constroiMensagemErroInesperado() {
         List<ComponentBotMessage> componentBotMessages = Collections.singletonList(
                 new TextComponentBotMessage("Opa, algo de errado aconteceu, por favor, tente mais tarde")
         );
-        return new BotMessage(new Context(), componentBotMessages);
+        return new BotMessage(new Contexto(), componentBotMessages);
     }
 }

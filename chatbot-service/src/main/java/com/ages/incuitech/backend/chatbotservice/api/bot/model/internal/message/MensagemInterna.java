@@ -12,7 +12,7 @@ public class MensagemInterna {
     private final UsuarioDaMensagem usuario;
     private final TipoMensagem tipo;
     private final String conteudo;
-    private Context contexto;
+    private Contexto contexto;
 
     public MensagemInterna(UsuarioDaMensagem usuario, TipoMensagem tipo, String conteudo) {
         this.usuario = usuario;

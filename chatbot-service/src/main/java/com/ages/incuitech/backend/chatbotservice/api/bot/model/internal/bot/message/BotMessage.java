@@ -19,7 +19,7 @@ import java.util.*;
 @ToString
 @With
 public class BotMessage {
-    private final Context contexto;
+    private final Contexto contexto;
     private List<ComponentBotMessage> messages = Collections.emptyList();
 
     public BotMessage withMessages(ComponentBotMessage... messages) {

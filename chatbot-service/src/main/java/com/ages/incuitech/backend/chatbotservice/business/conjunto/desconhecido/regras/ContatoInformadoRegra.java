@@ -10,7 +10,6 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.Q
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class ContatoInformadoRegra implements RegraDoBot {
@@ -22,7 +21,7 @@ public class ContatoInformadoRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        Context contexto = message.getContexto();
+        Contexto contexto = message.getContexto();
         TipoContato tipoContato = (TipoContato) contexto.get("tipoContato");
         String contato = message.getConteudo();
 
@@ -35,7 +34,7 @@ public class ContatoInformadoRegra implements RegraDoBot {
 
     }
 
-    private BotMessage handleEmailETelefone(MensagemInterna message, Context contexto, String contato) {
+    private BotMessage handleEmailETelefone(MensagemInterna message, Contexto contexto, String contato) {
         boolean isEmailDefined = Objects.nonNull(message.getContexto().get(TipoContato.EMAIL.getPropriedade()));
         boolean isTelefoneDefined = Objects.nonNull(message.getContexto().get(TipoContato.TELEFONE.getPropriedade()));
 
@@ -52,18 +51,18 @@ public class ContatoInformadoRegra implements RegraDoBot {
         return null;
     }
 
-    private BotMessage pedirTelefoneParaUsuario(Context contexto) {
+    private BotMessage pedirTelefoneParaUsuario(Contexto contexto) {
         contexto.put("aguardandoContato", true);
         return new BotMessage(contexto).withMessages(
                 new TextComponentBotMessage("Agora, insira seu telefone:")
         );
     }
 
-    private void setPropertyInContext(Context contexto, String property, String value) {
+    private void setPropertyInContext(Contexto contexto, String property, String value) {
         contexto.put(property, value);
     }
 
-    private BotMessage seguirParProximoPasso(Context contexto) {
+    private BotMessage seguirParProximoPasso(Contexto contexto) {
         contexto.put("aguardandoContato", false);
         contexto.put("aguardandoTipoUsuario", true);
         return new BotMessage(contexto).withMessages(
