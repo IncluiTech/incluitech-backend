@@ -1,22 +1,21 @@
 package com.ages.incuitech.backend.chatbotservice.business.provider;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.*;
 
-import java.util.Map;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 
-import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
-import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.*;
 
 public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUsuario> {
-    private Map<TipoUsuario, Function<Map<String, Object>, BotMessage>> usuarioToProviderMap;
+    private Map<TipoUsuario, Function<Contexto, BotMessage>> usuarioToProviderMap;
 
     public UsuarioGreetingMessageProvider() {
-        Function<Map<String, Object>, BotMessage> clienteProvider = contexto -> null;
-        Function<Map<String, Object>, BotMessage> solucionadorProvider = contexto ->
+        Function<Contexto, BotMessage> clienteProvider = contexto -> null;
+        Function<Contexto, BotMessage> solucionadorProvider = contexto ->
                 new BotMessage(contexto).withMessages(
                         new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",
                                 new QuickReplyButton("Sim", SIM.name()),
@@ -31,7 +30,7 @@ public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUs
     }
 
     @Override
-    public BotMessage provide(TipoUsuario tipoUsuario, Map<String, Object> contexto) {
+    public BotMessage provide(TipoUsuario tipoUsuario, Contexto contexto) {
         return this.usuarioToProviderMap.get(tipoUsuario).apply(contexto);
     }
 }

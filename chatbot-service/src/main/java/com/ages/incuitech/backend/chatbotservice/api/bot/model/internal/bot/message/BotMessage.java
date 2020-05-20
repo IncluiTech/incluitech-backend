@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
 import lombok.*;
 
 import java.util.*;
@@ -18,7 +19,7 @@ import java.util.*;
 @ToString
 @With
 public class BotMessage {
-    private final Map<String, Object> contexto;
+    private final Contexto contexto;
     private List<ComponentBotMessage> messages = Collections.emptyList();
 
     public BotMessage withMessages(ComponentBotMessage... messages) {

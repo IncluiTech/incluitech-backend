@@ -1,11 +1,7 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
 import java.util.List;
-
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,16 +20,16 @@ public class SolucionadorController {
 
     private SolucionadorService service;
 
-    SolucionadorController(SolucionadorService service) {
+    public SolucionadorController(SolucionadorService service) {
         this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<SolucionadorResponse> salvar(@RequestBody SolucionadorRequest solucionadorRequest) {
         log.info("Salvando solucionador: {}", solucionadorRequest);
-        Solucionador solucionadorSalvo = service.salvar(SolucionadorMapper.mapToModel(solucionadorRequest));
+        SolucionadorResponse solucionadorSalvo = service.salvar(solucionadorRequest);
         log.info("solucionador salvo: {}", solucionadorSalvo);
-        return ResponseEntity.ok(SolucionadorMapper.mapToResponse(solucionadorSalvo));
+        return ResponseEntity.ok(solucionadorSalvo);
     }
 
     @PutMapping

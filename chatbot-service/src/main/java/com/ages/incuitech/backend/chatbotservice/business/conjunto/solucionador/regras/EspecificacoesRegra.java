@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 public class EspecificacoesRegra implements RegraDoBot {
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().get("aguardandoEspecificacaoDeArea").equals(true);
+        return message.getContexto().propertyIsEqualsTo("aguardandoEspecificacaoDeArea", true);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.Stat
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 public class ClienteMapper {
@@ -29,5 +30,9 @@ public class ClienteMapper {
                 .statusCadastro(cliente.getStatusCadastro())
                 .dataCriacao(cliente.getDataCriacao())
                 .build();
+    }
+
+    public static ClienteResponse mapToResponseWithTags(Cliente cliente, List<String> tags) {
+        return mapToResponse(cliente).withTags(tags);
     }
 }
