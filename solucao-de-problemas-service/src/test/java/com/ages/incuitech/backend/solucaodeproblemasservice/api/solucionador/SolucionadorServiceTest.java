@@ -6,15 +6,13 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionado
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagSolucionadorRepository;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -22,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -39,7 +38,7 @@ public class SolucionadorServiceTest {
 	@Mock
 	private TagService tagService;
 	@Mock
-	private TagSolucionadorService tagSolucionadorService;
+	private TagSolucionadorRepository tagSolucionadorRepository;
 
 	@Test
 	public void findAllSolucionadoresShouldReturnSolucionador() {
@@ -52,7 +51,8 @@ public class SolucionadorServiceTest {
 
 		// assert
 		Optional<SolucionadorResponse> response = solucionadores.stream()
-				.filter(solucionadorResponse -> solucionadorResponse.getId().equals(solucionador.getId())).findFirst();
+				.filter(solucionadorResponse -> solucionadorResponse.getId().equals(solucionador.getId()))
+				.findFirst();
 		assertTrue(response.isPresent());
 		assertEquals(response.get().getEmail(), solucionador.getEmail());
 		assertEquals(response.get().getNome(), solucionador.getNome());
@@ -64,19 +64,24 @@ public class SolucionadorServiceTest {
 
 
 	@Test
-	public void testeSalvarSolucionadorDeveRetornarSolucionadorResponse() {
+	public void deveSalvarSolucionadorComSuasTags() {
+		// arrange
 		SolucionadorRequest solucionador = SolucionadorStub.getSolucionadorRequest();
 		when(repository.save(any())).thenReturn(SolucionadorMapper.mapToModel(solucionador));
-		when(tagService.salvar(any())).thenReturn(TagStub.getModelStub());
+		when(tagService.salvar("ONG")).thenReturn(TagStub.buildTagStub(1L, "ONG"));
+		when(tagService.salvar("ESCOLA")).thenReturn(TagStub.buildTagStub(2L, "ESCOLA"));
 
+		// act
 		SolucionadorResponse solucionadorSalvo = solucionadorService.salvar(solucionador);
-		assertEquals(solucionadorSalvo.getNome(), solucionador.getNome());
-	}
 
-	private Solucionador capturarSolucionadorSalva() {
-		ArgumentCaptor<Solucionador> captor = ArgumentCaptor.forClass(Solucionador.class);
-		Mockito.verify(repository, Mockito.atLeastOnce()).save(captor.capture());
-		return captor.getValue();
+		// assert
+		assertEquals(solucionadorSalvo.getNome(), solucionador.getNome());
+		assertEquals(solucionadorSalvo.getEmail(), solucionador.getEmail());
+		assertEquals(solucionadorSalvo.getTelefone(), solucionador.getTelefone());
+		assertFalse(solucionadorSalvo.getTags().isEmpty());
+		assertEquals(solucionadorSalvo.getTags().size(), 2);
+		assertEquals(solucionadorSalvo.getTags().get(0), "ONG");
+		assertEquals(solucionadorSalvo.getTags().get(1), "ESCOLA");
 	}
 
 }

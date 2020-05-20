@@ -1,43 +1,38 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionadorService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Service;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.*;
+import lombok.extern.slf4j.*;
+import org.springframework.dao.*;
+import org.springframework.stereotype.*;
 
-import javax.inject.Inject;
-import java.time.LocalDateTime;
+import javax.inject.*;
+import java.time.*;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 @Slf4j
 @Service
 public class SolucionadorService extends GenericCRUDService<Solucionador, Long, SolucionadorRepository> {
 
     private TagService tagService;
-    private TagSolucionadorService tagSolucionadorService;
+    private TagSolucionadorRepository tagSolucionadorRepository;
     private ChatBotClient client;
 
-    @Inject
-    public void setRepository(
-            SolucionadorRepository repository,
-            TagService tagService,
-            TagSolucionadorService tagSolucionadorService,
-            ChatBotClient client
-    ) {
-        this.repository = repository;
+    public SolucionadorService(TagService tagService, TagSolucionadorRepository tagSolucionadorRepository, ChatBotClient client) {
         this.tagService = tagService;
-        this.tagSolucionadorService = tagSolucionadorService;
+        this.tagSolucionadorRepository = tagSolucionadorRepository;
         this.client = client;
+    }
+
+    @Inject
+    public void setRepository(SolucionadorRepository repository) {
+        this.repository = repository;
     }
 
     public List<SolucionadorResponse> findAllSolucionadores() {
@@ -50,8 +45,9 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public SolucionadorResponse salvar(SolucionadorRequest solucionadorRequest) {
         try {
             Solucionador solucionadorSalvo = repository.save(SolucionadorMapper.mapToModel(solucionadorRequest));
-            List<Tag> tagsSalvas = conectarTagSolucionador(solucionadorSalvo, solucionadorRequest.getTags());
-            return SolucionadorMapper.mapToResponse(solucionadorSalvo, tagsSalvas);
+            List<Tag> tags = salvarTags(solucionadorRequest.getTags());
+            salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
+            return SolucionadorMapper.mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
             throw exception;
@@ -60,25 +56,6 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
             throw exception;
         }
     }
-
-
-    private List<Tag> conectarTagSolucionador(Solucionador solucionador, List<String> tags) {
-        if (tags == null || tags.isEmpty()) return Collections.emptyList();
-        List<Tag> tagsSalvas = new ArrayList<>();
-        Tag tagSalva;
-        for (String tag : tags) {
-            tagSalva = tagService.salvar(tag);
-            tagsSalvas.add(tagSalva);
-            tagSolucionadorService.salvar(TagSolucionador
-                    .builder()
-                    .idSolucionador(solucionador.getId())
-                    .idTag(tagSalva.getId())
-                    .dataCriacao(LocalDateTime.now())
-                    .build());
-        }
-        return tagsSalvas;
-    }
-
 
     public SolucionadorResponse findByFacebookId(String facecbookId) {
         Solucionador solucionador = this.repository.findByIdFacebook(facecbookId);
@@ -95,5 +72,21 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public void aprovarCadastro(String facebookId) {
         this.repository.aprovarCadastro(facebookId);
         this.client.enviarMensagemCadastroSucesso(facebookId);
+    }
+
+    private List<Tag> salvarTags(List<String> tags) {
+        return tags.stream()
+                .map(tagService::salvar)
+                .collect(Collectors.toList());
+    }
+
+    private void salvarTagsSolucionador(Long solucionadorId, List<Tag> tags) {
+        tagSolucionadorRepository.saveAll(tags.stream().map(tag ->
+                TagSolucionador.builder()
+                        .idTag(tag.getId())
+                        .dataCriacao(LocalDateTime.now())
+                        .idSolucionador(solucionadorId)
+                        .build()
+        ).collect(Collectors.toList()));
     }
 }

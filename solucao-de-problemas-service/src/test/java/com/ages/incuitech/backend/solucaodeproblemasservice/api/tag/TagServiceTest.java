@@ -32,7 +32,7 @@ public class TagServiceTest {
 
     @Test
     public void saveTagShouldReturnTag() {
-        Tag tag = TagStub.getModelStub();
+        Tag tag = TagStub.buildTagStub(1L, "TDAH");
         when(repository.findByNome(any())).thenReturn(Optional.empty());
 
         tagService.salvar(tag.getNome());

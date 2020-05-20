@@ -1,31 +1,30 @@
 package com.ages.incuitech.backend.chatbotservice;
 
-import com.ages.incuitech.backend.chatbotservice.api.service.FacebookSendService;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.cliente.ClienteConjuntoRegras;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.DesconhecidoConjuntoRegras;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.SolucionadorConjuntoRegras;
-import com.ages.incuitech.backend.chatbotservice.business.service.BotEngine;
-import com.ages.incuitech.backend.chatbotservice.business.service.BotService;
-import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
-import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
-import com.ages.incuitech.backend.chatbotservice.business.service.contexto.MemoryContextManager;
-import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
+import com.ages.incuitech.backend.chatbotservice.api.service.*;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.*;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.cliente.*;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.*;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.*;
+import com.ages.incuitech.backend.chatbotservice.business.service.*;
+import com.ages.incuitech.backend.chatbotservice.business.service.contexto.*;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.context.annotation.*;
+import org.springframework.web.client.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Configuration
 public class Config {
 
     @Value(("${facebook.send.api.url}"))
     private String sendApiUrl;
+
     @Value("${facebook.app.access.token}")
     private String accessToken;
+
+    @Value("${spring.social.facebook.graphUrl}")
+    private String graphURL;
 
     @Bean
     public ContextManager contextManager() {
@@ -38,10 +37,15 @@ public class Config {
     }
 
     @Bean
-    public List<ConjuntoRegra> conjuntoRegras(SolucaoDeProblemasClient client) {
+    public FacebookService facebookService(RestTemplate template) {
+        return new FacebookService(template, graphURL, accessToken);
+    }
+
+    @Bean
+    public List<ConjuntoRegra> conjuntoRegras(SolucaoDeProblemasClient client, FacebookService service) {
         return Arrays.asList(new ClienteConjuntoRegras(),
                 new SolucionadorConjuntoRegras(client),
-                new DesconhecidoConjuntoRegras(client)
+                new DesconhecidoConjuntoRegras(client, service)
         );
     }
 

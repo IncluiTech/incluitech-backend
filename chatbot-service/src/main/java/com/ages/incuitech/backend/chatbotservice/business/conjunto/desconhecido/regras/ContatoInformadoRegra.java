@@ -1,16 +1,13 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.regras;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
-import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.*;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.*;
+import com.ages.incuitech.backend.chatbotservice.business.domain.*;
 
-import java.util.Objects;
+import java.util.*;
 
 public class ContatoInformadoRegra implements RegraDoBot {
 
@@ -63,8 +60,8 @@ public class ContatoInformadoRegra implements RegraDoBot {
     }
 
     private BotMessage seguirParProximoPasso(Contexto contexto) {
-        contexto.put("aguardandoContato", false);
-        contexto.put("aguardandoTipoUsuario", true);
+        contexto.remove("aguardandoContato");
+        contexto.remove("aguardandoTipoUsuario");
         return new BotMessage(contexto).withMessages(
                 new QuickReplyComponentBotMessage("Antes de seguirmos para o seu perfil, me diga, o que você procura?",
                         new QuickReplyButton("Busco soluções", TipoUsuario.CLIENTE.getTipo()),
