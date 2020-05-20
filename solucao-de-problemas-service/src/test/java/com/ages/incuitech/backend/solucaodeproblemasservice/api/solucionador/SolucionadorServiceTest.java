@@ -1,7 +1,10 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.SolucionadorStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionadorService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
@@ -16,7 +19,6 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +31,12 @@ public class SolucionadorServiceTest {
 
 	@Mock
 	private SolucionadorRepository repository;
+
+	@Mock
+	private TagService tagService;
+
+	@Mock
+	private TagSolucionadorService tagSolucionadorService;
 
 	@Test
 	public void findAllSolucionadoresShouldReturnSolucionador() {

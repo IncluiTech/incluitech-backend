@@ -1,14 +1,9 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.tag;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Optional;
-
-import org.assertj.core.util.Lists;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.TagStub;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,14 +11,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorStub;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagRepository;
+import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
