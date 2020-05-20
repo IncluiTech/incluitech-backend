@@ -6,12 +6,16 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagServ
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -23,27 +27,23 @@ public class TagServiceTest {
     @Mock
     private TagRepository repository;
 
+    @Captor
+    ArgumentCaptor<Tag> captor;
 
     @Test
     public void saveTagShouldReturnTag() {
-        // arrange
         Tag tag = TagStub.getModelStub();
-        //Pode isso?
-        Tag tagresponse=tagService.salvar(tag.getNome());
-        assertEquals(tagresponse.getId(), tag.getId());
-        /*
-        when(repository.findAll()).thenReturn(Lists.newArrayList(tag));
+        when(repository.findByNome(any())).thenReturn(Optional.empty());
 
-        // act
-        List<Tag> tags = tagService.
-        // assert
-        Optional<SolucionadorResponse> response = solucionadores.stream().filter(solucionadorResponse -> solucionadorResponse.getId().equals(solucionador.getId())).findFirst();
-        assertTrue(response.isPresent());
-        assertEquals(response.get().getEmail(), solucionador.getEmail());
-        assertEquals(response.get().getNome(), solucionador.getNome());
-        assertEquals(response.get().getTelefone(), solucionador.getTelefone());
-        assertEquals(response.get().getStatusCadastro(), solucionador.getStatusCadastro());
-        verify(repository).findAll();
-*/
+        tagService.salvar(tag.getNome());
+        Tag tagSalva = capturarTagSalva();
+
+        assertEquals(tag.getNome(), tagSalva.getNome());
+    }
+
+    private Tag capturarTagSalva() {
+        ArgumentCaptor<Tag> captor = ArgumentCaptor.forClass(Tag.class);
+        Mockito.verify(repository, Mockito.atLeastOnce()).save(captor.capture());
+        return captor.getValue();
     }
 }
