@@ -130,7 +130,7 @@ public class MessageMapper {
 
     public static MensagemInterna converteApiMessageParaInterna(ApiMessage messaging){
         UsuarioDaMensagem usuarioDaMensagem = messaging.getUser();
-        return new MensagemInterna(usuarioDaMensagem, TipoMensagem.EVENTO, messaging.getConteudo(),new HashMap<>());
+        return new MensagemInterna(usuarioDaMensagem, TipoMensagem.EVENTO, messaging.getConteudo(), new Context());
 
     }
 

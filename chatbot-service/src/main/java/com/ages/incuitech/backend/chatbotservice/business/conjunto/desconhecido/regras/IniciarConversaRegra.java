@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.regras;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
@@ -12,12 +13,11 @@ public class IniciarConversaRegra implements RegraDoBot {
     @Override
     public boolean verifica(MensagemInterna message) {
         return true;
-
     }
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        Map<String, Object> contexto = new HashMap<>();
+        Context contexto = new Context();
         contexto.put("aguardandoDefinicaoContato", true);
         return new BotMessage(contexto).withMessages(
                 new TextComponentBotMessage("Olá, Eu Sou a Helena! Consultora e especialista da Incluitec."),

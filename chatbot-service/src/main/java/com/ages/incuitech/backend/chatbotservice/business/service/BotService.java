@@ -1,10 +1,10 @@
 package com.ages.incuitech.backend.chatbotservice.business.service;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.ComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.MessageMapper;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.UsuarioDaMensagem;
 import com.ages.incuitech.backend.chatbotservice.api.service.FacebookSendService;
 import com.ages.incuitech.backend.chatbotservice.business.service.contexto.ContextManager;
@@ -43,7 +43,7 @@ public class BotService {
         mensagensInternas.forEach(mensagem -> {
             UsuarioDaMensagem usuarioDaMensagem = userService.getUsuario(mensagem.getUsuario().getId());
             mensagem.getUsuario().setTipoUsuario(usuarioDaMensagem.getTipoUsuario());
-            Map<String, Object> contexto = contextManager.getContexto(mensagem.getUsuario());
+            Context contexto = contextManager.getContexto(mensagem.getUsuario());
             mensagem.setContexto(contexto);
             BotMessage botMessage = processMessage(mensagem);
             contextManager.saveContexto(mensagem.getUsuario(), botMessage.getContexto());
@@ -69,13 +69,13 @@ public class BotService {
         List<ComponentBotMessage> componentBotMessages = Collections.singletonList(
                 new TextComponentBotMessage("Desculpa, não entendi, pode tentar de outra forma?")
         );
-        return new BotMessage(new HashMap<>(), componentBotMessages);
+        return new BotMessage(new Context(), componentBotMessages);
     }
 
     private BotMessage constroiMensagemErroInesperado() {
         List<ComponentBotMessage> componentBotMessages = Collections.singletonList(
                 new TextComponentBotMessage("Opa, algo de errado aconteceu, por favor, tente mais tarde")
         );
-        return new BotMessage(new HashMap<>(), componentBotMessages);
+        return new BotMessage(new Context(), componentBotMessages);
     }
 }
