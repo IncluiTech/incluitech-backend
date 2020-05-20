@@ -1,14 +1,12 @@
 package com.ages.incuitech.backend.chatbotservice.infrastructure;
 
-import com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.SolucionadorRequest;
-import com.google.gson.Gson;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.*;
+import com.google.gson.*;
+import lombok.*;
+import lombok.extern.slf4j.*;
+import org.springframework.http.*;
+import org.springframework.stereotype.*;
+import org.springframework.web.client.*;
 
 @Slf4j
 @Component
@@ -45,8 +43,8 @@ public class SolucaoDeProblemasClient {
             restTemplate.put(properties.getUrl() + properties.getUri(), request, SolucionadorRequest.class);
         } catch (HttpStatusCodeException error) {
             log.error(String.format(
-                    "Erro na chamada REST para solucao-de-problemas-service para atualizar solucionador: %s. reponse {%s}",
-                    gson.toJson(request), error.getMessage()));
+                    "Erro na chamada REST para solucao-de-problemas-service para atualizar solucionador: %s. reponse: ",
+                    gson.toJson(request)), error);
             throw error;
         }
     }

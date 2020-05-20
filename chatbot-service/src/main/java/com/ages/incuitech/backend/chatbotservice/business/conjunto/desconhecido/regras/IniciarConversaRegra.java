@@ -1,17 +1,14 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.desconhecido.regras;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
-import com.ages.incuitech.backend.chatbotservice.business.domain.FacebookProfile;
-import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
-import com.ages.incuitech.backend.chatbotservice.business.service.FacebookService;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.*;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.*;
+import com.ages.incuitech.backend.chatbotservice.business.domain.*;
+import com.ages.incuitech.backend.chatbotservice.business.service.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class IniciarConversaRegra implements RegraDoBot {
 
@@ -28,9 +25,9 @@ public class IniciarConversaRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        Map<String, String> nomeESobrenome = this.buscarNomeDoUsuario(message.getUsuario().getId());
-        Map<String, Object> contexto = new HashMap<>(nomeESobrenome);
-
+        Map<String, Object> nomeESobrenome = this.buscarNomeDoUsuario(message.getUsuario().getId());
+        Contexto contexto = new Contexto();
+        contexto.putAll(nomeESobrenome);
         contexto.put("aguardandoDefinicaoContato", true);
         return new BotMessage(contexto).withMessages(
                 new TextComponentBotMessage("Olá " + contexto.get("nome") + ", Eu Sou a Helena! Consultora e especialista da Incluitec."),
@@ -45,7 +42,7 @@ public class IniciarConversaRegra implements RegraDoBot {
         );
     }
 
-    private Map<String, String> buscarNomeDoUsuario(String id) {
+    private Map<String, Object> buscarNomeDoUsuario(String id) {
         FacebookProfile perfil = this.facebookService.getProfile(id);
         return Map.of("nome", perfil.getFirstName(), "sobrenome", perfil.getLastName());
     }

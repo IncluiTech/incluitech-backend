@@ -3,6 +3,7 @@ package com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoMensagem;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 import com.ages.incuitech.backend.chatbotservice.business.domain.SimNao;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
@@ -20,14 +21,14 @@ public class LattesRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().containsKey("aguardandoLattes")
-                && message.getContexto().get("aguardandoLattes").equals(true);
+        return message.getContexto().propertyIsEqualsTo("aguardandoLattes", true)
+                && this.validarTipoMensagem(message);
     }
 
     @Override
     public BotMessage processa(MensagemInterna message) {
         String conteudo = message.getConteudo();
-        if (conteudo.equals(NAO.getTexto())) {
+        if (conteudo.equals(NAO.name())) {
             return new BotMessage(message.getContexto()).withMessages(
                     new TextComponentBotMessage("Sem problemas! Agora irei enviar seu perfil para os especialistas " +
                             "da Incluitec, para que ele seja aprovado.Vou te avisar assim que estiver tudo certo."
@@ -42,5 +43,9 @@ public class LattesRegra implements RegraDoBot {
                         "para que ele seja aprovado.Vou te avisar assim que estiver tudo certo."
                 )
         );
+    }
+
+    private boolean validarTipoMensagem(MensagemInterna message) {
+        return message.getTipo() == TipoMensagem.TEXTO || message.getTipo() == TipoMensagem.BOTAO;
     }
 }

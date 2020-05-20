@@ -18,8 +18,7 @@ public class EscolhaContatoRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().containsKey("aguardandoDefinicaoContato") &&
-                message.getContexto().get("aguardandoDefinicaoContato").equals(true);
+        return message.getContexto().propertyIsEqualsTo("aguardandoDefinicaoContato", true);
     }
 
     @Override

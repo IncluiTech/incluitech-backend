@@ -13,14 +13,13 @@ import static java.util.stream.Collectors.*;
 public class EspecificacoesRegra implements RegraDoBot {
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().containsKey("aguardandoEspecificacaoDeArea")
-                && message.getContexto().get("aguardandoEspecificacaoDeArea").equals(true);
+        return message.getContexto().propertyIsEqualsTo("aguardandoEspecificacaoDeArea", true);
     }
 
     @Override
     public BotMessage processa(MensagemInterna message) {
         if (this.isPrimeiraInteracao(message.getConteudo())) {
-            boolean confirmarTags = message.getConteudo().equals(NAO.getTexto());
+            boolean confirmarTags = message.getConteudo().equals(NAO.name());
             return confirmarTags ? this.confirmarTags(message) : this.perguntarSobreAreaDeAtuacao(message);
         }
 
@@ -50,8 +49,8 @@ public class EspecificacoesRegra implements RegraDoBot {
 
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage(mensagem,
-                        new QuickReplyButton("É isso aí!", SIM.getTexto()),
-                        new QuickReplyButton("Não", NAO.getTexto())
+                        new QuickReplyButton("É isso aí!", SIM.name()),
+                        new QuickReplyButton("Não", NAO.name())
                 )
         );
     }
@@ -73,13 +72,15 @@ public class EspecificacoesRegra implements RegraDoBot {
         List<String> tags = this.getTagsFromContexto(message);
         List<String> defaults = new ArrayList<>(Arrays.asList("TDAH", "Crianças", "Finalizar Tags"));
         defaults.removeAll(tags);
-        List<QuickReplyButton> buttons = defaults.stream().map(tag -> new QuickReplyButton(tag, tag)).collect(toList());
+        List<QuickReplyButton> buttons = defaults.stream()
+                .map(tag -> new QuickReplyButton(tag, tag))
+                .collect(toList());
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage("Por favor, selecione uma especificação abaixo", buttons)
         );
     }
 
     private boolean isPrimeiraInteracao(String payload) {
-        return payload.equals(SIM.getTexto()) || payload.equals(NAO.getTexto());
+        return payload.equals(SIM.name()) || payload.equals(NAO.name());
     }
 }
