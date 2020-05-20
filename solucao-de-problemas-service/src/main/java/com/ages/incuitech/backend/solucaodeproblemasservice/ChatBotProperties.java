@@ -10,6 +10,6 @@ public class ChatBotProperties {
     @Value("${url.chatbot-service}")
     private String url;
 
-    @Value("${uri.chatbot-event}")
+    @Value("${uri.chatbot-notificacao}")
     private String uri;
 }
