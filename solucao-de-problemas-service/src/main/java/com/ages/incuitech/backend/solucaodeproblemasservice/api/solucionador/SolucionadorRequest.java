@@ -1,10 +1,12 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.*;
 import lombok.*;
 
 import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,5 +17,6 @@ public class SolucionadorRequest {
     private String email;
     private String lattes;
     private List<String> tags;
+    private StatusCadastro statusCadastro;
     private String facebookId;
 }

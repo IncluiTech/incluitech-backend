@@ -1,7 +1,7 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.*;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.regras.ConfirmarTagsRegra;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.regras.EspecificacoesRegra;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.regras.LattesRegra;
@@ -17,7 +17,8 @@ public class SolucionadorConjuntoRegras extends ConjuntoRegra {
                 new LattesRegra(client),
                 new EspecificacoesRegra(),
                 new ConfirmarTagsRegra(new UsuarioGreetingMessageProvider()),
-                new SolucionadorInicialRegra()
+                new SolucionadorInicialRegra(),
+                new CadastroSucessoSolucionador()
         ));
     }
 

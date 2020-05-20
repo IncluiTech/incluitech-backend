@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toList;
 public class SolucionadorInicialRegra implements RegraDoBot {
     @Override
     public boolean verifica(MensagemInterna message) {
-        return true;
+        return message.getContexto().propertyIsEqualsTo("primeiraMensagemUsuarioComTipo", true);
     }
 
     @Override
@@ -57,6 +57,7 @@ public class SolucionadorInicialRegra implements RegraDoBot {
 
     private BotMessage perguntarSobreAreaDeAtuacao(MensagemInterna message) {
         message.getContexto().put("aguardandoEspecificacaoDeArea", true);
+        message.getContexto().remove("primeiraMensagemUsuarioComTipo");
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage("Gostaria de especificar mais sua àrea de atuação?",
                         new QuickReplyButton("Sim", SIM.name()),

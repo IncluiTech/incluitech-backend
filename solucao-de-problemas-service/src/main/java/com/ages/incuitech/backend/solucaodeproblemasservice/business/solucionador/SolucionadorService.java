@@ -1,22 +1,22 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagMapper;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagSolucionadorRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Service;
+import com.ages.incuitech.backend.solucaodeproblemasservice.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.*;
+import lombok.extern.slf4j.*;
+import org.springframework.dao.*;
+import org.springframework.stereotype.*;
 
-import javax.inject.Inject;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.inject.*;
+import java.time.*;
+import java.util.*;
+import java.util.stream.*;
+
+import static java.util.Objects.*;
 
 @Slf4j
 @Service
@@ -24,12 +24,17 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
 
     private TagService tagService;
     private TagSolucionadorRepository tagSolucionadorRepository;
+    private ChatBotClient client;
 
-    @Inject
-    public void setRepository(SolucionadorRepository repository, TagService tagService, TagSolucionadorRepository tagSolucionadorRepository) {
-        this.repository = repository;
+    public SolucionadorService(TagService tagService, TagSolucionadorRepository tagSolucionadorRepository, ChatBotClient client) {
         this.tagService = tagService;
         this.tagSolucionadorRepository = tagSolucionadorRepository;
+        this.client = client;
+    }
+
+    @Inject
+    public void setRepository(SolucionadorRepository repository) {
+        this.repository = repository;
     }
 
     public List<SolucionadorResponse> findAllSolucionadores() {
@@ -42,6 +47,11 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public SolucionadorResponse salvar(SolucionadorRequest solucionadorRequest) {
         try {
             Solucionador solucionadorSalvo = repository.save(SolucionadorMapper.mapToModel(solucionadorRequest));
+
+            if (isNull(solucionadorRequest.getTags())) {
+                return SolucionadorMapper.mapToResponse(solucionadorSalvo);
+            }
+
             List<Tag> tags = salvarTags(solucionadorRequest.getTags());
             salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
             return SolucionadorMapper.mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
@@ -64,6 +74,11 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         request.setId(entity.getId());
         Solucionador updated = this.update(SolucionadorMapper.mapToModel(request));
         return SolucionadorMapper.mapToResponse(updated);
+    }
+
+    public void aprovarCadastro(String facebookId) {
+        this.repository.aprovarCadastro(facebookId);
+        this.client.enviarMensagemCadastroSucesso(facebookId);
     }
 
     private List<Tag> salvarTags(List<String> tags) {

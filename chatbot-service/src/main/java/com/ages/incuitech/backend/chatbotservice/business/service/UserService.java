@@ -18,4 +18,5 @@ public class UserService {
                 ? new UsuarioDaMensagem(request.getFacebookId(), TipoUsuario.SOLUCIONADOR)
                 : new UsuarioDaMensagem(userId);
     }
+
 }
