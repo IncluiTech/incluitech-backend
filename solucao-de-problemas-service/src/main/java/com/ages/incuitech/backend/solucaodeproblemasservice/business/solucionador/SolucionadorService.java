@@ -31,7 +31,8 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     private ChatBotClient client;
 
 
-    public SolucionadorService(TagService tagService, TagSolucionadorRepository tagSolucionadorRepository, ChatBotClient client) {
+    public SolucionadorService(TagService tagService, TagSolucionadorRepository tagSolucionadorRepository, SolucionadorRepository solucionadorRepository, ChatBotClient client) {
+        this.repository = solucionadorRepository;
         this.tagService = tagService;
         this.tagSolucionadorRepository = tagSolucionadorRepository;
         this.client = client;
