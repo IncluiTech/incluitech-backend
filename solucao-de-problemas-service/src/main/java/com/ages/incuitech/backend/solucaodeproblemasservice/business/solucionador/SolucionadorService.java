@@ -94,13 +94,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     }
 
     private void salvarTagsSolucionador(Long solucionadorId, List<Tag> tags) {
-        tagSolucionadorRepository.saveAll(tags.stream().map(tag ->
-                TagSolucionador.builder()
-                        .idTag(tag.getId())
-                        .dataCriacao(LocalDateTime.now())
-                        .idSolucionador(solucionadorId)
-                        .build()
-        ).collect(toList()));
+        tagSolucionadorRepository.saveAll(TagMapper.buildTagSolucionador(tags, solucionadorId));
     }
 
     private Map<Long, List<String>> buscarTodasAsTagsDosSolucionadores() {
