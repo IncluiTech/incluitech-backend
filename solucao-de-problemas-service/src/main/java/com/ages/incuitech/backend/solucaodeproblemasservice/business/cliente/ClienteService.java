@@ -5,14 +5,16 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUD
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.cliente.ClienteRepository;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagClienteRepository;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @Slf4j
 @Service
@@ -27,9 +29,10 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
     }
 
     public List<ClienteResponse> findAllClientes() {
+        Map<Long, List<String>> tags = buscarTodasAsTagsDosClientes();
         return this.findAll()
                 .stream()
-                .map(cliente -> ClienteMapper.mapToResponseWithTags(cliente, findTags(cliente.getId())))
+                .map(cliente -> ClienteMapper.mapToResponseWithTags(cliente, tags.get(cliente.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -45,9 +48,9 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
         }
     }
 
-    private List<String> findTags(Long clientId) {
-        return tagClienteRepository.findTagsOfCliente(clientId).stream()
-                .map(UserTag::getTagName)
-                .collect(Collectors.toList());
+    private Map<Long, List<String>> buscarTodasAsTagsDosClientes() {
+        return tagClienteRepository.findAllLinkedTags().stream()
+                .collect(groupingBy(UserTag::getUserId,
+                        mapping(UserTag::getTagName, toList())));
     }
 }

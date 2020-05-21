@@ -47,7 +47,7 @@ public class SolucionadorServiceTest {
 		// arrange
 		Solucionador solucionador = SolucionadorStub.getModelStub();
 		when(repository.findAll()).thenReturn(Lists.newArrayList(solucionador));
-		when(tagSolucionadorRepository.findTagsOfSolucionador(1L)).thenReturn(UserTagStub.getUserTagStub());
+		when(tagSolucionadorRepository.findAllLinkedTags()).thenReturn(UserTagStub.getUserTagStub());
 
 		// act
 		List<SolucionadorResponse> solucionadores = solucionadorService.findAllSolucionadores();

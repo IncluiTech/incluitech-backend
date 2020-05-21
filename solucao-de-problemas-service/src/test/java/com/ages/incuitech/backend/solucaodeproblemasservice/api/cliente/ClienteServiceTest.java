@@ -4,7 +4,6 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.ClienteStub
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.UserTagStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.cliente.ClienteRepository;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagClienteRepository;
 import org.assertj.core.util.Lists;
@@ -44,7 +43,7 @@ public class ClienteServiceTest {
         // arrange
         Cliente Cliente = ClienteStub.getModelStub();
         when(repository.findAll()).thenReturn(Lists.newArrayList(Cliente));
-        when(tagClienteRepository.findTagsOfCliente(1L)).thenReturn(UserTagStub.getUserTagStub());
+        when(tagClienteRepository.findAllLinkedTags()).thenReturn(UserTagStub.getUserTagStub());
 
         // act
         List<ClienteResponse> Clientes = ClienteService.findAllClientes();

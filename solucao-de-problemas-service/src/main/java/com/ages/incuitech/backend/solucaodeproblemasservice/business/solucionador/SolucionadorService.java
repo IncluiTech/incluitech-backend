@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+
+import static com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper.mapToResponseWithTags;
+import static java.util.stream.Collectors.*;
 
 @Slf4j
 @Service
@@ -27,17 +29,19 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     private TagSolucionadorRepository tagSolucionadorRepository;
 
     @Inject
-    public void setRepository(SolucionadorRepository repository, TagService tagService, TagSolucionadorRepository tagSolucionadorRepository) {
+    public void setRepository(SolucionadorRepository repository, TagService tagService,
+                              TagSolucionadorRepository tagSolucionadorRepository) {
         this.repository = repository;
         this.tagService = tagService;
         this.tagSolucionadorRepository = tagSolucionadorRepository;
     }
 
     public List<SolucionadorResponse> findAllSolucionadores() {
+        Map<Long, List<String>> tags = buscarTodasAsTagsDosSolucionadores();
         return this.findAll()
                 .stream()
-                .map(solucionador -> SolucionadorMapper.mapToResponseWithTags(solucionador, buscarTags(solucionador.getId())))
-                .collect(Collectors.toList());
+                .map(solucionador -> mapToResponseWithTags(solucionador, tags.get(solucionador.getId())))
+                .collect(toList());
     }
 
     public SolucionadorResponse salvar(SolucionadorRequest solucionadorRequest) {
@@ -45,7 +49,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
             Solucionador solucionadorSalvo = repository.save(SolucionadorMapper.mapToModel(solucionadorRequest));
             List<Tag> tags = salvarTags(solucionadorRequest.getTags());
             salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
-            return SolucionadorMapper.mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
+            return mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
             throw exception;
@@ -67,16 +71,10 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         return SolucionadorMapper.mapToResponse(updated);
     }
 
-    private List<String> buscarTags(Long solucionadorId) {
-        return tagSolucionadorRepository.findTagsOfSolucionador(solucionadorId).stream()
-                .map(UserTag::getTagName)
-                .collect(Collectors.toList());
-    }
-
     private List<Tag> salvarTags(List<String> tags) {
         return tags.stream()
                 .map(tagService::salvar)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     private void salvarTagsSolucionador(Long solucionadorId, List<Tag> tags) {
@@ -86,6 +84,12 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
                         .dataCriacao(LocalDateTime.now())
                         .idSolucionador(solucionadorId)
                         .build()
-        ).collect(Collectors.toList()));
+        ).collect(toList()));
+    }
+
+    private Map<Long, List<String>> buscarTodasAsTagsDosSolucionadores() {
+        return this.tagSolucionadorRepository.findAllLinkedTags().stream()
+                .collect(groupingBy(UserTag::getUserId,
+                        mapping(UserTag::getTagName, toList())));
     }
 }
