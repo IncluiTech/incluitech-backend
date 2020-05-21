@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TagClienteRepository extends CrudRepository<TagCliente, Long> {
 
-    @Query("SELECT t.nome as tagName, t as userId " +
+    @Query("SELECT t.nome as tag_name, tc.id_cliente as user_id " +
             "FROM tag_cliente tc " +
             "JOIN tag t on t.id = tc.id_tag " +
             "WHERE tc.id_cliente = :clientId")

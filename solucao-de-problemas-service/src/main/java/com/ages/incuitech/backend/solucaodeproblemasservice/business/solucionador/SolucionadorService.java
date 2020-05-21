@@ -13,13 +13,14 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-
 import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.*;
-
 import static com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper.mapToResponseWithTags;
 import static java.util.stream.Collectors.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.*;
+import static java.util.Objects.*;
+
 
 @Slf4j
 @Service
@@ -27,13 +28,18 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
 
     private TagService tagService;
     private TagSolucionadorRepository tagSolucionadorRepository;
+    private ChatBotClient client;
 
-    @Inject
-    public void setRepository(SolucionadorRepository repository, TagService tagService,
-                              TagSolucionadorRepository tagSolucionadorRepository) {
-        this.repository = repository;
+
+    public SolucionadorService(TagService tagService, TagSolucionadorRepository tagSolucionadorRepository, ChatBotClient client) {
         this.tagService = tagService;
         this.tagSolucionadorRepository = tagSolucionadorRepository;
+        this.client = client;
+    }
+
+    @Inject
+    public void setRepository(SolucionadorRepository repository) {
+        this.repository = repository;
     }
 
     public List<SolucionadorResponse> findAllSolucionadores() {
@@ -47,6 +53,11 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     public SolucionadorResponse salvar(SolucionadorRequest solucionadorRequest) {
         try {
             Solucionador solucionadorSalvo = repository.save(SolucionadorMapper.mapToModel(solucionadorRequest));
+
+            if (isNull(solucionadorRequest.getTags())) {
+                return SolucionadorMapper.mapToResponse(solucionadorSalvo);
+            }
+
             List<Tag> tags = salvarTags(solucionadorRequest.getTags());
             salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
             return mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
@@ -69,6 +80,11 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         request.setId(entity.getId());
         Solucionador updated = this.update(SolucionadorMapper.mapToModel(request));
         return SolucionadorMapper.mapToResponse(updated);
+    }
+
+    public void aprovarCadastro(String facebookId) {
+        this.repository.aprovarCadastro(facebookId);
+        this.client.enviarMensagemCadastroSucesso(facebookId);
     }
 
     private List<Tag> salvarTags(List<String> tags) {

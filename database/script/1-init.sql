@@ -3,7 +3,7 @@ GRANT ALL PRIVILEGES ON DATABASE "incluitech" TO "postgres";
 CREATE TABLE IF NOT EXISTS cliente(
 id SERIAL PRIMARY KEY,
 nome VARCHAR (50) NOT NULL,
-email VARCHAR(50) NOT NULL,
+email VARCHAR(50),
 status_cadastro VARCHAR (20) NOT NULL,
 telefone VARCHAR(12),
 data_criacao TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -13,7 +13,7 @@ facebook_id VARCHAR(255) NOT NULL
 CREATE TABLE IF NOT EXISTS solucionador(
 id SERIAL PRIMARY KEY,
 nome VARCHAR (50) NOT NULL,
-email VARCHAR(50) NOT NULL,
+email VARCHAR(50),
 lattes VARCHAR (50),
 status_cadastro VARCHAR (20) NOT NULL,
 telefone VARCHAR (12),
