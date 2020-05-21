@@ -1,22 +1,26 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.*;
-import lombok.extern.slf4j.*;
-import org.springframework.dao.*;
-import org.springframework.stereotype.*;
-
-import javax.inject.*;
-import java.time.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagMapper;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagSolucionadorRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.*;
-
+import static com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper.mapToResponseWithTags;
+import static java.util.stream.Collectors.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.*;
 import static java.util.Objects.*;
+
 
 @Slf4j
 @Service
@@ -25,6 +29,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     private TagService tagService;
     private TagSolucionadorRepository tagSolucionadorRepository;
     private ChatBotClient client;
+
 
     public SolucionadorService(TagService tagService, TagSolucionadorRepository tagSolucionadorRepository, ChatBotClient client) {
         this.tagService = tagService;
@@ -38,10 +43,11 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     }
 
     public List<SolucionadorResponse> findAllSolucionadores() {
+        Map<Long, List<String>> tags = buscarTodasAsTagsDosSolucionadores();
         return this.findAll()
                 .stream()
-                .map(SolucionadorMapper::mapToResponse)
-                .collect(Collectors.toList());
+                .map(solucionador -> mapToResponseWithTags(solucionador, tags.get(solucionador.getId())))
+                .collect(toList());
     }
 
     public SolucionadorResponse salvar(SolucionadorRequest solucionadorRequest) {
@@ -54,7 +60,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
 
             List<Tag> tags = salvarTags(solucionadorRequest.getTags());
             salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
-            return SolucionadorMapper.mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
+            return mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
             throw exception;
@@ -84,16 +90,16 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     private List<Tag> salvarTags(List<String> tags) {
         return tags.stream()
                 .map(tagService::salvar)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     private void salvarTagsSolucionador(Long solucionadorId, List<Tag> tags) {
-        tagSolucionadorRepository.saveAll(tags.stream().map(tag ->
-                TagSolucionador.builder()
-                        .idTag(tag.getId())
-                        .dataCriacao(LocalDateTime.now())
-                        .idSolucionador(solucionadorId)
-                        .build()
-        ).collect(Collectors.toList()));
+        tagSolucionadorRepository.saveAll(TagMapper.buildTagSolucionador(tags, solucionadorId));
+    }
+
+    private Map<Long, List<String>> buscarTodasAsTagsDosSolucionadores() {
+        return this.tagSolucionadorRepository.findAllLinkedTags().stream()
+                .collect(groupingBy(UserTag::getUserId,
+                        mapping(UserTag::getTagName, toList())));
     }
 }

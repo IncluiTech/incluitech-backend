@@ -15,4 +15,10 @@ public interface TagClienteRepository extends CrudRepository<TagCliente, Long> {
             "JOIN tag t on t.id = tc.id_tag " +
             "WHERE tc.id_cliente = :clientId")
     List<UserTag> findTagsOfCliente(@Param("clientId") Long clientId);
+
+
+    @Query("SELECT tc.id_cliente as user_id, t.nome as tag_name " +
+            "FROM tag_cliente tc " +
+            "JOIN tag t on t.id = tc.id_tag ")
+    List<UserTag> findAllLinkedTags();
 }
