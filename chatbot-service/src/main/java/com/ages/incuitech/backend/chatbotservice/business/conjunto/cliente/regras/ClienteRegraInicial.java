@@ -25,7 +25,8 @@ public class ClienteRegraInicial implements RegraDoBot {
         String instituicao = message.getConteudo();
         if (instituicao.equals("Finalizar Tags")) {
             return this.perguntarSobreProximoPasso(message);
-    }
+
+     }
         return perguntaSobreLigacoes(message);
     }
 
@@ -35,7 +36,7 @@ public class ClienteRegraInicial implements RegraDoBot {
         defaults.removeAll(instituicoes);
         List<QuickReplyButton> button = defaults.stream().map(instituicao -> new QuickReplyButton(instituicao, instituicao)).collect(toList());
         return new BotMessage(message.getContexto()).withMessages(
-                new QuickReplyComponentBotMessage("A que tipo de instituição você está ligado?", (QuickReplyButton) button)
+                new QuickReplyComponentBotMessage("A que tipo de instituição você está ligado?", button)
         );
     }
 
@@ -44,7 +45,7 @@ public class ClienteRegraInicial implements RegraDoBot {
     }
 
     private BotMessage perguntarSobreProximoPasso(MensagemInterna message){
-        message.getContexto().put("aguardandoProximoPasso", true);
+        message.getContexto().put("cadastroUsuarioConcluido", true);
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage("Agora, em que posso ajudar?",
                         new QuickReplyButton("Cadastrar um problema", ProblemasCliente.CADASTRAR_PROBLEMAS.getCaminho()),

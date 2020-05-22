@@ -11,7 +11,7 @@ import java.util.Collections;
 public class ClienteConjuntoRegras extends ConjuntoRegra {
     public ClienteConjuntoRegras() {
         super(
-                Arrays.asList(ClienteRegraInicial ())
+                Arrays.asList(new ClienteRegraInicial())
         );
     }
 
