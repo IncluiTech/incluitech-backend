@@ -11,6 +11,7 @@ import com.ages.incuitech.backend.chatbotservice.business.provider.BotMessagePro
 import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
 
 import static com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.SolucionadorMapper.criarRequestAPartirDeContexto;
+import static com.ages.incuitech.backend.chatbotservice.infrastructure.cliente.ClienteMapper.criarRequestDoClienteAPartirDeContexto;
 
 
 public class TipoUsuarioInformadoRegra implements RegraDoBot {
@@ -47,7 +48,7 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
             client.saveSolucionador(criarRequestAPartirDeContexto(contexto, usuario.getId()));
         }
         if (tipoUsuario == TipoUsuario.CLIENTE) {
-            client.saveCliente(criarRequestAPartirDeContexto(contexto, usuario.getId()));
+            client.saveCliente(criarRequestDoClienteAPartirDeContexto(contexto, usuario.getId()));
         }
     }
 }
