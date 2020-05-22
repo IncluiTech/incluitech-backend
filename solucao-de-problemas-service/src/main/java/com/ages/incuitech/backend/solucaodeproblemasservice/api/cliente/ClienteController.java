@@ -59,13 +59,3 @@ public class ClienteController {
     }
 
 }
-
-
-
-
-    
-
-
-
-
-}
