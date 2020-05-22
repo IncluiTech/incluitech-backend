@@ -1,5 +1,7 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.ChatBotClient;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
@@ -21,6 +23,7 @@ import static java.util.stream.Collectors.*;
 public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRepository> {
 
     private TagClienteRepository tagClienteRepository;
+    private ChatBotClient client;
 
     @Inject
     public void setRepository(ClienteRepository repository, TagClienteRepository tagClienteRepository) {
@@ -53,4 +56,22 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
                 .collect(groupingBy(UserTag::getUserId,
                         mapping(UserTag::getTagName, toList())));
     }
+
+    public ClienteResponse update(ClienteRequest request) {
+        Cliente entity = this.repository.findByIdFacebook(request.getFacebookId());
+        request.setId(entity.getId());
+        Cliente updated = this.update(ClienteMapper.mapToModel(request));
+        return ClienteMapper.mapToResponse(updated);
+    }
+
+    public void aprovarCadastro(String facebookId) {
+        this.repository.aprovarCadastro(facebookId);
+        this.client.enviarMensagemCadastroSucesso(facebookId);
+    }
+
+    public ClienteResponse findByFacebookId(String facecbookId) {
+        Cliente cliente = this.repository.findByIdFacebook(facecbookId);
+        return cliente != null ? ClienteMapper.mapToResponse(cliente) : null;
+    }
+
 }

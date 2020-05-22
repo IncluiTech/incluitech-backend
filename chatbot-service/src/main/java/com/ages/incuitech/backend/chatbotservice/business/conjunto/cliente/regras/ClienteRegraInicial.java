@@ -26,7 +26,7 @@ public class ClienteRegraInicial implements RegraDoBot {
         if (instituicao.equals("Finalizar Tags")) {
             return this.perguntarSobreProximoPasso(message);
 
-     }
+        }
         return perguntaSobreLigacoes(message);
     }
 
@@ -54,5 +54,4 @@ public class ClienteRegraInicial implements RegraDoBot {
                 )
         );
     }
-
 }
