@@ -66,9 +66,31 @@ public class SolucaoDeProblemasClient {
         }
     }
 
+    public void updateCliente(ClienteRequest clienteRequest) {
+        HttpEntity<ClienteRequest> request = new HttpEntity<>(clienteRequest);
+
+        log.info(String.format("Iniciando chamada REST para solucao-de-problemas-service para atualizar cliente:  %s",
+                clienteRequest));
+
+        try {
+            restTemplate.put(properties.getUrl() + properties.getUriCliente(), request, ClienteRequest.class);
+        } catch (HttpStatusCodeException error) {
+            log.error(String.format(
+                    "Erro na chamada REST para solucao-de-problemas-service para atualizar cliente: %s. reponse: ",
+                    gson.toJson(request)), error);
+            throw error;
+        }
+    }
+
     public SolucionadorRequest getByFacebookId(String facebookId) {
         ResponseEntity<SolucionadorRequest> response = restTemplate
                 .getForEntity(properties.getUrl() + properties.getUri() + "/" + facebookId, SolucionadorRequest.class);
+        return response.getBody();
+    }
+
+    public ClienteRequest getClienteByFacebookId(String facebookId) {
+        ResponseEntity<ClienteRequest> response = restTemplate
+                .getForEntity(properties.getUrl() + properties.getUriCliente() + "/" + facebookId, ClienteRequest.class);
         return response.getBody();
     }
 

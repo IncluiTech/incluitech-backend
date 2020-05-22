@@ -15,7 +15,7 @@ public class UserService {
     public UsuarioDaMensagem getUsuario(String userId) {
         SolucionadorRequest request = this.client.getByFacebookId(userId);
         return request != null
-                ? new UsuarioDaMensagem(request.getFacebookId(), TipoUsuario.SOLUCIONADOR)
+                ? new UsuarioDaMensagem(request.getFacebookId(), TipoUsuario.CLIENTE)
                 : new UsuarioDaMensagem(userId);
     }
 

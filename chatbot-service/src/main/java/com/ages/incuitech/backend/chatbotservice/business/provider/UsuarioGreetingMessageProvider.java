@@ -14,7 +14,12 @@ public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUs
     private Map<TipoUsuario, Function<Contexto, BotMessage>> usuarioToProviderMap;
 
     public UsuarioGreetingMessageProvider() {
-        Function<Contexto, BotMessage> clienteProvider = contexto -> null;
+        Function<Contexto, BotMessage> clienteProvider = contexto -> new BotMessage(contexto).withMessages(
+                new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",
+                        new QuickReplyButton("Sim", SIM.name()),
+                        new QuickReplyButton("Não", NAO.name())
+                )
+        );
         Function<Contexto, BotMessage> solucionadorProvider = contexto ->
                 new BotMessage(contexto).withMessages(
                         new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",

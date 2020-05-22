@@ -11,12 +11,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
 import static java.util.stream.Collectors.toList;
 
 public class ClienteRegraInicial implements RegraDoBot {
     @Override
     public boolean verifica(MensagemInterna message) {
-        return true;
+        return message.getContexto().propertyIsEqualsTo("cadastroUsuarioConcluido", true);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.ages.incuitech.backend.chatbotservice.business.conjunto.cliente;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.ConjuntoRegra;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.cliente.regras.ClienteRegraInicial;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
 
 import java.util.Arrays;
 import java.util.Collections;
