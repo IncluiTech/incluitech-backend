@@ -12,4 +12,7 @@ public class SolucaoDeProblemasProperties {
 
     @Value("${uri.salvar-solucionador}")
     private String uri;
+
+    @Value("${uri.salvar-cliente}")
+    private String uriCliente;
 }
