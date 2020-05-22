@@ -18,13 +18,12 @@ public class EscolhaContatoRegra implements RegraDoBot {
 
     @Override
     public boolean verifica(MensagemInterna message) {
-        return message.getContexto().containsKey("aguardandoDefinicaoContato") &&
-                message.getContexto().get("aguardandoDefinicaoContato").equals(true);
+        return message.getContexto().propertyIsEqualsTo("aguardandoDefinicaoContato", true);
     }
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        message.getContexto().put("aguardandoDefinicaoContato", false);
+        message.getContexto().remove("aguardandoDefinicaoContato");
         String payload = message.getConteudo();
         TipoContato tipoContato = TipoContato.getFromTexto(payload);
         if (Objects.nonNull(tipoContato)) {

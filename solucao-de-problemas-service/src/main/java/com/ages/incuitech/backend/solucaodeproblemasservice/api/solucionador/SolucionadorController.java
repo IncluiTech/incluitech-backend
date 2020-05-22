@@ -1,21 +1,11 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
-import java.util.List;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.*;
+import lombok.extern.slf4j.*;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -24,21 +14,27 @@ public class SolucionadorController {
 
     private SolucionadorService service;
 
-    SolucionadorController(SolucionadorService service) {
+    public SolucionadorController(SolucionadorService service) {
         this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<SolucionadorResponse> salvar(@RequestBody SolucionadorRequest solucionadorRequest) {
         log.info("Salvando solucionador: {}", solucionadorRequest);
-        Solucionador solucionadorSalvo = service.salvar(SolucionadorMapper.mapToModel(solucionadorRequest));
+        SolucionadorResponse solucionadorSalvo = service.salvar(solucionadorRequest);
         log.info("solucionador salvo: {}", solucionadorSalvo);
-        return ResponseEntity.ok(SolucionadorMapper.mapToResponse(solucionadorSalvo));
+        return ResponseEntity.ok(solucionadorSalvo);
     }
 
     @PutMapping
     public SolucionadorResponse updateFromFacebookId(@RequestBody SolucionadorRequest request) {
         return this.service.update(request);
+    }
+
+    @PutMapping("/{facebookId}")
+    public ResponseEntity<SolucionadorRequest> aprovarCadastro(@PathVariable("facebookId") String facebookId) {
+        this.service.aprovarCadastro(facebookId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping

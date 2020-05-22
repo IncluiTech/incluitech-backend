@@ -3,9 +3,12 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionad
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class SolucionadorMapper {
@@ -32,8 +35,12 @@ public class SolucionadorMapper {
                 .email(solucionador.getEmail())
                 .lattes(solucionador.getLattes())
                 .statusCadastro(solucionador.getStatusCadastro())
-                .dataCriacao(LocalDateTime.now())
+                .dataCriacao(solucionador.getDataCriacao())
                 .facebookId(solucionador.getFacebookId())
                 .build();
+    }
+
+    public static SolucionadorResponse mapToResponseWithTags(Solucionador solucionador, List<String> tags) {
+        return mapToResponse(solucionador).withTags(tags);
     }
 }

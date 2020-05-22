@@ -17,4 +17,5 @@ public class Cliente {
     private String email;
     private StatusCadastro statusCadastro;
     private LocalDateTime dataCriacao;
+    private String facebookId;
 }

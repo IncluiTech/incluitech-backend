@@ -16,7 +16,6 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachme
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.CarouselAttachmentPayload;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.attachment.TemplateMessage;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class MessageMapper {
                 .map(componentBotMessage -> {
                     FacebookMessage facebookMessage = constroiFacebookMessage(componentBotMessage,
                             mensagemInterna.getUsuario());
-                    if (TipoMensagem.EVENTO.equals(mensagemInterna.getTipo())){
+                    if (TipoMensagem.EVENTO.equals(mensagemInterna.getTipo())) {
                         return facebookMessage.withMessageType(MessageType.MESSAGE_TAG.name())
                                 .withTag(ACCOUNT_UPDATE_TAG);
                     } else return facebookMessage;
@@ -49,7 +48,7 @@ public class MessageMapper {
     }
 
     private static FacebookMessage constroiFacebookMessage(ComponentBotMessage componentBotMessage,
-                                                           UsuarioDaMensagem usuarioDaMensagem){
+                                                           UsuarioDaMensagem usuarioDaMensagem) {
         if (componentBotMessage instanceof ButtonComponentBotMessage) {
             return constroiMenssagemDeBotoes((ButtonComponentBotMessage) componentBotMessage,
                     usuarioDaMensagem.getId());
@@ -128,10 +127,8 @@ public class MessageMapper {
         }
     }
 
-    public static MensagemInterna converteApiMessageParaInterna(ApiMessage messaging){
-        UsuarioDaMensagem usuarioDaMensagem = messaging.getUser();
-        return new MensagemInterna(usuarioDaMensagem, TipoMensagem.EVENTO, messaging.getConteudo(),new HashMap<>());
-
+    public static MensagemInterna criarMensagemInternaSucessoCadastro(UsuarioDaMensagem usuarioDaMensagem) {
+        return new MensagemInterna(usuarioDaMensagem, TipoMensagem.EVENTO, "", new Contexto());
     }
 
     private static boolean hasAttachment(Messaging messaging) {

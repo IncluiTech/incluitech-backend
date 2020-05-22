@@ -1,14 +1,12 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
+package com.ages.incuitech.backend.solucaodeproblemasservice.api.stub;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
 
-public class SolucionadorStub {
-    private SolucionadorStub() {
-    }
+public class ClienteStub {
 
-    public static Solucionador getModelStub() {
-        return Solucionador.builder()
+    public static Cliente getModelStub() {
+        return Cliente.builder()
                 .id(1L)
                 .email("fulano@gmail.com")
                 .nome("Fulano")

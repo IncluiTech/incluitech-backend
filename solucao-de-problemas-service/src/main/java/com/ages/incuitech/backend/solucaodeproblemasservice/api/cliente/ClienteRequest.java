@@ -17,4 +17,5 @@ public class ClienteRequest {
     private String email;
     private String telefone;
     private List<Tag> tags;
+    private String facebookId;
 }
