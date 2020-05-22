@@ -32,7 +32,7 @@ services:
       - 'facebook.send.api.url=https://graph.facebook.com/v6.0/me/messages'
       - 'facebook.app.access.token=EAAJPdsGTOhgBAEyHFpXqSZASZAHwCgRInVDC8mLOrZADX8PPDZBQ3xbQaptFOysgl3isrUn8c2CCXUA9J3oZBpZAJpgGNNrnpMY8Ao0LBwNoM87OBULVcBKSbsZAnwK7FJcqPtIlf5vHYC7qENTfZAKoUxZBEOT5P9aoeDkXSZB6GeuiTz0PDU9Fsm'
       - 'facebook.verify.token=tokenToVerify'
-      - 'url.solucao-de-problemas-service=http://solucao-de-problemas-service:8080/'
+      - 'url.solucao-de-problemas-service=http://solucao-de-problemas-service:8081/'
     ports:
       - "8081:8080"
     networks:
