@@ -46,5 +46,8 @@ public class TipoUsuarioInformadoRegra implements RegraDoBot {
         if (tipoUsuario == TipoUsuario.SOLUCIONADOR) {
             client.saveSolucionador(criarRequestAPartirDeContexto(contexto, usuario.getId()));
         }
+        if (tipoUsuario == TipoUsuario.CLIENTE) {
+            client.saveCliente(criarRequestAPartirDeContexto(contexto, usuario.getId()));
+        }
     }
 }

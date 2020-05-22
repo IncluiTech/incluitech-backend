@@ -1,6 +1,7 @@
 package com.ages.incuitech.backend.chatbotservice.infrastructure;
 
 import com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.*;
+import com.ages.incuitech.backend.chatbotservice.infrastructure.cliente.*;
 import com.google.gson.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
@@ -29,6 +30,22 @@ public class SolucaoDeProblemasClient {
             log.error(String.format(
                     "Erro na chamada REST para solucao-de-problemas-service para salvar solucionador: %s. reponse {%s}",
                     gson.toJson(solucionadorRequest), error.getMessage()));
+            throw error;
+        }
+    }
+
+    public void saveCliente(ClienteRequest clienteRequest) {
+        HttpEntity<ClienteRequest> request = new HttpEntity<>(clienteRequest);
+
+        log.info(String.format("Iniciando chamada REST para solucao-de-problemas-service para salvar cliente:  %s",
+                clienteRequest));
+
+        try {
+            restTemplate.postForEntity(properties.getUrl() + properties.getUriCliente(), request, ClienteRequest.class);
+        } catch (HttpStatusCodeException error) {
+            log.error(String.format(
+                    "Erro na chamada REST para solucao-de-problemas-service para salvar cliente: %s. reponse {%s}",
+                    gson.toJson(request), error.getMessage()));
             throw error;
         }
     }
