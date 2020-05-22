@@ -20,5 +20,5 @@ public class SolucionadorRequest implements Serializable {
     private String email;
     private String lattes;
     private String facebookId;
-    private List<Especialidade> especialidades;
+    private List<String> tags;
 }

@@ -10,6 +10,7 @@ import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblem
 import com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.SolucionadorMapper;
 
 import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
+import static com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.SolucionadorMapper.*;
 
 public class LattesRegra implements RegraDoBot {
 
@@ -37,7 +38,7 @@ public class LattesRegra implements RegraDoBot {
         }
 
         message.getContexto().put("lattes", conteudo);
-        client.updateSolucionador(SolucionadorMapper.criarRequestAPartirDeContexto(message.getContexto(), message.getUsuario().getId()));
+        client.updateSolucionador(criarRequestAPartirDeContexto(message.getContexto(), message.getUsuario().getId()));
         return new BotMessage(message.getContexto()).withMessages(
                 new TextComponentBotMessage("Legal! Agora irei enviar seu perfil para os especialistas da Incluitec, " +
                         "para que ele seja aprovado.Vou te avisar assim que estiver tudo certo."
