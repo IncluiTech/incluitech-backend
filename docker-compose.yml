@@ -12,8 +12,9 @@ services:
       - 'spring.datasource.url=jdbc:postgresql://incluitech-postgres:5432/incluitech'
       - 'spring.datasource.username=postgres'
       - 'spring.datasource.password=postgres'
+      - 'url.chatbot-service=http://chatbot-service:8081/v1/'
     ports:
-      - "8080:8081"
+      - "8080:8080"
     networks:
       - incluitechnet
     depends_on:
@@ -34,7 +35,7 @@ services:
       - 'facebook.verify.token=tokenToVerify'
       - 'url.solucao-de-problemas-service=http://solucao-de-problemas-service:8080/'
     ports:
-      - "8081:8080"
+      - "8081:8081"
     networks:
       - incluitechnet
     depends_on:

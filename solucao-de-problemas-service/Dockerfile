@@ -1,6 +1,9 @@
 FROM openjdk:12-jdk-alpine AS builder
-COPY . /usr/local/src/solucao-de-problemas-service/
 WORKDIR /usr/local/src/solucao-de-problemas-service/
+COPY ./gradlew ./gradlew
+COPY ./gradle/ ./gradle/
+RUN ./gradlew
+COPY . .
 RUN ./gradlew clean build
 
 FROM openjdk:12-jdk-alpine

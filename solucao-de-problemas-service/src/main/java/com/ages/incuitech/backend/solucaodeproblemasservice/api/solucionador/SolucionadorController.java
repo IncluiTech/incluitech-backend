@@ -42,6 +42,11 @@ public class SolucionadorController {
         return this.service.findAllSolucionadores();
     }
 
+    @GetMapping("/pendente")
+    public List<SolucionadorResponse> getSolucionadoresCadastroPendente() {
+        return this.service.findCadastroPendente();
+    }
+
     @GetMapping("/{facebookId}")
     public SolucionadorResponse getByFacebookId(@PathVariable("facebookId") String facebookId) {
         return this.service.findByFacebookId(facebookId);

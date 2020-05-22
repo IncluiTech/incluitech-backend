@@ -1,25 +1,24 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagMapper;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagSolucionadorRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Service;
-import javax.inject.Inject;
-import java.time.LocalDateTime;
-import java.util.*;
-import static com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper.mapToResponseWithTags;
-import static java.util.stream.Collectors.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.*;
+import lombok.extern.slf4j.*;
+import org.springframework.dao.*;
+import org.springframework.stereotype.*;
+
+import javax.inject.*;
+import java.util.*;
+
+import static com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper.*;
 import static java.util.Objects.*;
+import static java.util.stream.Collectors.*;
 
 
 @Slf4j
@@ -58,9 +57,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
             if (isNull(solucionadorRequest.getTags())) {
                 return SolucionadorMapper.mapToResponse(solucionadorSalvo);
             }
-
-            List<Tag> tags = salvarTags(solucionadorRequest.getTags());
-            salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
+            List<Tag> tags = persistirTagsSolucionador(solucionadorRequest, solucionadorSalvo);
             return mapToResponseWithTags(solucionadorSalvo, TagMapper.mapToTagName(tags));
         } catch (IllegalArgumentException exception) {
             log.error("Erro ao salvar Solucionador: dados incorretos.");
@@ -69,6 +66,12 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
             log.error("Erro ao salvar Solucionador: {}", exception.toString());
             throw exception;
         }
+    }
+
+    private List<Tag> persistirTagsSolucionador(SolucionadorRequest solucionadorRequest, Solucionador solucionadorSalvo) {
+        List<Tag> tags = salvarTags(solucionadorRequest.getTags());
+        salvarTagsSolucionador(solucionadorSalvo.getId(), tags);
+        return tags;
     }
 
     public SolucionadorResponse findByFacebookId(String facecbookId) {
@@ -80,7 +83,8 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         Solucionador entity = this.repository.findByIdFacebook(request.getFacebookId());
         request.setId(entity.getId());
         Solucionador updated = this.update(SolucionadorMapper.mapToModel(request));
-        return SolucionadorMapper.mapToResponse(updated);
+        List<Tag> tags = this.persistirTagsSolucionador(request, entity);
+        return mapToResponseWithTags(updated, TagMapper.mapToTagName(tags));
     }
 
     public void aprovarCadastro(String facebookId) {
@@ -102,5 +106,13 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         return this.tagSolucionadorRepository.findAllLinkedTags().stream()
                 .collect(groupingBy(UserTag::getUserId,
                         mapping(UserTag::getTagName, toList())));
+    }
+
+    public List<SolucionadorResponse> findCadastroPendente() {
+        List<Solucionador> pendentesAprovacao = this.repository.findByStatusCadastro(StatusCadastro.P.name());
+        Map<Long, List<String>> solucionadorTagMap = this.buscarTodasAsTagsDosSolucionadores();
+        return pendentesAprovacao.stream()
+                .map(solucionador -> mapToResponseWithTags(solucionador, solucionadorTagMap.get(solucionador.getId())))
+                .collect(toList());
     }
 }

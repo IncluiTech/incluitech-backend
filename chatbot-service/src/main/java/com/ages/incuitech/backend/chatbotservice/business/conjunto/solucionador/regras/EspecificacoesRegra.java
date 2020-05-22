@@ -36,8 +36,10 @@ public class EspecificacoesRegra implements RegraDoBot {
     }
 
     private BotMessage confirmarTags(MensagemInterna message) {
-        List<String> tags = this.getTagsFromContexto(message);
+        List<String> areasAtuacao = this.getTagsFromContexto(message);
         List<String> instituicoes = this.getInstituicoesFromContexto(message);
+        List<String> tags = new ArrayList<>();
+        tags.addAll(areasAtuacao);
         tags.addAll(instituicoes);
         String textTags = String.join(", ", tags);
 
