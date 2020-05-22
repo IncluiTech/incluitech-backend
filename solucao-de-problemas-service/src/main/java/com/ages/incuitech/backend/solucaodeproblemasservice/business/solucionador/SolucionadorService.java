@@ -107,4 +107,12 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
                 .collect(groupingBy(UserTag::getUserId,
                         mapping(UserTag::getTagName, toList())));
     }
+
+    public List<SolucionadorResponse> findCadastroPendente() {
+        List<Solucionador> pendentesAprovacao = this.repository.findByStatusCadastro(StatusCadastro.P.name());
+        Map<Long, List<String>> solucionadorTagMap = this.buscarTodasAsTagsDosSolucionadores();
+        return pendentesAprovacao.stream()
+                .map(solucionador -> mapToResponseWithTags(solucionador, solucionadorTagMap.get(solucionador.getId())))
+                .collect(toList());
+    }
 }
