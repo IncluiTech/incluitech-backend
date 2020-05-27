@@ -1,4 +1,7 @@
 package com.ages.incuitech.backend.chatbotservice.infrastructure.User;
 
-public class UserRequest {
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
+
+public interface UserRequest {
+    TipoUsuario getTipo();
 }

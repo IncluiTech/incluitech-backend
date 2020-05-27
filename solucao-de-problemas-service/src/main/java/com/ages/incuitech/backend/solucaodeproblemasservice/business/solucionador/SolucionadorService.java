@@ -2,6 +2,7 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionad
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.exception.SolucionadorNaoEncontradoException;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
@@ -11,6 +12,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.soluc
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.*;
 import lombok.extern.slf4j.*;
 import org.springframework.dao.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.*;
 
 import javax.inject.*;
@@ -76,7 +78,8 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
 
     public SolucionadorResponse findByFacebookId(String facecbookId) {
         Solucionador solucionador = this.repository.findByIdFacebook(facecbookId);
-        return solucionador != null ? SolucionadorMapper.mapToResponse(solucionador) : null;
+        if(solucionador != null) return SolucionadorMapper.mapToResponse(solucionador);
+        else throw new SolucionadorNaoEncontradoException();
     }
 
     public SolucionadorResponse update(SolucionadorRequest request) {

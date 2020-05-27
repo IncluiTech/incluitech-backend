@@ -4,11 +4,13 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.ChatBotClient;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteRequest;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.exception.ClienteNaoEncontradoException;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.cliente.ClienteRepository;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagClienteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -71,7 +73,11 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
 
     public ClienteResponse findByFacebookId(String facecbookId) {
         Cliente cliente = this.repository.findByIdFacebook(facecbookId);
-        return cliente != null ? ClienteMapper.mapToResponse(cliente) : null;
+        if(cliente != null){
+            return ClienteMapper.mapToResponse(cliente);
+        }
+
+        throw new ClienteNaoEncontradoException();
     }
 
 }

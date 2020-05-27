@@ -3,6 +3,7 @@ package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.exception.ClienteNaoEncontradoException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +55,12 @@ public class ClienteController {
     }
 
     @GetMapping("/{facebookId}")
-    public ClienteResponse getByFacebookId(@PathVariable("facebookId") String facebookId) {
-        return this.clienteService.findByFacebookId(facebookId);
+    public ResponseEntity<ClienteResponse> getByFacebookId(@PathVariable("facebookId") String facebookId) {
+        try{
+            return ResponseEntity.ok(this.clienteService.findByFacebookId(facebookId));
+        }catch (ClienteNaoEncontradoException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
