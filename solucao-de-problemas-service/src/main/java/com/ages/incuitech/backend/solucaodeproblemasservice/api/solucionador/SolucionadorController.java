@@ -1,5 +1,7 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.exception.SolucionadorNaoEncontradoException;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.exception.ClienteNaoEncontradoException;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.*;
 import lombok.extern.slf4j.*;
 import org.springframework.http.*;
@@ -48,7 +50,11 @@ public class SolucionadorController {
     }
 
     @GetMapping("/{facebookId}")
-    public SolucionadorResponse getByFacebookId(@PathVariable("facebookId") String facebookId) {
-        return this.service.findByFacebookId(facebookId);
+    public ResponseEntity<SolucionadorResponse> getByFacebookId(@PathVariable("facebookId") String facebookId) {
+        try{
+            return ResponseEntity.ok(this.service.findByFacebookId(facebookId));
+        }catch (SolucionadorNaoEncontradoException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
