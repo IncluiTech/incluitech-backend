@@ -1,8 +1,10 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -12,7 +14,8 @@ import java.util.Properties;
 
 import static java.util.Objects.isNull;
 
-@Component
+@Service
+@Slf4j
 public class MailService {
     private Session session;
 
@@ -40,7 +43,7 @@ public class MailService {
             message.setText(text);
             Transport.send(message);
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            log.error("Erro ao enviar e-mail para " + recipient + ". Assunto do email: " + subject);
         }
     }
 

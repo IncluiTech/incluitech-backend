@@ -1,12 +1,12 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.adm;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+@Service
 public class AdministradoresService {
     @Value("${mail.receiver.admin}")
     private String emails;
