@@ -32,10 +32,10 @@ public class PerguntasTagsRegra implements RegraDoBot {
     @Override
     public BotMessage processa(MensagemInterna message) {
         message.getContexto().removeIfExists("primeiraMensagemUsuarioComTipo");
-        if (message.getTipo() != TipoMensagem.BOTAO) return repeteTags(message);
         message.getContexto().put("clienteEstáPreenchendoTags", true);
-        String instituicao = message.getConteudo();
-        if (instituicao.equals("Finalizar Tags")) {
+        if (message.getTipo() != TipoMensagem.BOTAO) return repeteTags(message);
+        String tag = message.getConteudo();
+        if (tag.equals(FINALIZAR_TAGS)) {
             return perguntaConfirmaTags(message);
         }
         return perguntaSobreLigacoes(message);
@@ -53,7 +53,7 @@ public class PerguntasTagsRegra implements RegraDoBot {
         List<String> tagsRestantes = message.getContexto().getOrDefault("tagsRestantes", new ArrayList<>(TAGS_INICIAIS));
         List<String> tags = message.getContexto().getOrDefault("tags", new ArrayList<>());
         tags.add(tag);
-        tagsRestantes.add(FINALIZAR_TAGS);
+        if(!tagsRestantes.contains(FINALIZAR_TAGS))tagsRestantes.add(FINALIZAR_TAGS);
         tagsRestantes.removeAll(tags);
         message.getContexto().put("tags", tags);
         message.getContexto().put("tagsRestantes", tagsRestantes);
