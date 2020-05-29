@@ -30,5 +30,6 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
 
     compile 'org.projectlombok:lombok:1.18.12'
+    compile 'javax.mail:mail:1.4.7'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 }
