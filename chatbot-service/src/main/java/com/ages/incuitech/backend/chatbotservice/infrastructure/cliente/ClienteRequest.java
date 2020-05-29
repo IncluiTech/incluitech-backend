@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Builder
@@ -19,6 +20,7 @@ public class ClienteRequest implements Serializable, UserRequest {
     private String telefone;
     private String email;
     private String facebookId;
+    private List<String> tags;
 
 
     @Override

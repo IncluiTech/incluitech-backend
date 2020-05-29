@@ -1,25 +1,35 @@
 package com.ages.incuitech.backend.chatbotservice.business.provider;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.*;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.Contexto;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.*;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
 
 public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUsuario> {
     private Map<TipoUsuario, Function<Contexto, BotMessage>> usuarioToProviderMap;
 
     public UsuarioGreetingMessageProvider() {
-        Function<Contexto, BotMessage> clienteProvider = contexto -> new BotMessage(contexto).withMessages(
-                new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",
-                        new QuickReplyButton("Sim", SIM.name()),
-                        new QuickReplyButton("Não", NAO.name())
-                )
-        );
+        Function<Contexto, BotMessage> clienteProvider = contexto -> {
+            List<QuickReplyButton> buttons = Stream.of("ONG", "Escola", "Empresa", "Pessoa Física")
+                    .map(it -> new QuickReplyButton(it, it))
+                    .collect(Collectors.toList());
+            return new BotMessage(contexto).withMessages(
+                    new QuickReplyComponentBotMessage(
+                            "Selecione abaixo em que area você trabalhar atualmente",
+                            buttons
+                    )
+            );
+        };
         Function<Contexto, BotMessage> solucionadorProvider = contexto ->
                 new BotMessage(contexto).withMessages(
                         new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",
