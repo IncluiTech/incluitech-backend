@@ -5,9 +5,10 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mess
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
-import com.ages.incuitech.backend.chatbotservice.business.domain.SimNao;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
 import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
@@ -52,7 +53,7 @@ public class SolucionadorInicialRegra implements RegraDoBot {
     }
 
     private List<String> getInstituicoesFromContexto(MensagemInterna message) {
-        return (List<String>) message.getContexto().getOrDefault("instituicoes", new ArrayList<String>());
+        return message.getContexto().getOrDefault("instituicoes", new ArrayList<String>());
     }
 
     private BotMessage perguntarSobreAreaDeAtuacao(MensagemInterna message) {

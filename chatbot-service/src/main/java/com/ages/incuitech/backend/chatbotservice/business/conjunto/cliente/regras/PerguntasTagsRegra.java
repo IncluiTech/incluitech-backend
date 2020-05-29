@@ -42,7 +42,7 @@ public class PerguntasTagsRegra implements RegraDoBot {
     }
 
     private BotMessage repeteTags(MensagemInterna message) {
-        List<String> tags = (List<String>) message.getContexto().getOrDefault("tagsRestantes", TAGS_INICIAIS);
+        List<String> tags = message.getContexto().getOrDefault("tagsRestantes", TAGS_INICIAIS);
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage(buildTagsButtons(tags))
         );
@@ -50,8 +50,8 @@ public class PerguntasTagsRegra implements RegraDoBot {
 
     private BotMessage perguntaSobreLigacoes(MensagemInterna message) {
         String tag = message.getConteudo();
-        List<String> tagsRestantes = getTagsRestantes(message);
-        List<String> tags = getTagsFromMessages(message);
+        List<String> tagsRestantes = message.getContexto().getOrDefault("tagsRestantes", new ArrayList<>(TAGS_INICIAIS));
+        List<String> tags = message.getContexto().getOrDefault("tags", new ArrayList<>());
         tags.add(tag);
         tagsRestantes.add(FINALIZAR_TAGS);
         tagsRestantes.removeAll(tags);
@@ -82,13 +82,5 @@ public class PerguntasTagsRegra implements RegraDoBot {
                         new QuickReplyButton("Nao", NAO.name())
                 )
         );
-    }
-
-    private List<String> getTagsFromMessages(MensagemInterna message) {
-        return (List<String>) message.getContexto().getOrDefault("tags", new ArrayList<>());
-    }
-
-    private List<String> getTagsRestantes(MensagemInterna message) {
-        return (List<String>) message.getContexto().getOrDefault("tagsRestantes", new ArrayList<>(TAGS_INICIAIS));
     }
 }

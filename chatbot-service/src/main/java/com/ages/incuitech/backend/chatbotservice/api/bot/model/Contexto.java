@@ -24,8 +24,8 @@ public class Contexto {
         this.contexto.putAll(mapa);
     }
 
-    public Object getOrDefault(String key, Object defaultValue) {
-        return this.contexto.getOrDefault(key, defaultValue);
+    public <T>T getOrDefault(String key, T defaultValue) {
+        return (T) this.contexto.getOrDefault(key, defaultValue);
     }
 
     public void remove(String key) {

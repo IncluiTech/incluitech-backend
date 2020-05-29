@@ -1,14 +1,18 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.regras;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.*;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.*;
-import com.ages.incuitech.backend.chatbotservice.business.conjunto.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
+import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.*;
-import static java.util.stream.Collectors.*;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.NAO;
+import static com.ages.incuitech.backend.chatbotservice.business.domain.SimNao.SIM;
+import static java.util.stream.Collectors.toList;
 
 public class EspecificacoesRegra implements RegraDoBot {
     @Override
@@ -63,11 +67,11 @@ public class EspecificacoesRegra implements RegraDoBot {
     }
 
     private List<String> getInstituicoesFromContexto(MensagemInterna message) {
-        return (List<String>) message.getContexto().getOrDefault("instituicoes", new ArrayList<String>());
+        return message.getContexto().getOrDefault("instituicoes", new ArrayList<String>());
     }
 
     private List<String> getTagsFromContexto(MensagemInterna message) {
-        return (List<String>) message.getContexto().getOrDefault("areasAtuacao", new ArrayList<String>());
+        return message.getContexto().getOrDefault("areasAtuacao", new ArrayList<String>());
     }
 
     private BotMessage perguntarSobreAreaDeAtuacao(MensagemInterna message) {
