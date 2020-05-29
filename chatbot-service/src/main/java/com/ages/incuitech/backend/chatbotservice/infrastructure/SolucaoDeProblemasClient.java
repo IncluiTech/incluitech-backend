@@ -97,7 +97,7 @@ public class SolucaoDeProblemasClient {
             ResponseEntity<SolucionadorRequest> response = restTemplate
                 .getForEntity(properties.getUrl() + properties.getUri() + "/" + facebookId, SolucionadorRequest.class);
 
-            return Optional.of(response.getBody());
+            return Optional.ofNullable(response.getBody());
         } catch (HttpStatusCodeException e){
             if(e.getStatusCode().equals(HttpStatus.NOT_FOUND))
                 return Optional.empty();
@@ -110,7 +110,7 @@ public class SolucaoDeProblemasClient {
         try{
             ResponseEntity<ClienteRequest> response = restTemplate
                     .getForEntity(properties.getUrl() + properties.getUriCliente() + "/" + facebookId, ClienteRequest.class);
-            return Optional.of(response.getBody());
+            return Optional.ofNullable(response.getBody());
         }catch (HttpStatusCodeException e){
             if(e.getStatusCode().equals(HttpStatus.NOT_FOUND))
                 return Optional.empty();
