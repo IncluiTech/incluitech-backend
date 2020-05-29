@@ -1,8 +1,9 @@
 package com.ages.incuitech.backend.chatbotservice.api.bot.model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import static java.util.Objects.*;
+import static java.util.Objects.isNull;
 
 public class Contexto {
     private Map<String, Object> contexto;
@@ -23,8 +24,8 @@ public class Contexto {
         this.contexto.putAll(mapa);
     }
 
-    public Object getOrDefault(String key, Object defaultValue) {
-        return this.contexto.getOrDefault(key, defaultValue);
+    public <T>T getOrDefault(String key, T defaultValue) {
+        return (T) this.contexto.getOrDefault(key, defaultValue);
     }
 
     public void remove(String key) {
