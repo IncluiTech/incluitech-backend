@@ -44,7 +44,7 @@ public class PerguntasTagsRegra implements RegraDoBot {
     private BotMessage repeteTags(MensagemInterna message) {
         List<String> tags = message.getContexto().getOrDefault("tagsRestantes", TAGS_INICIAIS);
         return new BotMessage(message.getContexto()).withMessages(
-                new QuickReplyComponentBotMessage(buildTagsButtons(tags))
+                new QuickReplyComponentBotMessage("Selecione abaixo, por favor",buildTagsButtons(tags))
         );
     }
 
@@ -59,7 +59,7 @@ public class PerguntasTagsRegra implements RegraDoBot {
         message.getContexto().put("tagsRestantes", tagsRestantes);
         List<QuickReplyButton> buttons = buildTagsButtons(tagsRestantes);
         return new BotMessage(message.getContexto()).withMessages(
-                new QuickReplyComponentBotMessage(buttons)
+                new QuickReplyComponentBotMessage("Deseja adicionar mais alguma tag?",buttons)
         );
     }
 

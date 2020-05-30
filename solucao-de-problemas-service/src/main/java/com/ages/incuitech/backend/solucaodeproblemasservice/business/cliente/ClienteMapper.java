@@ -19,6 +19,7 @@ public class ClienteMapper {
                 .statusCadastro(StatusCadastro.P)
                 .dataCriacao(LocalDateTime.now())
                 .facebookId(clienteRequest.getFacebookId())
+                .id(clienteRequest.getId())
                 .build();
     }
 
