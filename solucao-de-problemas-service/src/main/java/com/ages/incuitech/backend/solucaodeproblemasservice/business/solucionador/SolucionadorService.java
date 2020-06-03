@@ -4,6 +4,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.exception.SolucionadorNaoEncontradoException;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.adm.AdministradoresService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.*;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.*;
@@ -26,17 +27,26 @@ import static java.util.stream.Collectors.*;
 @Slf4j
 @Service
 public class SolucionadorService extends GenericCRUDService<Solucionador, Long, SolucionadorRepository> {
-
     private TagService tagService;
     private TagSolucionadorRepository tagSolucionadorRepository;
     private ChatBotClient client;
+    private MailService mailService;
+    private AdministradoresService admService;
 
-
-    public SolucionadorService(TagService tagService, TagSolucionadorRepository tagSolucionadorRepository, SolucionadorRepository solucionadorRepository, ChatBotClient client) {
+    public SolucionadorService(
+            TagService tagService,
+            TagSolucionadorRepository tagSolucionadorRepository,
+            SolucionadorRepository solucionadorRepository,
+            ChatBotClient client,
+            MailService mailService,
+            AdministradoresService admService
+    ) {
         this.repository = solucionadorRepository;
         this.tagService = tagService;
         this.tagSolucionadorRepository = tagSolucionadorRepository;
         this.client = client;
+        this.mailService = mailService;
+        this.admService = admService;
     }
 
     @Inject
@@ -82,6 +92,12 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         else throw new SolucionadorNaoEncontradoException();
     }
 
+    public SolucionadorResponse updateAndNotificarADM(SolucionadorRequest request) {
+        SolucionadorResponse response = this.update(request);
+        this.notificarAdministradorCadastroSucesso();
+        return response;
+    }
+
     public SolucionadorResponse update(SolucionadorRequest request) {
         Solucionador entity = this.repository.findByIdFacebook(request.getFacebookId());
         request.setId(entity.getId());
@@ -117,5 +133,11 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         return pendentesAprovacao.stream()
                 .map(solucionador -> mapToResponseWithTags(solucionador, solucionadorTagMap.get(solucionador.getId())))
                 .collect(toList());
+    }
+
+    private void notificarAdministradorCadastroSucesso() {
+        this.mailService.sendTo(this.admService.getEmails(), "Novo solucionador cadastrado!", "Olá!" +
+                "\nGostaríamos de informar que um novo solucionador se cadastrou no sistema da IncluiTec e está aguardando" +
+                "a sua aprovação no painel administrativo.");
     }
 }

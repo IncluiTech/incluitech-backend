@@ -30,7 +30,7 @@ public class SolucionadorController {
 
     @PutMapping
     public SolucionadorResponse updateFromFacebookId(@RequestBody SolucionadorRequest request) {
-        return this.service.update(request);
+        return this.service.updateAndNotificarADM(request);
     }
 
     @PutMapping("/{facebookId}")
