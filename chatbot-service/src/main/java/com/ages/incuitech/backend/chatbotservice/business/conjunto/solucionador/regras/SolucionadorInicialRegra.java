@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador.regras;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.Contexto;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
@@ -24,7 +25,7 @@ public class SolucionadorInicialRegra implements RegraDoBot {
     public BotMessage processa(MensagemInterna message) {
         if (this.isPrimeiraInteracao(message.getConteudo())) {
             boolean vinculadoInstituicoes = message.getConteudo().equals(SIM.name());
-            return vinculadoInstituicoes ? this.perguntarSobreInstituicoes(message) : this.perguntarSobreAreaDeAtuacao(message);
+            return vinculadoInstituicoes ? this.fazPerguntaInicialSobreInstituicoes(message) : this.perguntarSobreAreaDeAtuacao(message);
         }
 
         String instituicao = message.getConteudo();
@@ -32,28 +33,39 @@ public class SolucionadorInicialRegra implements RegraDoBot {
             return this.perguntarSobreAreaDeAtuacao(message);
         }
 
-        List<String> instituicoes = this.getInstituicoesFromContexto(message);
+        List<String> instituicoes = this.getInstituicoesFromContexto(message.getContexto());
         instituicoes.add(instituicao);
         message.getContexto().put("instituicoes", instituicoes);
-        return perguntarSobreInstituicoes(message);
+        return perguntaSobreInstituicoes(message);
     }
 
     private boolean isPrimeiraInteracao(String conteudo) {
         return conteudo.equals(SIM.name()) || conteudo.equals(NAO.name());
     }
 
-    private BotMessage perguntarSobreInstituicoes(MensagemInterna message) {
-        List<String> instituicoes = this.getInstituicoesFromContexto(message);
-        List<String> defaults = new ArrayList<>(Arrays.asList("ONG", "Escola", "Empresa", "Pessoa Física", "Finalizar Tags"));
-        defaults.removeAll(instituicoes);
-        List<QuickReplyButton> buttons = defaults.stream().map(instituicao -> new QuickReplyButton(instituicao, instituicao)).collect(toList());
+    private BotMessage fazPerguntaInicialSobreInstituicoes(MensagemInterna message) {
+        List<QuickReplyButton> buttons = geraBotoesDeInstituicoes(message.getContexto());
         return new BotMessage(message.getContexto()).withMessages(
                 new QuickReplyComponentBotMessage("A que tipo de instituição você está ligado?", buttons)
         );
     }
 
-    private List<String> getInstituicoesFromContexto(MensagemInterna message) {
-        return message.getContexto().getOrDefault("instituicoes", new ArrayList<String>());
+    private BotMessage perguntaSobreInstituicoes(MensagemInterna message) {
+        List<QuickReplyButton> buttons = geraBotoesDeInstituicoes(message.getContexto());
+        return new BotMessage(message.getContexto()).withMessages(
+                new QuickReplyComponentBotMessage("Você adicionou " + message.getConteudo() + ", gostaria de acrescentar mais alguma?" , buttons)
+        );
+    }
+
+    private List<QuickReplyButton> geraBotoesDeInstituicoes(Contexto contexto) {
+        List<String> instituicoes = this.getInstituicoesFromContexto(contexto);
+        List<String> defaults = new ArrayList<>(Arrays.asList("ONG", "Escola", "Empresa", "Pessoa Física", "Finalizar Tags"));
+        defaults.removeAll(instituicoes);
+        return defaults.stream().map(instituicao -> new QuickReplyButton(instituicao, instituicao)).collect(toList());
+    }
+
+    private List<String> getInstituicoesFromContexto(Contexto contexto) {
+        return contexto.getOrDefault("instituicoes", new ArrayList<String>());
     }
 
     private BotMessage perguntarSobreAreaDeAtuacao(MensagemInterna message) {
@@ -65,6 +77,5 @@ public class SolucionadorInicialRegra implements RegraDoBot {
                         new QuickReplyButton("Não", NAO.name())
                 )
         );
-
     }
 }
