@@ -23,6 +23,7 @@ public class SolucionadorRequest implements Serializable, UserRequest {
     private String lattes;
     private String funcao;
     private String instituicao;
+    private String experiencia;
     private String facebookId;
     private List<String> tags;
 

@@ -19,6 +19,7 @@ public class Solucionador {
     private String lattes;
     private String funcao;
     private String instituicao;
+    private String experiencia;
     private LocalDateTime dataCriacao;
     private StatusCadastro statusCadastro;
     private String facebookId;
