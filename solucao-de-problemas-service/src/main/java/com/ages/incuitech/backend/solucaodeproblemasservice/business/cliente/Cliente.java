@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Builder
 public class Cliente {
     @Id
-    private final Long id;
-    private final String nome;
-    private final String telefone;
-    private final String email;
-    private final String funcao;
-    private final String instituicao;
-    private final StatusCadastro statusCadastro;
-    private final LocalDateTime dataCriacao;
-    private final String facebookId;
+    private Long id;
+    private String nome;
+    private String telefone;
+    private String email;
+    private String funcao;
+    private String instituicao;
+    private StatusCadastro statusCadastro;
+    private LocalDateTime dataCriacao;
+    private String facebookId;
 }

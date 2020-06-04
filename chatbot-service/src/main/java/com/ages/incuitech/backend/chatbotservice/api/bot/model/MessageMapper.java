@@ -23,7 +23,7 @@ public class MessageMapper {
 
     private static final String ACCOUNT_UPDATE_TAG = "ACCOUNT_UPDATE";
 
-    public static List<FacebookMessage> botMessageParaFacebookMessage(List<ComponentBotMessage> componentBotMessages,
+    public static List<FacebookMessage>     botMessageParaFacebookMessage(List<ComponentBotMessage> componentBotMessages,
                                                                       MensagemInterna mensagemInterna) {
         return componentBotMessages
                 .stream()
