@@ -15,6 +15,9 @@ public class SolucionadorRequest {
     private String nome;
     private String telefone;
     private String email;
+    private String funcao;
+    private String instituicao;
+    private String experiencia;
     private String lattes;
     private List<String> tags;
     private StatusCadastro statusCadastro;

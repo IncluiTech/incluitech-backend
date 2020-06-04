@@ -57,6 +57,8 @@ public class ClienteServiceTest {
         assertEquals(response.get().getEmail(), Cliente.getEmail());
         assertEquals(response.get().getNome(), Cliente.getNome());
         assertEquals(response.get().getTelefone(), Cliente.getTelefone());
+        assertEquals(response.get().getFuncao(), Cliente.getFuncao());
+        assertEquals(response.get().getInstituicao(), Cliente.getInstituicao());
         assertEquals(response.get().getStatusCadastro(), Cliente.getStatusCadastro());
         assertFalse(response.get().getTags().isEmpty());
         assertEquals(response.get().getTags().size(), 3);
