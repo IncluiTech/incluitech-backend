@@ -17,6 +17,8 @@ public class ClienteMapper {
                 .nome(nome)
                 .telefone((String) contexto.get(TipoContato.TELEFONE.getPropriedade()))
                 .email((String) contexto.get(TipoContato.EMAIL.getPropriedade()))
+                .funcao((String) contexto.get("funcao"))
+                .instituicao((String) contexto.get("instituicao"))
                 .facebookId(facebookId)
                 .build();
     }

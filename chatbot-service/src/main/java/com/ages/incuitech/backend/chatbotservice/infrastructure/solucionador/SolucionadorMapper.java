@@ -17,6 +17,8 @@ public class SolucionadorMapper {
                 .lattes((String) contexto.get("lattes"))
                 .telefone((String) contexto.get(TipoContato.TELEFONE.getPropriedade()))
                 .email((String) contexto.get(TipoContato.EMAIL.getPropriedade()))
+                .funcao((String) contexto.get("funcao"))
+                .instituicao((String) contexto.get("instituicao"))
                 .tags(getTags(contexto))
                 .facebookId(facebookId)
                 .build();

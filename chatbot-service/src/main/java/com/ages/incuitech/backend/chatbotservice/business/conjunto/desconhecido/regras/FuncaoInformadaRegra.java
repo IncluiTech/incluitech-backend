@@ -20,7 +20,7 @@ public class FuncaoInformadaRegra implements RegraDoBot {
     public BotMessage processa(MensagemInterna message) {
         message.getContexto().remove("aguardandoFuncao");
         Contexto contexto = message.getContexto();
-
+        contexto.put("funcao", message.getConteudo());
         contexto.put("aguardandoTipoUsuario", true);
         return new BotMessage(contexto).withMessages(
                 new QuickReplyComponentBotMessage("Antes de seguirmos para o seu perfil, me diga, o que você procura?",

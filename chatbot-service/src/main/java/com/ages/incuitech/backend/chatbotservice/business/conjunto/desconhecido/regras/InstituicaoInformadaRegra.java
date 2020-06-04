@@ -23,9 +23,7 @@ public class InstituicaoInformadaRegra implements RegraDoBot {
     public BotMessage processa(MensagemInterna message) {
         message.getContexto().remove("aguardandoInstituicao");
         Contexto contexto = message.getContexto();
-
-
-
+        contexto.put("instituicao", message.getConteudo());
         contexto.put("aguardandoFuncao", true);
         return new BotMessage(contexto).withMessages(
                 new TextComponentBotMessage("Informe a sua função nessa instituição:")
