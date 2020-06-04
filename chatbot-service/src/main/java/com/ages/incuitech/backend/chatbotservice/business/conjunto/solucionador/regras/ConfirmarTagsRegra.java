@@ -41,7 +41,7 @@ public class ConfirmarTagsRegra implements RegraDoBot {
 
     private BotMessage pedirExperiencia(MensagemInterna message) {
         return new BotMessage(message.getContexto()).withMessages(
-                new TextComponentBotMessage("Fale um pouco sobre suas experiências:")
+                new TextComponentBotMessage("Fale um pouco sobre suas experiências (no máximo 1000 caracteres):")
         );
     }
 }

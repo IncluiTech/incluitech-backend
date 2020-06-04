@@ -21,12 +21,12 @@ public class InstituicaoInformadaRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        message.getContexto().remove("aguardandoInstituicao");
         Contexto contexto = message.getContexto();
+        contexto.remove("aguardandoInstituicao");
         contexto.put("instituicao", message.getConteudo());
         contexto.put("aguardandoFuncao", true);
         return new BotMessage(contexto).withMessages(
-                new TextComponentBotMessage("Informe a sua função nessa instituição:")
+                new TextComponentBotMessage("Informe a sua função nessa instituição (no máximo 1000 caracteres):")
         );
     }
 

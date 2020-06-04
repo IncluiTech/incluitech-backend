@@ -18,8 +18,8 @@ public class FuncaoInformadaRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        message.getContexto().remove("aguardandoFuncao");
         Contexto contexto = message.getContexto();
+        contexto.remove("aguardandoFuncao");
         contexto.put("funcao", message.getConteudo());
         contexto.put("aguardandoTipoUsuario", true);
         return new BotMessage(contexto).withMessages(

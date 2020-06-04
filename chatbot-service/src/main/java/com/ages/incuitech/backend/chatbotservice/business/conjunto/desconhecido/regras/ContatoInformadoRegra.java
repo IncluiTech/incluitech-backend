@@ -64,7 +64,7 @@ public class ContatoInformadoRegra implements RegraDoBot {
         contexto.put("aguardandoInstituicao", true);
 
         return new BotMessage(contexto).withMessages(
-                new TextComponentBotMessage("Informe o tipo e nome da instituição a qual você está ligado:")
+                new TextComponentBotMessage("Informe o tipo e nome da instituição a qual você está ligado (no máximo 1000 caracteres):")
         );
     }
 }

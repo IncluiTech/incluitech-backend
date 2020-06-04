@@ -19,8 +19,8 @@ public class ExperienciaRegra implements RegraDoBot {
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        message.getContexto().remove("aguardandoExperiencia");
         Contexto contexto = message.getContexto();
+        contexto.remove("aguardandoExperiencia");
         contexto.put("experiencia", message.getConteudo());
         contexto.put("aguardandoLattes", true);
         return new BotMessage(message.getContexto()).withMessages(
