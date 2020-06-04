@@ -64,6 +64,8 @@ public class SolucionadorServiceTest {
                 .findFirst();
         assertTrue(response.isPresent());
         assertEquals(response.get().getEmail(), solucionador.getEmail());
+        assertEquals(response.get().getFuncao(), solucionador.getFuncao());
+        assertEquals(response.get().getInstituicao(), solucionador.getInstituicao());
         assertEquals(response.get().getNome(), solucionador.getNome());
         assertEquals(response.get().getTelefone(), solucionador.getTelefone());
         assertEquals(response.get().getStatusCadastro(), solucionador.getStatusCadastro());

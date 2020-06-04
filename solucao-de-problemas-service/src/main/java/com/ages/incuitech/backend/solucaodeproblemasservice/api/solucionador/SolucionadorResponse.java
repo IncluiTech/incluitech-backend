@@ -17,6 +17,8 @@ public class SolucionadorResponse {
     private String telefone;
     private String email;
     private String lattes;
+    private String funcao;
+    private String instituicao;
     private List<String> tags;
     private LocalDateTime dataCriacao;
     private StatusCadastro statusCadastro;
