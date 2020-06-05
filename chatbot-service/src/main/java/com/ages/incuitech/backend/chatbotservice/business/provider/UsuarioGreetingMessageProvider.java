@@ -22,7 +22,7 @@ public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUs
         );
         Function<Contexto, BotMessage> solucionadorProvider = contexto ->
                 new BotMessage(contexto).withMessages(
-                        new QuickReplyComponentBotMessage("Você está vinculado a algum tipo de instituição?",
+                        new QuickReplyComponentBotMessage("Gostaria de especificar mais sua àrea de atuação?",
                                 new QuickReplyButton("Sim", SIM.name()),
                                 new QuickReplyButton("Não", NAO.name())
                         )
