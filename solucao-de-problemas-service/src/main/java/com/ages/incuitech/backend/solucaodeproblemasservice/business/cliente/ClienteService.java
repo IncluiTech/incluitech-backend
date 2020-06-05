@@ -25,15 +25,22 @@ import static java.util.stream.Collectors.*;
 
 @Slf4j
 @Service
-@AllArgsConstructor
 public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRepository> {
 
     private TagService tagService;
     private TagClienteRepository tagClienteRepository;
     private ChatBotClient client;
 
+    public ClienteService(ClienteRepository clienteRepository, TagService tagService,
+                          TagClienteRepository tagClienteRepository, ChatBotClient client) {
+        this.tagService = tagService;
+        this.tagClienteRepository = tagClienteRepository;
+        this.client = client;
+        this.repository = clienteRepository;
+    }
+
     @Inject
-    public void setRepository(ClienteRepository repository, TagClienteRepository tagClienteRepository) {
+    public void setRepository(ClienteRepository repository) {
         this.repository = repository;
     }
 
