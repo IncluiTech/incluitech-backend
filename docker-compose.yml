@@ -31,7 +31,7 @@ services:
     restart: unless-stopped
     environment:
       - 'facebook.send.api.url=https://graph.facebook.com/v6.0/me/messages'
-      - 'facebook.app.access.token=EAAJPdsGTOhgBAEyHFpXqSZASZAHwCgRInVDC8mLOrZADX8PPDZBQ3xbQaptFOysgl3isrUn8c2CCXUA9J3oZBpZAJpgGNNrnpMY8Ao0LBwNoM87OBULVcBKSbsZAnwK7FJcqPtIlf5vHYC7qENTfZAKoUxZBEOT5P9aoeDkXSZB6GeuiTz0PDU9Fsm'
+      - 'facebook.app.access.token=EAAEMGN6v3gABAOM7kWJ8D74jUrKiLRKcJzXTpk74ENKBoN8MOO4HGWuFjycAZAlev3eZB9Fr2fdWKpgKDPdfipXVqcIZAhkgyKTpoQy3ksvXTZAuL3WzS0YtzPId3E0qpqahD5LwMO6iN1rFpDZBQZAKA50tzyxVt4cjHuMZAEPA4HZAstM6HEdjbPj6T6wOpD8ZD'
       - 'facebook.verify.token=tokenToVerify'
       - 'url.solucao-de-problemas-service=http://solucao-de-problemas-service:8080/'
     ports:
