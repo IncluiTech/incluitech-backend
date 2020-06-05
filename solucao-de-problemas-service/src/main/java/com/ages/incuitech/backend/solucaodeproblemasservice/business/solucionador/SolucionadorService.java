@@ -39,11 +39,6 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         this.client = client;
     }
 
-    @Inject
-    public void setRepository(SolucionadorRepository repository) {
-        this.repository = repository;
-    }
-
     public List<SolucionadorResponse> findAllSolucionadores() {
         Map<Long, List<String>> tags = buscarTodasAsTagsDosSolucionadores();
         return this.findAll()

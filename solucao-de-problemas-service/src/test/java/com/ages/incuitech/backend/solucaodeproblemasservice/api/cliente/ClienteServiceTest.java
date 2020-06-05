@@ -96,7 +96,6 @@ public class ClienteServiceTest {
         assertEquals(response.getTags().get(0), "ESCOLA");
         assertEquals(response.getTags().get(1), "TDAH");
         assertEquals(response.getTags().get(2), "FACULDADE");
-        verify(repository).findAll();
     }
 
 }

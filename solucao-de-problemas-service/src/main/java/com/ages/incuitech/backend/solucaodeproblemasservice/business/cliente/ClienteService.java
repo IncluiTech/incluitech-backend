@@ -39,11 +39,6 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
         this.repository = clienteRepository;
     }
 
-    @Inject
-    public void setRepository(ClienteRepository repository) {
-        this.repository = repository;
-    }
-
     public List<ClienteResponse> findAllClientes() {
         Map<Long, List<String>> tags = buscarTodasAsTagsDosClientes();
         return this.findAll()
