@@ -23,48 +23,35 @@ public class EspecificacoesRegra implements RegraDoBot {
             return confirmarTags ? this.confirmarTags(message) : this.perguntarSobreAreaDeAtuacao(message);
         }
 
-        String instituicao = message.getConteudo();
-        if (instituicao.equals("Finalizar Tags")) {
+        String areaAtuacao = message.getConteudo();
+        if (areaAtuacao.equals("Finalizar Tags")) {
             return this.confirmarTags(message);
         }
 
         List<String> tags = this.getTagsFromContexto(message);
-        tags.add(instituicao);
+        tags.add(areaAtuacao);
         message.getContexto().put("areasAtuacao", tags);
         return this.perguntarSobreAreaDeAtuacao(message);
 
     }
 
     private BotMessage confirmarTags(MensagemInterna message) {
-        List<String> areasAtuacao = this.getTagsFromContexto(message);
-        List<String> instituicoes = this.getInstituicoesFromContexto(message);
-        List<String> tags = new ArrayList<>();
-        tags.addAll(areasAtuacao);
-        tags.addAll(instituicoes);
-        String textTags = String.join(", ", tags);
-
         this.atualizarContexto(message);
-
-        String mensagem = tags.isEmpty()
-                ? "Você não especificou nenhuma especialização em sua área de atuação. Isto está correto?"
-                : "Só confirmando, suas tags são: " + textTags;
-
+        List<String> defaults = new ArrayList<>(Arrays.asList("Comunidade", "Professores", "Alunos", "Finalizar Tags"));
+        List<QuickReplyButton> buttons = defaults.stream()
+                .map(tag -> new QuickReplyButton(tag, tag))
+                .collect(toList());
         return new BotMessage(message.getContexto()).withMessages(
-                new QuickReplyComponentBotMessage(mensagem,
-                        new QuickReplyButton("É isso aí!", SIM.name()),
-                        new QuickReplyButton("Não", NAO.name())
-                )
+                new TextComponentBotMessage("Perfeito! Agora vamos espeficiar o seu Público Alvo!"),
+                new QuickReplyComponentBotMessage("Por favor, selecione um público alvo abaixo", buttons)
         );
     }
 
     private void atualizarContexto(MensagemInterna message) {
         message.getContexto().remove("aguardandoEspecificacaoDeArea");
-        message.getContexto().put("aguardandoConfirmacaoTags", true);
+        message.getContexto().put("aguardandoEspecificacaoPublicoAlvo", true);
     }
 
-    private List<String> getInstituicoesFromContexto(MensagemInterna message) {
-        return (List<String>) message.getContexto().getOrDefault("instituicoes", new ArrayList<String>());
-    }
 
     private List<String> getTagsFromContexto(MensagemInterna message) {
         return (List<String>) message.getContexto().getOrDefault("areasAtuacao", new ArrayList<String>());
@@ -72,7 +59,7 @@ public class EspecificacoesRegra implements RegraDoBot {
 
     private BotMessage perguntarSobreAreaDeAtuacao(MensagemInterna message) {
         List<String> tags = this.getTagsFromContexto(message);
-        List<String> defaults = new ArrayList<>(Arrays.asList("TDAH", "Crianças", "Finalizar Tags"));
+        List<String> defaults = new ArrayList<>(Arrays.asList("Oficinas e Cursos", "Talentos", "Informação e apoio", "Consultoria", "Suporte Emocional", "Finalizar Tags"));
         defaults.removeAll(tags);
         List<QuickReplyButton> buttons = defaults.stream()
                 .map(tag -> new QuickReplyButton(tag, tag))
