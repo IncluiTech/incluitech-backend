@@ -17,7 +17,7 @@ import java.util.*;
 @Configuration
 public class Config {
 
-    @Value(("${facebook.send.api.url}"))
+    @Value("${facebook.send.api.url}")
     private String sendApiUrl;
 
     @Value("${facebook.app.access.token}")

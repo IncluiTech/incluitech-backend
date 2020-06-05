@@ -15,7 +15,7 @@ import javax.inject.Inject;
 
 @Controller
 @RequestMapping("/webhook")
-public class    FacebookController {
+public class FacebookController {
     private static final Logger log = LoggerFactory.getLogger(FacebookController.class);
 
     @Value("${facebook.verify.token}")

@@ -3,7 +3,6 @@ package com.ages.incuitech.backend.chatbotservice.api.bot.model;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.FacebookUser;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.Messaging;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.incoming.UserMessage;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.api.ApiMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoMensagem;
@@ -24,7 +23,7 @@ public class MessageMapper {
 
     private static final String ACCOUNT_UPDATE_TAG = "ACCOUNT_UPDATE";
 
-    public static List<FacebookMessage> botMessageParaFacebookMessage(List<ComponentBotMessage> componentBotMessages,
+    public static List<FacebookMessage>     botMessageParaFacebookMessage(List<ComponentBotMessage> componentBotMessages,
                                                                       MensagemInterna mensagemInterna) {
         return componentBotMessages
                 .stream()
@@ -43,7 +42,7 @@ public class MessageMapper {
                 .stream()
                 .flatMap(entry -> entry.getMessaging()
                         .stream()
-                        .map(MessageMapper::converteMensagemUsarioParaInterna)
+                        .map(MessageMapper::converteMensagemUsuarioParaInterna)
                 ).collect(Collectors.toList());
     }
 
@@ -109,7 +108,7 @@ public class MessageMapper {
                 .withRecipient(new UserRecipient(userId));
     }
 
-    private static MensagemInterna converteMensagemUsarioParaInterna(Messaging messaging) {
+    private static MensagemInterna converteMensagemUsuarioParaInterna(Messaging messaging) {
         FacebookUser facebookUser = messaging.getSender();
         UsuarioDaMensagem usuarioDaMensagem = new UsuarioDaMensagem(facebookUser.getId());
         if (messaging.getPostback() != null) {

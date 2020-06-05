@@ -18,6 +18,8 @@ public class ClienteRequest implements Serializable, UserRequest {
     private Long id;
     private String nome;
     private String telefone;
+    private String funcao;
+    private String instituicao;
     private String email;
     private String facebookId;
     private List<String> tags;

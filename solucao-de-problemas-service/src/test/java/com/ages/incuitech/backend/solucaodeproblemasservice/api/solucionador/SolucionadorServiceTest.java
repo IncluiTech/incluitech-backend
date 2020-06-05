@@ -1,8 +1,10 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.MailService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.SolucionadorStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.TagStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.UserTagStub;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.adm.AdministradoresService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.Solucionador;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorService;
@@ -32,64 +34,71 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 public class SolucionadorServiceTest {
 
-	@InjectMocks
-	private SolucionadorService solucionadorService;
+    @InjectMocks
+    private SolucionadorService solucionadorService;
 
-	@Mock
-	private SolucionadorRepository repository;
-	@Mock
-	private TagService tagService;
-	@Mock
-	private TagSolucionadorRepository tagSolucionadorRepository;
+    @Mock
+    private SolucionadorRepository repository;
+    @Mock
+    private TagService tagService;
+    @Mock
+    private TagSolucionadorRepository tagSolucionadorRepository;
+    @Mock
+    private MailService mailService;
+    @Mock
+    private AdministradoresService admService;
 
-	@Test
-	public void findAllSolucionadoresShouldReturnSolucionador() {
-		// arrange
-		Solucionador solucionador = SolucionadorStub.getModelStub();
-		when(repository.findAll()).thenReturn(Lists.newArrayList(solucionador));
-		when(tagSolucionadorRepository.findAllLinkedTags()).thenReturn(UserTagStub.getUserTagStub());
+    @Test
+    public void findAllSolucionadoresShouldReturnSolucionador() {
+        // arrange
+        Solucionador solucionador = SolucionadorStub.getModelStub();
+        when(repository.findAll()).thenReturn(Lists.newArrayList(solucionador));
+        when(tagSolucionadorRepository.findAllLinkedTags()).thenReturn(UserTagStub.getUserTagStub());
 
-		// act
-		List<SolucionadorResponse> solucionadores = solucionadorService.findAllSolucionadores();
+        // act
+        List<SolucionadorResponse> solucionadores = solucionadorService.findAllSolucionadores();
 
-		// assert
-		Optional<SolucionadorResponse> response = solucionadores.stream()
-				.filter(solucionadorResponse -> solucionadorResponse.getId().equals(solucionador.getId()))
-				.findFirst();
-		assertTrue(response.isPresent());
-		assertEquals(response.get().getEmail(), solucionador.getEmail());
-		assertEquals(response.get().getNome(), solucionador.getNome());
-		assertEquals(response.get().getTelefone(), solucionador.getTelefone());
-		assertEquals(response.get().getStatusCadastro(), solucionador.getStatusCadastro());
-		assertFalse(response.get().getTags().isEmpty());
-		Assertions.assertEquals(response.get().getTags().size(), 3);
-		Assertions.assertEquals(response.get().getTags().get(0), "TDAH");
-		Assertions.assertEquals(response.get().getTags().get(1), "CRINACAS");
-		Assertions.assertEquals(response.get().getTags().get(2), "ESCOLA");
-		verify(repository).findAll();
+        // assert
+        Optional<SolucionadorResponse> response = solucionadores.stream()
+                .filter(solucionadorResponse -> solucionadorResponse.getId().equals(solucionador.getId()))
+                .findFirst();
+        assertTrue(response.isPresent());
+        assertEquals(response.get().getEmail(), solucionador.getEmail());
+        assertEquals(response.get().getFuncao(), solucionador.getFuncao());
+        assertEquals(response.get().getInstituicao(), solucionador.getInstituicao());
+        assertEquals(response.get().getNome(), solucionador.getNome());
+        assertEquals(response.get().getTelefone(), solucionador.getTelefone());
+        assertEquals(response.get().getExperiencia(), solucionador.getExperiencia());
+        assertEquals(response.get().getStatusCadastro(), solucionador.getStatusCadastro());
+        assertFalse(response.get().getTags().isEmpty());
+        Assertions.assertEquals(response.get().getTags().size(), 3);
+        Assertions.assertEquals(response.get().getTags().get(0), "TDAH");
+        Assertions.assertEquals(response.get().getTags().get(1), "CRINACAS");
+        Assertions.assertEquals(response.get().getTags().get(2), "ESCOLA");
+        verify(repository).findAll();
 
-	}
+    }
 
 
-	@Test
-	public void deveSalvarSolucionadorComSuasTags() {
-		// arrange
-		SolucionadorRequest solucionador = SolucionadorStub.getSolucionadorRequest();
-		when(repository.save(any())).thenReturn(SolucionadorMapper.mapToModel(solucionador));
-		when(tagService.salvar("ONG")).thenReturn(TagStub.buildTagStub(1L, "ONG"));
-		when(tagService.salvar("ESCOLA")).thenReturn(TagStub.buildTagStub(2L, "ESCOLA"));
+    @Test
+    public void deveSalvarSolucionadorComSuasTags() {
+        // arrange
+        SolucionadorRequest solucionador = SolucionadorStub.getSolucionadorRequest();
+        when(repository.save(any())).thenReturn(SolucionadorMapper.mapToModel(solucionador));
+        when(tagService.salvar("ONG")).thenReturn(TagStub.buildTagStub(1L, "ONG"));
+        when(tagService.salvar("ESCOLA")).thenReturn(TagStub.buildTagStub(2L, "ESCOLA"));
 
-		// act
-		SolucionadorResponse solucionadorSalvo = solucionadorService.salvar(solucionador);
+        // act
+        SolucionadorResponse solucionadorSalvo = solucionadorService.salvar(solucionador);
 
-		// assert
-		assertEquals(solucionadorSalvo.getNome(), solucionador.getNome());
-		assertEquals(solucionadorSalvo.getEmail(), solucionador.getEmail());
-		assertEquals(solucionadorSalvo.getTelefone(), solucionador.getTelefone());
-		assertFalse(solucionadorSalvo.getTags().isEmpty());
-		assertEquals(solucionadorSalvo.getTags().size(), 2);
-		assertEquals(solucionadorSalvo.getTags().get(0), "ONG");
-		assertEquals(solucionadorSalvo.getTags().get(1), "ESCOLA");
-	}
+        // assert
+        assertEquals(solucionadorSalvo.getNome(), solucionador.getNome());
+        assertEquals(solucionadorSalvo.getEmail(), solucionador.getEmail());
+        assertEquals(solucionadorSalvo.getTelefone(), solucionador.getTelefone());
+        assertFalse(solucionadorSalvo.getTags().isEmpty());
+        assertEquals(solucionadorSalvo.getTags().size(), 2);
+        assertEquals(solucionadorSalvo.getTags().get(0), "ONG");
+        assertEquals(solucionadorSalvo.getTags().get(1), "ESCOLA");
+    }
 
 }

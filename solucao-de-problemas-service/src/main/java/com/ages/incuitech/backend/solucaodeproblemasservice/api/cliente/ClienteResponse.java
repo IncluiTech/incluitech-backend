@@ -16,6 +16,8 @@ public class ClienteResponse {
     private String nome;
     private String email;
     private String telefone;
+    private String funcao;
+    private String instituicao;
     private List<String> tags;
     private StatusCadastro statusCadastro;
     private LocalDateTime dataCriacao;
