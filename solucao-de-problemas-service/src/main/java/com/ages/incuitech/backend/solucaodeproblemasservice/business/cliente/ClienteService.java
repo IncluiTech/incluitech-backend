@@ -99,8 +99,6 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
     }
 
     private List<Tag> salvarTags(List<String> tags) {
-        return tags.stream()
-                .map(tagService::salvar)
-                .collect(toList());
+        return tagService.batchSave(tags);
     }
 }

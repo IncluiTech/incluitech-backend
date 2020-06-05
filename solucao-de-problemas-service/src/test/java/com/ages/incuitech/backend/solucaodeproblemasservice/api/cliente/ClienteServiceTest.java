@@ -1,6 +1,7 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.ClienteStub;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.TagStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.UserTagStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteService;
@@ -23,6 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -79,9 +81,7 @@ public class ClienteServiceTest {
         ClienteRequest request = ClienteStub.getUpdateRequestStub();
         when(repository.findByIdFacebook("faceId")).thenReturn(entity);
         when(repository.save(any())).thenReturn(entity);
-        when(tagService.salvar("ESCOLA")).thenReturn(Tag.builder().id(1L).nome("ESCOLA").build());
-        when(tagService.salvar("TDAH")).thenReturn(Tag.builder().id(1L).nome("TDAH").build());
-        when(tagService.salvar("FACULDADE")).thenReturn(Tag.builder().id(1L).nome("FACULDADE").build());
+        when(tagService.batchSave(anyList())).thenReturn(TagStub.buidListTagStup("ESCOLA", "TDAH", "FACULDADE"));
 
         // act
         ClienteResponse response = clienteService.update(request);
