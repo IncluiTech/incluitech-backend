@@ -4,6 +4,7 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.Contexto;
 import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteMapper {
     private ClienteMapper() {
@@ -16,7 +17,8 @@ public class ClienteMapper {
                 .nome(nome)
                 .telefone((String) contexto.get(TipoContato.TELEFONE.getPropriedade()))
                 .email((String) contexto.get(TipoContato.EMAIL.getPropriedade()))
-                .tags(contexto.getOrDefault("tags", new ArrayList<>()))
+                .funcao((String) contexto.get("funcao"))
+                .instituicao((String) contexto.get("instituicao"))
                 .facebookId(facebookId)
                 .build();
     }

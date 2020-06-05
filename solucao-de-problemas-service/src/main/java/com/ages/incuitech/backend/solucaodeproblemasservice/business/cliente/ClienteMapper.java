@@ -16,6 +16,8 @@ public class ClienteMapper {
                 .nome(clienteRequest.getNome())
                 .telefone(clienteRequest.getTelefone())
                 .email(clienteRequest.getEmail())
+                .funcao(clienteRequest.getFuncao())
+                .instituicao(clienteRequest.getInstituicao())
                 .statusCadastro(StatusCadastro.P)
                 .dataCriacao(LocalDateTime.now())
                 .facebookId(clienteRequest.getFacebookId())
@@ -29,6 +31,8 @@ public class ClienteMapper {
                 .id(cliente.getId())
                 .email(cliente.getEmail())
                 .telefone(cliente.getTelefone())
+                .funcao(cliente.getFuncao())
+                .instituicao(cliente.getInstituicao())
                 .statusCadastro(cliente.getStatusCadastro())
                 .dataCriacao(cliente.getDataCriacao())
                 .build();

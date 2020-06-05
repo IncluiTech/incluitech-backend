@@ -2,7 +2,6 @@ package com.ages.incuitech.backend.chatbotservice.business.conjunto.solucionador
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.*;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.*;
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.*;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.*;
 import com.ages.incuitech.backend.chatbotservice.business.provider.*;
 
@@ -26,9 +25,9 @@ public class ConfirmarTagsRegra implements RegraDoBot {
     @Override
     public BotMessage processa(MensagemInterna message) {
         if (message.getConteudo().equals(SIM.name())) {
-            message.getContexto().put("aguardandoLattes", true);
+            message.getContexto().put("aguardandoExperiencia", true);
             message.getContexto().remove("aguardandoConfirmacaoTags");
-            return this.pedirLattes(message);
+            return this.pedirExperiencia(message);
         }
 
         message.getContexto().remove("aguardandoConfirmacaoTags");
@@ -40,11 +39,9 @@ public class ConfirmarTagsRegra implements RegraDoBot {
         return botMessage;
     }
 
-    private BotMessage pedirLattes(MensagemInterna message) {
+    private BotMessage pedirExperiencia(MensagemInterna message) {
         return new BotMessage(message.getContexto()).withMessages(
-                new QuickReplyComponentBotMessage("Agora preciso que insira o link de seu currículo Lattes:",
-                        new QuickReplyButton("Não possuo", NAO.name())
-                )
+                new TextComponentBotMessage("Fale um pouco sobre suas experiências (no máximo 1000 caracteres):")
         );
     }
 }

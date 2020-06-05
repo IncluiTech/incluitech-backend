@@ -4,11 +4,8 @@ import java.time.LocalDateTime;
 
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 
+import lombok.*;
 import org.springframework.data.annotation.Id;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Builder
@@ -20,6 +17,9 @@ public class Solucionador {
     private String telefone;
     private String email;
     private String lattes;
+    private String funcao;
+    private String instituicao;
+    private String experiencia;
     private LocalDateTime dataCriacao;
     private StatusCadastro statusCadastro;
     private String facebookId;
