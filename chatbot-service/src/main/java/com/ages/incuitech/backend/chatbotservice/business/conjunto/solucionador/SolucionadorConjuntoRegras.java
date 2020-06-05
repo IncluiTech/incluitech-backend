@@ -13,6 +13,7 @@ public class SolucionadorConjuntoRegras extends ConjuntoRegra {
         super(Arrays.asList(
                 new LattesRegra(client),
                 new ExperienciaRegra(),
+                new PublicoAlvoRegra(),
                 new EspecificacoesRegra(),
                 new ConfirmarTagsRegra(new UsuarioGreetingMessageProvider()),
                 new CadastroSucessoSolucionador()
