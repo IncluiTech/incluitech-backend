@@ -1,26 +1,29 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.ChatBotClient;
+import com.ages.incuitech.backend.solucaodeproblemasservice.MailService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.exception.SolucionadorNaoEncontradoException;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.adm.AdministradoresService;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.*;
-import lombok.extern.slf4j.*;
-import org.springframework.dao.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagMapper;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.solucionador.SolucionadorRepository;
+import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagSolucionadorRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
-import javax.inject.*;
-import java.util.*;
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Map;
 
-import static com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper.*;
-import static java.util.Objects.*;
+import static com.ages.incuitech.backend.solucaodeproblemasservice.business.solucionador.SolucionadorMapper.mapToResponseWithTags;
+import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.*;
 
 
@@ -83,7 +86,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
 
     public SolucionadorResponse findByFacebookId(String facecbookId) {
         Solucionador solucionador = this.repository.findByIdFacebook(facecbookId);
-        if(solucionador != null) return SolucionadorMapper.mapToResponse(solucionador);
+        if (solucionador != null) return SolucionadorMapper.mapToResponse(solucionador);
         else throw new SolucionadorNaoEncontradoException();
     }
 
@@ -113,7 +116,10 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     }
 
     private void salvarTagsSolucionador(Long solucionadorId, List<Tag> tags) {
-        tagSolucionadorRepository.saveAll(TagMapper.buildTagSolucionador(tags, solucionadorId));
+        List<UserTag> currentTags = tagSolucionadorRepository.findTagsOfSolucionador(solucionadorId);
+        List<String> currentTagsNames = currentTags.stream().map(UserTag::getTagName).collect(toList());
+        List<Tag> newTags = tags.stream().filter(tag -> !currentTagsNames.contains(tag.getNome())).collect(toList());
+        tagSolucionadorRepository.saveAll(TagMapper.buildTagSolucionador(newTags, solucionadorId));
     }
 
     private Map<Long, List<String>> buscarTodasAsTagsDosSolucionadores() {

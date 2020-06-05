@@ -6,7 +6,7 @@ plugins {
 }
 
 bootJar {
-    mainClassName = 'com.ages.incuitech.backend.chatbotservice.Application'
+    mainClassName = 'com.ages.incuitech.backend.chatbotservice.ChatbotService'
 }
 
 repositories {

@@ -1,10 +1,9 @@
 package com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.Contexto;
-import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
+import com.ages.incuitech.backend.chatbotservice.business.domain.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SolucionadorMapper {
     private SolucionadorMapper() {
@@ -29,9 +28,11 @@ public class SolucionadorMapper {
     private static List<String> getTags(Contexto contexto) {
         List<String> instituicoes = contexto.getOrDefault("instituicoes", new ArrayList<>());
         List<String> areasAtuacao = contexto.getOrDefault("areasAtuacao", new ArrayList<>());
+        List<String> publicosAlvo = contexto.getOrDefault("publicosAlvo", new ArrayList<>());
         List<String> tags = new ArrayList<>();
         tags.addAll(instituicoes);
         tags.addAll(areasAtuacao);
+        tags.addAll(publicosAlvo);
         return tags;
     }
 }
