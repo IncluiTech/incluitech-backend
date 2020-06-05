@@ -15,7 +15,6 @@ public class SolucionadorConjuntoRegras extends ConjuntoRegra {
                 new ExperienciaRegra(),
                 new EspecificacoesRegra(),
                 new ConfirmarTagsRegra(new UsuarioGreetingMessageProvider()),
-                new SolucionadorInicialRegra(),
                 new CadastroSucessoSolucionador()
         ));
     }
