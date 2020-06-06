@@ -5,11 +5,15 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TagRepository  extends CrudRepository<Tag, Long> {
 
     @Query("SELECT * FROM tag WHERE nome = :nome")
     Optional<Tag> findByNome(@Param("nome") String nome);
+
+    @Query("SELECT nome FROM tag WHERE nome in :nomes")
+    List<String> encontraTodasTagsPelosNomes(@Param("nomes") List<String> nomes);
 
 }

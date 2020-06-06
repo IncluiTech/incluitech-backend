@@ -11,12 +11,10 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagServ
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.cliente.ClienteRepository;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagClienteRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -89,7 +87,10 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
     }
 
     private void salvarTagsCliente(Long clienteId, List<Tag> tags) {
-        tagClienteRepository.saveAll(TagMapper.buildTagCliente(tags, clienteId));
+        List<UserTag> currentTags = tagClienteRepository.findTagsOfCliente(clienteId);
+        List<String> currentTagsNames = currentTags.stream().map(UserTag::getTagName).collect(toList());
+        List<Tag> newTags = tags.stream().filter(tag -> !currentTagsNames.contains(tag.getNome())).collect(toList());
+        tagClienteRepository.saveAll(TagMapper.buildTagCliente(newTags, clienteId));
     }
 
     private List<Tag> persistirTagsCliente(ClienteRequest clienteRequest, Cliente clienteSalvo) {

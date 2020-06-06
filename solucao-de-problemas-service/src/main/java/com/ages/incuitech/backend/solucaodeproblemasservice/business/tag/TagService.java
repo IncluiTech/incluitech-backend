@@ -33,21 +33,18 @@ public class TagService extends GenericCRUDService<Tag, Long, TagRepository> {
     }
 
     public List<Tag> batchSave(List<String> tags) {
-        try {
-            List<Tag> tagsToSave = tags.stream()
+        try{
+            List<String> tagsExistentes = repository.encontraTodasTagsPelosNomes(tags);
+            List<Tag> tagsParaCriar = tags.stream()
+                    .filter(it -> !tagsExistentes.contains(it))
                     .map(this::buildTag)
-                    .filter(it -> !this.tagExist(it))
                     .collect(Collectors.toList());
-            repository.saveAll(tagsToSave);
-            return tagsToSave;
-        } catch (DataAccessException exception) {
-            log.error("Error on batchSave tags: {}", exception.toString());
+            repository.saveAll(tagsParaCriar);
+            return tagsParaCriar;
+        }catch(DataAccessException exception){
+            log.error("Erro ao salvar tags: {}", exception.toString());
             throw exception;
         }
-    }
-
-    private boolean tagExist(Tag tag) {
-        return buscarTagPorNome(tag.getNome()).isPresent();
     }
 
     private Tag buildTag(String tag) {
