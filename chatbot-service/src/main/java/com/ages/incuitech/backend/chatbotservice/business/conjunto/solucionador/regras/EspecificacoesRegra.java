@@ -52,9 +52,12 @@ public class EspecificacoesRegra implements RegraDoBot {
         message.getContexto().put("aguardandoEspecificacaoPublicoAlvo", true);
     }
 
+    private List<String> getInstituicoesFromContexto(MensagemInterna message) {
+        return message.getContexto().getOrDefault("instituicoes", new ArrayList<String>());
+    }
 
     private List<String> getTagsFromContexto(MensagemInterna message) {
-        return (List<String>) message.getContexto().getOrDefault("areasAtuacao", new ArrayList<String>());
+        return message.getContexto().getOrDefault("areasAtuacao", new ArrayList<String>());
     }
 
     private BotMessage perguntarSobreAreaDeAtuacao(MensagemInterna message) {

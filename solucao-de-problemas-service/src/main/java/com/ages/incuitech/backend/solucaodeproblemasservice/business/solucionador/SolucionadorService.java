@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 
@@ -50,11 +49,6 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
         this.client = client;
         this.mailService = mailService;
         this.admService = admService;
-    }
-
-    @Inject
-    public void setRepository(SolucionadorRepository repository) {
-        this.repository = repository;
     }
 
     public List<SolucionadorResponse> findAllSolucionadores() {
@@ -115,9 +109,7 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
     }
 
     private List<Tag> salvarTags(List<String> tags) {
-        return tags.stream()
-                .map(tagService::salvar)
-                .collect(toList());
+        return tagService.batchSave(tags);
     }
 
     private void salvarTagsSolucionador(Long solucionadorId, List<Tag> tags) {

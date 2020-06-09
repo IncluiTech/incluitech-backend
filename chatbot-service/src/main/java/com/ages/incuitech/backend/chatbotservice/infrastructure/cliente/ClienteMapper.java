@@ -1,7 +1,7 @@
 package com.ages.incuitech.backend.chatbotservice.infrastructure.cliente;
 
-import com.ages.incuitech.backend.chatbotservice.api.bot.model.*;
-import com.ages.incuitech.backend.chatbotservice.business.domain.*;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.Contexto;
+import com.ages.incuitech.backend.chatbotservice.business.domain.TipoContato;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +21,5 @@ public class ClienteMapper {
                 .instituicao((String) contexto.get("instituicao"))
                 .facebookId(facebookId)
                 .build();
-    }
-
-    private static List<String> getTags(Contexto contexto) {
-        List<String> instituicoes = (List<String>) contexto.getOrDefault("instituicoes", new ArrayList<>());
-        List<String> areasAtuacao = (List<String>) contexto.getOrDefault("areasAtuacao", new ArrayList<>());
-        List<String> tags = new ArrayList<>();
-        tags.addAll(instituicoes);
-        tags.addAll(areasAtuacao);
-        return tags;
     }
 }
