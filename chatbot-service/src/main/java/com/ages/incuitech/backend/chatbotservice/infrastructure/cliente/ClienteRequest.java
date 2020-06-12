@@ -2,6 +2,7 @@ package com.ages.incuitech.backend.chatbotservice.infrastructure.cliente;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.User.UserRequest;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ClienteRequest implements Serializable, UserRequest {
     private Long id;
     private String nome;

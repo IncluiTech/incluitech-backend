@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -37,10 +38,15 @@ public class TagService extends GenericCRUDService<Tag, Long, TagRepository> {
         try{
             if(tags.isEmpty()) return Collections.emptyList();
             List<Tag> tagsExistentes = repository.encontraTodasTagsPelosNomes(tags);
-            List<Tag> tagsParaCriar = tagsExistentes.stream()
-                    .filter(it -> !tagsExistentes.contains(it))
+            List<Tag> tagsParaCriar = tags.stream()
+                    .filter(it -> !tagsExistentes.stream()
+                            .map(Tag::getNome)
+                            .collect(Collectors.toList())
+                            .contains(it))
+                    .map(this::buildTag)
                     .collect(Collectors.toList());
-            repository.saveAll(tagsParaCriar);
+            Iterable<Tag> tagsSalvas = repository.saveAll(tagsParaCriar);
+            tagsSalvas.iterator().forEachRemaining(tagsExistentes::add);
             return tagsExistentes;
         }catch(DataAccessException exception){
             log.error("Erro ao salvar tags: {}", exception.toString());

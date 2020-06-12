@@ -1,12 +1,12 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.problema.ProblemaResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.exception.ClienteNaoEncontradoException;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +25,11 @@ import java.util.List;
 public class ClienteController {
 
     private ClienteService clienteService;
+    private ProblemaService problemaService;
 
-    public ClienteController(ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService, ProblemaService problemaService) {
         this.clienteService = clienteService;
+        this.problemaService = problemaService;
     }
 
     @PostMapping
@@ -52,6 +54,11 @@ public class ClienteController {
     public ResponseEntity<ClienteRequest> aprovarCadastro(@PathVariable("facebookId") String facebookId) {
         this.clienteService.aprovarCadastro(facebookId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{clientId}/problemas")
+    public List<ProblemaResponse> problemas(@PathVariable("clientId") Integer clientId) {
+        return this.problemaService.findAllOf(clientId);
     }
 
     @GetMapping("/{facebookId}")

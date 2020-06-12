@@ -5,6 +5,8 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteR
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.exception.ClienteNaoEncontradoException;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.Problema;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagMapper;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
@@ -26,12 +28,15 @@ import static java.util.stream.Collectors.*;
 public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRepository> {
 
     private TagService tagService;
+    private ProblemaService problemaService;
     private TagClienteRepository tagClienteRepository;
     private ChatBotClient client;
 
     public ClienteService(ClienteRepository clienteRepository, TagService tagService,
-                          TagClienteRepository tagClienteRepository, ChatBotClient client) {
+                          TagClienteRepository tagClienteRepository, ChatBotClient client,
+                          ProblemaService problemaService) {
         this.tagService = tagService;
+        this.problemaService = problemaService;
         this.tagClienteRepository = tagClienteRepository;
         this.client = client;
         this.repository = clienteRepository;
@@ -39,9 +44,10 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
 
     public List<ClienteResponse> findAllClientes() {
         Map<Long, List<String>> tags = buscarTodasAsTagsDosClientes();
+        Map<Long, List<Problema>> problemas = buscarTodosOsProblemasDosClientes();
         return this.findAll()
                 .stream()
-                .map(cliente -> ClienteMapper.mapToResponseWithTags(cliente, tags.get(cliente.getId())))
+                .map(cliente -> ClienteMapper.mapToResponseWithTagsAndProblemas(cliente, tags.get(cliente.getId()), problemas.get(cliente.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -84,6 +90,11 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
         return tagClienteRepository.findAllLinkedTags().stream()
                 .collect(groupingBy(UserTag::getUserId,
                         mapping(UserTag::getTagName, toList())));
+    }
+
+    private Map<Long, List<Problema>> buscarTodosOsProblemasDosClientes() {
+        return problemaService.findAll().stream()
+                .collect(groupingBy(Problema::getIdCliente));
     }
 
     private void salvarTagsCliente(Long clienteId, List<Tag> tags) {

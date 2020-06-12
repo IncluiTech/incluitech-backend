@@ -1,4 +1,4 @@
-package com.ages.incuitech.backend.solucaodeproblemasservice.api.problema;
+package com.ages.incuitech.backend.chatbotservice.business.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class ProblemaResponse {
+public class ProblemaDoCliente {
     private Long id;
     private String titulo;
     private String descricao;

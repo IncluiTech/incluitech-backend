@@ -20,7 +20,7 @@ public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUs
 
     public UsuarioGreetingMessageProvider() {
         Function<Contexto, BotMessage> clienteProvider = contexto -> {
-            List<QuickReplyButton> buttons = Stream.of("ONG", "Escola", "Empresa", "Pessoa Física")
+            List<QuickReplyButton> buttons = Stream.of("Oficinas e Cursos", "Talentos", "Informação e apoio", "Consultoria", "Suporte Emocional")
                     .map(it -> new QuickReplyButton(it, it))
                     .collect(Collectors.toList());
             return new BotMessage(contexto).withMessages(

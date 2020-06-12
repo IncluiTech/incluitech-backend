@@ -10,6 +10,7 @@ public class ProblemaMapper {
 
     public static Problema fromRequestToModel(ProblemaRequest request) {
         return Problema.builder()
+                .titulo(request.getTitulo())
                 .descricao(request.getDescricao())
                 .idCliente(request.getIdCliente())
                 .build();
@@ -17,6 +18,7 @@ public class ProblemaMapper {
 
     public static ProblemaResponse fromModelToResponse(Problema model) {
         return ProblemaResponse.builder()
+                .titulo(model.getTitulo())
                 .descricao(model.getDescricao())
                 .id(model.getId())
                 .idCliente(model.getIdCliente())

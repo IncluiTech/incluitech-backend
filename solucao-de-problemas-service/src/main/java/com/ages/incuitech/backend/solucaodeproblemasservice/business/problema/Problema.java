@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 public class Problema {
     @Id
     private Long id;
+    private String titulo;
     private String descricao;
     private Long idCliente;
 

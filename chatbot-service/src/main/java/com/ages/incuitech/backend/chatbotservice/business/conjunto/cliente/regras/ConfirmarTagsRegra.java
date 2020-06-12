@@ -5,10 +5,11 @@ import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.mess
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.outgoing.button.QuickReplyButton;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
-import com.ages.incuitech.backend.chatbotservice.business.domain.ProblemasCliente;
 import com.ages.incuitech.backend.chatbotservice.business.domain.SimNao;
+import com.ages.incuitech.backend.chatbotservice.business.provider.BotMessageProvider;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.SolucaoDeProblemasClient;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.cliente.ClienteRequest;
 
@@ -22,9 +23,11 @@ import static com.ages.incuitech.backend.chatbotservice.infrastructure.cliente.C
 public class ConfirmarTagsRegra implements RegraDoBot {
     private static final List<String> confirmation = Arrays.asList(SIM.name().toLowerCase(), NAO.name().toLowerCase());
     private final SolucaoDeProblemasClient solucaoDeProblemasClient;
+    private final BotMessageProvider<TipoUsuario> botMessageProvider;
 
-    public ConfirmarTagsRegra(SolucaoDeProblemasClient solucaoDeProblemasClient) {
+    public ConfirmarTagsRegra(SolucaoDeProblemasClient solucaoDeProblemasClient, BotMessageProvider<TipoUsuario> botMessageProvider) {
         this.solucaoDeProblemasClient = solucaoDeProblemasClient;
+        this.botMessageProvider = botMessageProvider;
     }
 
     @Override
@@ -45,18 +48,9 @@ public class ConfirmarTagsRegra implements RegraDoBot {
                 : perguntaTags(message);
     }
 
-    //@ToDo validar resposta pós cadastro.
     private BotMessage perguntaProximoPasso(MensagemInterna message) {
         updateCliente(message);
-        return new BotMessage(new Contexto()).withMessages(
-                new TextComponentBotMessage("Legal, em breve você recebará um email informando se seu cadastro foi " +
-                        "aprovado ou não"),
-                new QuickReplyComponentBotMessage("Agora, em que posso ajudar?",
-                        new QuickReplyButton("Cadastrar um problema", ProblemasCliente.CADASTRAR_PROBLEMAS.getCaminho()),
-                        new QuickReplyButton("Verificar problemas cadastrados", ProblemasCliente.PROBLEMAS_EXISTENTES
-                                .getCaminho())
-                )
-        );
+        return botMessageProvider.provide(TipoUsuario.CLIENTE, message.getContexto()).withContexto(new Contexto());
     }
 
     private void updateCliente(MensagemInterna message) {
