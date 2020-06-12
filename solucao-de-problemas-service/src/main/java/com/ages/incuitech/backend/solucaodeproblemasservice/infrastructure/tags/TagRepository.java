@@ -13,7 +13,7 @@ public interface TagRepository  extends CrudRepository<Tag, Long> {
     @Query("SELECT * FROM tag WHERE nome = :nome")
     Optional<Tag> findByNome(@Param("nome") String nome);
 
-    @Query("SELECT nome FROM tag WHERE nome in :nomes")
-    List<String> encontraTodasTagsPelosNomes(@Param("nomes") List<String> nomes);
+    @Query("SELECT * FROM tag WHERE nome in (:nomes)")
+    List<Tag> encontraTodasTagsPelosNomes(@Param("nomes") List<String> nomes);
 
 }
