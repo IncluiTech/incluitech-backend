@@ -5,15 +5,18 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteR
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.ClienteResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUDService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.exception.ClienteNaoEncontradoException;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.Problema;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagMapper;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.UserTag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.cliente.ClienteRepository;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.tags.TagClienteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,20 +27,27 @@ import static java.util.stream.Collectors.*;
 @Service
 public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRepository> {
 
+    private TagService tagService;
+    private ProblemaService problemaService;
     private TagClienteRepository tagClienteRepository;
     private ChatBotClient client;
 
-    @Inject
-    public void setRepository(ClienteRepository repository, TagClienteRepository tagClienteRepository) {
-        this.repository = repository;
+    public ClienteService(ClienteRepository clienteRepository, TagService tagService,
+                          TagClienteRepository tagClienteRepository, ChatBotClient client,
+                          ProblemaService problemaService) {
+        this.tagService = tagService;
+        this.problemaService = problemaService;
         this.tagClienteRepository = tagClienteRepository;
+        this.client = client;
+        this.repository = clienteRepository;
     }
 
     public List<ClienteResponse> findAllClientes() {
         Map<Long, List<String>> tags = buscarTodasAsTagsDosClientes();
+        Map<Long, List<Problema>> problemas = buscarTodosOsProblemasDosClientes();
         return this.findAll()
                 .stream()
-                .map(cliente -> ClienteMapper.mapToResponseWithTags(cliente, tags.get(cliente.getId())))
+                .map(cliente -> ClienteMapper.mapToResponseWithTagsAndProblemas(cliente, tags.get(cliente.getId()), problemas.get(cliente.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -53,17 +63,12 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
         }
     }
 
-    private Map<Long, List<String>> buscarTodasAsTagsDosClientes() {
-        return tagClienteRepository.findAllLinkedTags().stream()
-                .collect(groupingBy(UserTag::getUserId,
-                        mapping(UserTag::getTagName, toList())));
-    }
-
     public ClienteResponse update(ClienteRequest request) {
         Cliente entity = this.repository.findByIdFacebook(request.getFacebookId());
         request.setId(entity.getId());
         Cliente updated = this.update(ClienteMapper.mapToModel(request));
-        return ClienteMapper.mapToResponse(updated);
+        List<Tag> tags = this.persistirTagsCliente(request, entity);
+        return ClienteMapper.mapToResponseWithTags(updated,TagMapper.mapToTagName(tags));
     }
 
     public void aprovarCadastro(String facebookId) {
@@ -80,4 +85,32 @@ public class ClienteService extends GenericCRUDService<Cliente, Long, ClienteRep
         throw new ClienteNaoEncontradoException();
     }
 
+
+    private Map<Long, List<String>> buscarTodasAsTagsDosClientes() {
+        return tagClienteRepository.findAllLinkedTags().stream()
+                .collect(groupingBy(UserTag::getUserId,
+                        mapping(UserTag::getTagName, toList())));
+    }
+
+    private Map<Long, List<Problema>> buscarTodosOsProblemasDosClientes() {
+        return problemaService.findAll().stream()
+                .collect(groupingBy(Problema::getIdCliente));
+    }
+
+    private void salvarTagsCliente(Long clienteId, List<Tag> tags) {
+        List<UserTag> currentTags = tagClienteRepository.findTagsOfCliente(clienteId);
+        List<String> currentTagsNames = currentTags.stream().map(UserTag::getTagName).collect(toList());
+        List<Tag> newTags = tags.stream().filter(tag -> !currentTagsNames.contains(tag.getNome())).collect(toList());
+        tagClienteRepository.saveAll(TagMapper.buildTagCliente(newTags, clienteId));
+    }
+
+    private List<Tag> persistirTagsCliente(ClienteRequest clienteRequest, Cliente clienteSalvo) {
+        List<Tag> tags = salvarTags(clienteRequest.getTags());
+        salvarTagsCliente(clienteSalvo.getId(), tags);
+        return tags;
+    }
+
+    private List<Tag> salvarTags(List<String> tags) {
+        return tagService.batchSave(tags);
+    }
 }

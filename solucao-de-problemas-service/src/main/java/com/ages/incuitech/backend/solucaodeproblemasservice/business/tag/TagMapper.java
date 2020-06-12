@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.business.tag;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagcliente.TagCliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.tagsolucionador.TagSolucionador;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,17 @@ public class TagMapper {
                                 .idTag(tag.getId())
                                 .dataCriacao(LocalDateTime.now())
                                 .idSolucionador(solucionadorId)
+                                .build()
+                ).collect(toList());
+    }
+
+    public static List<TagCliente> buildTagCliente(List<Tag> tags, Long clienteId) {
+        return tags.stream()
+                .map(tag ->
+                        TagCliente.builder()
+                                .idTag(tag.getId())
+                                .dataCriacao(LocalDateTime.now())
+                                .idCliente(clienteId)
                                 .build()
                 ).collect(toList());
     }

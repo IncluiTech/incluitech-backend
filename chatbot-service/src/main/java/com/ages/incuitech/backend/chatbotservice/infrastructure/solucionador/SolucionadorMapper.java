@@ -26,9 +26,9 @@ public class SolucionadorMapper {
     }
 
     private static List<String> getTags(Contexto contexto) {
-        List<String> instituicoes = (List<String>) contexto.getOrDefault("instituicoes", new ArrayList<>());
-        List<String> areasAtuacao = (List<String>) contexto.getOrDefault("areasAtuacao", new ArrayList<>());
-        List<String> publicosAlvo = (List<String>) contexto.getOrDefault("publicosAlvo", new ArrayList<>());
+        List<String> instituicoes = contexto.getOrDefault("instituicoes", new ArrayList<>());
+        List<String> areasAtuacao = contexto.getOrDefault("areasAtuacao", new ArrayList<>());
+        List<String> publicosAlvo = contexto.getOrDefault("publicosAlvo", new ArrayList<>());
         List<String> tags = new ArrayList<>();
         tags.addAll(instituicoes);
         tags.addAll(areasAtuacao);
