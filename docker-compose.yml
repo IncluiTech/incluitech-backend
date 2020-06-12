@@ -2,44 +2,44 @@ version: '3.3'
 
 services:
 
-#  solucao-de-problemas-service:
-#    build:
-#      context: ./solucao-de-problemas-service
-#      dockerfile: Dockerfile
-#    container_name: "solucao-de-problemas-service"
-#    restart: unless-stopped
-#    environment:
-#      - 'spring.datasource.url=jdbc:postgresql://incluitech-postgres:5432/incluitech'
-#      - 'spring.datasource.username=postgres'
-#      - 'spring.datasource.password=postgres'
-#      - 'url.chatbot-service=http://chatbot-service:8081/v1/'
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - incluitechnet
-#    depends_on:
-#      - incluitech-postgres
-#    links:
-#      - incluitech-postgres
-#
-#
-#  chatbot-service:
-#    build:
-#      context: ./chatbot-service
-#      dockerfile: Dockerfile
-#    container_name: "chatbot-service"
-#    restart: unless-stopped
-#    environment:
-#      - 'facebook.send.api.url=https://graph.facebook.com/v6.0/me/messages'
-#      - 'facebook.app.access.token=EAAJPdsGTOhgBAEyHFpXqSZASZAHwCgRInVDC8mLOrZADX8PPDZBQ3xbQaptFOysgl3isrUn8c2CCXUA9J3oZBpZAJpgGNNrnpMY8Ao0LBwNoM87OBULVcBKSbsZAnwK7FJcqPtIlf5vHYC7qENTfZAKoUxZBEOT5P9aoeDkXSZB6GeuiTz0PDU9Fsm'
-#      - 'facebook.verify.token=tokenToVerify'
-#      - 'url.solucao-de-problemas-service=http://solucao-de-problemas-service:8080/'
-#    ports:
-#      - "8081:8081"
-#    networks:
-#      - incluitechnet
-#    depends_on:
-#      - solucao-de-problemas-service
+  solucao-de-problemas-service:
+    build:
+      context: ./solucao-de-problemas-service
+      dockerfile: Dockerfile
+    container_name: "solucao-de-problemas-service"
+    restart: unless-stopped
+    environment:
+      - 'spring.datasource.url=jdbc:postgresql://incluitech-postgres:5432/incluitech'
+      - 'spring.datasource.username=postgres'
+      - 'spring.datasource.password=postgres'
+      - 'url.chatbot-service=http://chatbot-service:8081/v1/'
+    ports:
+      - "8080:8080"
+    networks:
+      - incluitechnet
+    depends_on:
+      - incluitech-postgres
+    links:
+      - incluitech-postgres
+
+
+  chatbot-service:
+    build:
+      context: ./chatbot-service
+      dockerfile: Dockerfile
+    container_name: "chatbot-service"
+    restart: unless-stopped
+    environment:
+      - 'facebook.send.api.url=https://graph.facebook.com/v6.0/me/messages'
+      - 'facebook.app.access.token=EAAJPdsGTOhgBAEyHFpXqSZASZAHwCgRInVDC8mLOrZADX8PPDZBQ3xbQaptFOysgl3isrUn8c2CCXUA9J3oZBpZAJpgGNNrnpMY8Ao0LBwNoM87OBULVcBKSbsZAnwK7FJcqPtIlf5vHYC7qENTfZAKoUxZBEOT5P9aoeDkXSZB6GeuiTz0PDU9Fsm'
+      - 'facebook.verify.token=tokenToVerify'
+      - 'url.solucao-de-problemas-service=http://solucao-de-problemas-service:8080/'
+    ports:
+      - "8081:8081"
+    networks:
+      - incluitechnet
+    depends_on:
+      - solucao-de-problemas-service
 
 
   incluitech-postgres:
@@ -47,8 +47,8 @@ services:
       context: database
       dockerfile: Dockerfile
     container_name: "incluitech-postgres"
-#    volumes:
-#      - postgres-data:/var/lib/postgresql/data
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
