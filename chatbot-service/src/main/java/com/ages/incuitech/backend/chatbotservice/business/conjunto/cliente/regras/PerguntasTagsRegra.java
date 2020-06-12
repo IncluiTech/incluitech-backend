@@ -25,13 +25,13 @@ public class PerguntasTagsRegra implements RegraDoBot {
     @Override
     public boolean verifica(MensagemInterna message) {
         Contexto contexto = message.getContexto();
-        return contexto.propertyIsEqualsTo("primeiraMensagemUsuarioComTipo", true) ||
+        return contexto.propertyIsEqualsTo("aguardandoEspecificacaoDeArea", true) ||
                 contexto.propertyIsEqualsTo("clienteEstáPreenchendoTags", true);
     }
 
     @Override
     public BotMessage processa(MensagemInterna message) {
-        message.getContexto().removeIfExists("primeiraMensagemUsuarioComTipo");
+        message.getContexto().removeIfExists("aguardandoEspecificacaoDeArea");
         message.getContexto().put("clienteEstáPreenchendoTags", true);
         if (message.getTipo() != TipoMensagem.BOTAO) return repeteTags(message);
         String tag = message.getConteudo();

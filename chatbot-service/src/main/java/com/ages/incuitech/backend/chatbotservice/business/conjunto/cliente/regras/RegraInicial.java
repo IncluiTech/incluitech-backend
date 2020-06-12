@@ -1,6 +1,8 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.cliente.regras;
 
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.ComponentBotMessage;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.MensagemInterna;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.TipoUsuario;
 import com.ages.incuitech.backend.chatbotservice.business.conjunto.RegraDoBot;
@@ -29,6 +31,9 @@ public class RegraInicial implements RegraDoBot {
     public BotMessage processa(MensagemInterna message) {
         Map<String, Object> profile = buscarNomeDoUsuario(message.getUsuario().getId());
         message.getContexto().putAll(profile);
+        String initMessage = "Olá, " + profile.get("nome") + ", bem vindo de volta";
+        BotMessage botMessage = provider.provide(message.getUsuario().getTipoUsuario(), message.getContexto());
+        botMessage.getMessages().add(0, new TextComponentBotMessage(initMessage));
         return provider.provide(message.getUsuario().getTipoUsuario(), message.getContexto());
     }
 
