@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 public class PerguntasTagsRegra implements RegraDoBot {
 
     private static final String FINALIZAR_TAGS = "Finalizar Tags";
-    private static final List<String> TAGS_INICIAIS = Arrays.asList("ONG", "Escola", "Empresa", "Pessoa Física");
+    private static final List<String> TAGS_INICIAIS = Arrays.asList("Oficinas e Cursos", "Talentos", "Informação e apoio", "Consultoria", "Suporte Emocional");
 
     @Override
     public boolean verifica(MensagemInterna message) {
