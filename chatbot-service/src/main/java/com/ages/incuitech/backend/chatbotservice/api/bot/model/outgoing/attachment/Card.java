@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString @With
+@Builder
 public class Card {
     private String title;
     @JsonProperty("image_url")
