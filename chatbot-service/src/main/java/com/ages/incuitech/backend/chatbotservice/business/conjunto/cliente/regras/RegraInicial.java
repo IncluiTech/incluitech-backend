@@ -34,7 +34,7 @@ public class RegraInicial implements RegraDoBot {
         String initMessage = "Olá, " + profile.get("nome") + ", bem vindo de volta";
         BotMessage botMessage = provider.provide(message.getUsuario().getTipoUsuario(), message.getContexto());
         botMessage.getMessages().add(0, new TextComponentBotMessage(initMessage));
-        return provider.provide(message.getUsuario().getTipoUsuario(), message.getContexto());
+        return botMessage;
     }
 
     private Map<String, Object> buscarNomeDoUsuario(String id) {

@@ -21,7 +21,7 @@ public class GreetingMessageProvider implements BotMessageProvider<TipoUsuario> 
                 new BotMessage(contexto).withMessages(
                         new ButtonComponentBotMessage("Agora, em que posso ajudar?",
                                 new PayloadButton("Cadastrar um problema", ProblemasCliente.CADASTRAR_PROBLEMAS.getCaminho()),
-                                new PayloadButton("Verificar problemas cadastrados", ProblemasCliente.PROBLEMAS_EXISTENTES
+                                new PayloadButton("Problemas cadastrados", ProblemasCliente.PROBLEMAS_EXISTENTES
                                         .getCaminho())
                         )
                 );

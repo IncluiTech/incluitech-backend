@@ -32,8 +32,8 @@ public class MostraProblemaRegra implements RegraDoBot {
     private BotMessage buildProblema(MensagemInterna message, ProblemaDoCliente problemaDoCliente) {
         return new BotMessage(message.getContexto()).withMessages(
                 new TextComponentBotMessage("Ok, segue a descrição do problema que você selecionou"),
-                new TextComponentBotMessage("Problema: " + problemaDoCliente.getTitulo()),
-                new TextComponentBotMessage(problemaDoCliente.getDescricao())
+                new TextComponentBotMessage("*Problema:* " + problemaDoCliente.getTitulo()),
+                new TextComponentBotMessage("*Descrição:* " +problemaDoCliente.getDescricao())
         );
     }
 }

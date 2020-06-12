@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.chatbotservice.business.conjunto.cliente.regras;
 
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.Contexto;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.BotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.QuickReplyComponentBotMessage;
 import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.bot.message.TextComponentBotMessage;
@@ -49,7 +50,7 @@ public class ConfirmarTagsRegra implements RegraDoBot {
 
     private BotMessage perguntaProximoPasso(MensagemInterna message) {
         updateCliente(message);
-        return botMessageProvider.provide(TipoUsuario.CLIENTE, message.getContexto());
+        return botMessageProvider.provide(TipoUsuario.CLIENTE, message.getContexto()).withContexto(new Contexto());
     }
 
     private void updateCliente(MensagemInterna message) {
