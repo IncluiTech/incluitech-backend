@@ -24,4 +24,8 @@ public class ButtonComponentBotMessage extends ComponentBotMessage {
         this.texto = texto;
         this.botoes = botoes;
     }
+
+    public ButtonComponentBotMessage(String texto, Button... botoes) {
+        this(texto, Arrays.asList(botoes));
+    }
 }

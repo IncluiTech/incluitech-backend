@@ -71,7 +71,7 @@ public class PublicoAlvoRegra implements RegraDoBot {
 
     private BotMessage perguntarSobrePublicoAlvo(MensagemInterna message) {
         List<String> tags = this.getPublicosAlvoFromContexto(message);
-        List<String> defaults = new ArrayList<>(Arrays.asList("Comunidade", "Professores", "Alunos", "Prosseguir"));
+        List<String> defaults = new ArrayList<>(Arrays.asList("Prosseguir","Comunidade", "Professores", "Alunos"));
         defaults.removeAll(tags);
         List<QuickReplyButton> buttons = defaults.stream()
                 .map(tag -> new QuickReplyButton(tag, tag))

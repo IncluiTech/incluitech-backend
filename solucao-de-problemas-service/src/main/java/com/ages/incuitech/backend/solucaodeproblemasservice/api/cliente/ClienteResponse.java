@@ -1,5 +1,6 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente;
 
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.problema.ProblemaResponse;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.domain.StatusCadastro;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class ClienteResponse {
     private String funcao;
     private String instituicao;
     private List<String> tags;
+    private List<ProblemaResponse> problemas;
     private StatusCadastro statusCadastro;
     private LocalDateTime dataCriacao;
 }

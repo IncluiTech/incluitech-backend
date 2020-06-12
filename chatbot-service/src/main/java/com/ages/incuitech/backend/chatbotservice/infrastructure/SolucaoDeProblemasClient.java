@@ -1,6 +1,7 @@
 package com.ages.incuitech.backend.chatbotservice.infrastructure;
 
-import com.ages.incuitech.backend.chatbotservice.business.service.UserService;
+import com.ages.incuitech.backend.chatbotservice.api.bot.model.internal.message.UsuarioDaMensagem;
+import com.ages.incuitech.backend.chatbotservice.business.domain.ProblemaDoCliente;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.User.UserRequest;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.solucionador.*;
 import com.ages.incuitech.backend.chatbotservice.infrastructure.cliente.*;
@@ -11,7 +12,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.client.*;
 
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -29,7 +30,7 @@ public class SolucaoDeProblemasClient {
                 solucionadorRequest));
 
         try {
-            restTemplate.postForEntity(properties.getUrl() + properties.getUri(), request, SolucionadorRequest.class);
+            restTemplate.postForEntity(properties.getUrl() + properties.getUriSolucionador(), request, SolucionadorRequest.class);
         } catch (HttpStatusCodeException error) {
             log.error(String.format(
                     "Erro na chamada REST para solucao-de-problemas-service para salvar solucionador: %s. reponse {%s}",
@@ -54,6 +55,23 @@ public class SolucaoDeProblemasClient {
         }
     }
 
+    public List<ProblemaDoCliente> getProblemasOfClient(String clientFacebookId) {
+        ClienteRequest clienteRequest = getClienteByFacebookId(clientFacebookId).orElseThrow(RuntimeException::new);
+        String url = properties.getUrl() + properties.getUriCliente() + "/" + clienteRequest.getId() + "/problemas";
+        return List.of(Objects.requireNonNull(restTemplate.getForEntity(url, ProblemaDoCliente[].class).getBody()));
+    }
+
+    public void salvaProblemaCliente(ProblemaDoCliente problemaDoCliente, UsuarioDaMensagem usuario) {
+        ClienteRequest clienteRequest = getClienteByFacebookId(usuario.getId()).orElseThrow(RuntimeException::new);
+        Map<String, Object> problemaBody = Map.of(
+                "titulo", problemaDoCliente.getTitulo(),
+                "descricao", problemaDoCliente.getDescricao(),
+                "idCliente", clienteRequest.getId()
+        );
+        String url = properties.getUrl() + properties.getUriProblemas();
+        restTemplate.postForEntity(url, new HttpEntity<>(problemaBody), String.class);
+    }
+
     public void updateSolucionador(SolucionadorRequest solucionadorRequest) {
         HttpEntity<SolucionadorRequest> request = new HttpEntity<>(solucionadorRequest);
 
@@ -61,7 +79,7 @@ public class SolucaoDeProblemasClient {
                 solucionadorRequest));
 
         try {
-            restTemplate.put(properties.getUrl() + properties.getUri(), request, SolucionadorRequest.class);
+            restTemplate.put(properties.getUrl() + properties.getUriSolucionador(), request, SolucionadorRequest.class);
         } catch (HttpStatusCodeException error) {
             log.error(String.format(
                     "Erro na chamada REST para solucao-de-problemas-service para atualizar solucionador: %s. reponse: ",
@@ -86,36 +104,35 @@ public class SolucaoDeProblemasClient {
         }
     }
 
-    public Optional<UserRequest> getByFacebookId(String facebookId){
-        Optional<UserRequest> userRequest = getSolucionadorByFacebookId(facebookId);
-        if(userRequest.isEmpty()) userRequest = getClienteByFacebookId(facebookId);
+    public Optional<? extends UserRequest> getByFacebookId(String facebookId) {
+        Optional<SolucionadorRequest> userRequest = getSolucionadorByFacebookId(facebookId);
+        if (userRequest.isEmpty()) return getClienteByFacebookId(facebookId);
         return userRequest;
     }
 
-    public Optional<UserRequest> getSolucionadorByFacebookId(String facebookId) {
-        try{
+    public Optional<SolucionadorRequest> getSolucionadorByFacebookId(String facebookId) {
+        try {
             ResponseEntity<SolucionadorRequest> response = restTemplate
-                .getForEntity(properties.getUrl() + properties.getUri() + "/" + facebookId, SolucionadorRequest.class);
+                    .getForEntity(properties.getUrl() + properties.getUriSolucionador() + "/" + facebookId, SolucionadorRequest.class);
 
             return Optional.ofNullable(response.getBody());
-        } catch (HttpStatusCodeException e){
-            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND))
+        } catch (HttpStatusCodeException e) {
+            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND))
                 return Optional.empty();
-            else throw  e;
+            else throw e;
         }
 
     }
 
-    public Optional<UserRequest> getClienteByFacebookId(String facebookId) {
-        try{
+    public Optional<ClienteRequest> getClienteByFacebookId(String facebookId) {
+        try {
             ResponseEntity<ClienteRequest> response = restTemplate
                     .getForEntity(properties.getUrl() + properties.getUriCliente() + "/" + facebookId, ClienteRequest.class);
             return Optional.ofNullable(response.getBody());
-        }catch (HttpStatusCodeException e){
-            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND))
+        } catch (HttpStatusCodeException e) {
+            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND))
                 return Optional.empty();
             else throw e;
         }
     }
-
 }

@@ -27,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -85,9 +86,7 @@ public class SolucionadorServiceTest {
         // arrange
         SolucionadorRequest solucionador = SolucionadorStub.getSolucionadorRequest();
         when(repository.save(any())).thenReturn(SolucionadorMapper.mapToModel(solucionador));
-        when(tagService.salvar("ONG")).thenReturn(TagStub.buildTagStub(1L, "ONG"));
-        when(tagService.salvar("ESCOLA")).thenReturn(TagStub.buildTagStub(2L, "ESCOLA"));
-
+        when(tagService.batchSave(anyList())).thenReturn(TagStub.buidListTagStup("ONG", "ESCOLA"));
         // act
         SolucionadorResponse solucionadorSalvo = solucionadorService.salvar(solucionador);
 
