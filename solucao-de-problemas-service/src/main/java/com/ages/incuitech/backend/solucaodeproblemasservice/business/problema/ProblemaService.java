@@ -6,6 +6,9 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.business.GenericCRUD
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.problema.ProblemaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaMapper.fromRequestToModel;
 import static com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaMapper.fromModelToResponse;
 
@@ -18,5 +21,11 @@ public class ProblemaService extends GenericCRUDService<Problema, Long, Problema
 
     public ProblemaResponse save(ProblemaRequest request) {
         return fromModelToResponse(this.save(fromRequestToModel(request)));
+    }
+
+    public List<ProblemaResponse> findAllOf(String clientId) {
+        return this.repository.findByIdCliente(clientId).stream()
+                .map(ProblemaMapper::fromModelToResponse)
+                .collect(Collectors.toList());
     }
 }
