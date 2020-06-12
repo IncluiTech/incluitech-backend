@@ -53,7 +53,7 @@ public class PerguntasTagsRegra implements RegraDoBot {
         List<String> tagsRestantes = message.getContexto().getOrDefault("tagsRestantes", new ArrayList<>(TAGS_INICIAIS));
         List<String> tags = message.getContexto().getOrDefault("tags", new ArrayList<>());
         tags.add(tag);
-        if(!tagsRestantes.contains(FINALIZAR_TAGS))tagsRestantes.add(FINALIZAR_TAGS);
+        if(!tagsRestantes.contains(FINALIZAR_TAGS))tagsRestantes.add(0,FINALIZAR_TAGS);
         tagsRestantes.removeAll(tags);
         message.getContexto().put("tags", tags);
         message.getContexto().put("tagsRestantes", tagsRestantes);

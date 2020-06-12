@@ -24,8 +24,8 @@ public class FuncaoInformadaRegra implements RegraDoBot {
         contexto.put("aguardandoTipoUsuario", true);
         return new BotMessage(contexto).withMessages(
                 new QuickReplyComponentBotMessage("Antes de seguirmos para o seu perfil, me diga, o que você procura?",
-                        new QuickReplyButton("Busco soluções", TipoUsuario.CLIENTE.getTipo()),
-                        new QuickReplyButton("Busco resolver problemas", TipoUsuario.SOLUCIONADOR.getTipo())
+                        new QuickReplyButton("Preciso de ajuda", TipoUsuario.CLIENTE.getTipo()),
+                        new QuickReplyButton("Quero ajudar", TipoUsuario.SOLUCIONADOR.getTipo())
                 )
         );
     }

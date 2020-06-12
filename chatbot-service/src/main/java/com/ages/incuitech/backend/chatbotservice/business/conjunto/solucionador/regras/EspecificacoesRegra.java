@@ -37,7 +37,7 @@ public class EspecificacoesRegra implements RegraDoBot {
 
     private BotMessage confirmarTags(MensagemInterna message) {
         this.atualizarContexto(message);
-        List<String> defaults = new ArrayList<>(Arrays.asList("Comunidade", "Professores", "Alunos", "Finalizar Tags"));
+        List<String> defaults = new ArrayList<>(Arrays.asList("Finalizar Tags","Comunidade", "Professores", "Alunos" ));
         List<QuickReplyButton> buttons = defaults.stream()
                 .map(tag -> new QuickReplyButton(tag, tag))
                 .collect(toList());
@@ -62,7 +62,7 @@ public class EspecificacoesRegra implements RegraDoBot {
 
     private BotMessage perguntarSobreAreaDeAtuacao(MensagemInterna message) {
         List<String> tags = this.getTagsFromContexto(message);
-        List<String> defaults = new ArrayList<>(Arrays.asList("Oficinas e Cursos", "Talentos", "Informação e apoio", "Consultoria", "Suporte Emocional", "Finalizar Tags"));
+        List<String> defaults = new ArrayList<>(Arrays.asList("Finalizar Tags","Oficinas e Cursos", "Talentos", "Informação e apoio", "Consultoria", "Suporte Emocional" ));
         defaults.removeAll(tags);
         List<QuickReplyButton> buttons = defaults.stream()
                 .map(tag -> new QuickReplyButton(tag, tag))
