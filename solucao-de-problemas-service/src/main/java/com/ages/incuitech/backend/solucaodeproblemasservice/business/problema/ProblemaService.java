@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaMapper.fromRequestToModel;
 import static com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaMapper.fromModelToResponse;
+import static com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaMapper.fromRequestToModel;
 
 @Service
 public class ProblemaService extends GenericCRUDService<Problema, Long, ProblemaRepository> {
@@ -23,7 +23,7 @@ public class ProblemaService extends GenericCRUDService<Problema, Long, Problema
         return fromModelToResponse(this.save(fromRequestToModel(request)));
     }
 
-    public List<ProblemaResponse> findAllOf(String clientId) {
+    public List<ProblemaResponse> findAllOf(Integer clientId) {
         return this.repository.findByIdCliente(clientId).stream()
                 .map(ProblemaMapper::fromModelToResponse)
                 .collect(Collectors.toList());

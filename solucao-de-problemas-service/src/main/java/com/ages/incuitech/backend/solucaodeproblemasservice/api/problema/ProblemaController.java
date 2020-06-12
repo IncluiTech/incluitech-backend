@@ -24,7 +24,7 @@ public class ProblemaController {
     }
 
     @GetMapping("/{clientId}")
-    public List<ProblemaResponse> problemas(@PathVariable("clientId") String clientId) {
+    public List<ProblemaResponse> problemas(@PathVariable("clientId") Integer clientId) {
         return this.service.findAllOf(clientId);
     }
 }
