@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class ProblemaRequest {
+    private String titulo;
     private String descricao;
     private Long idCliente;
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 @Builder
 public class ProblemaResponse {
     private Long id;
+    private String titulo;
     private String descricao;
     private Long idCliente;
 }
