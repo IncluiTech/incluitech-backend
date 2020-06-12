@@ -5,6 +5,7 @@ import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.TagStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.api.stub.UserTagStub;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.Cliente;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.cliente.ClienteService;
+import com.ages.incuitech.backend.solucaodeproblemasservice.business.problema.ProblemaService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.Tag;
 import com.ages.incuitech.backend.solucaodeproblemasservice.business.tag.TagService;
 import com.ages.incuitech.backend.solucaodeproblemasservice.infrastructure.cliente.ClienteRepository;
@@ -17,6 +18,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +47,8 @@ public class ClienteServiceTest {
     @Mock
     private TagService tagService;
 
+    @Mock
+    private ProblemaService problemaService;
 
     @Test
     public void findAllClientesShouldReturnCliente() {
@@ -52,6 +56,7 @@ public class ClienteServiceTest {
         Cliente cliente = ClienteStub.getModelStub();
         when(repository.findAll()).thenReturn(Lists.newArrayList(cliente));
         when(tagClienteRepository.findAllLinkedTags()).thenReturn(UserTagStub.getUserTagStub());
+        when(problemaService.findAll()).thenReturn(Collections.emptyList());
 
         // act
         List<ClienteResponse> clientes = clienteService.findAllClientes();
