@@ -57,7 +57,7 @@ public class SolucaoDeProblemasClient {
 
     public List<ProblemaDoCliente> getProblemasOfClient(String clientFacebookId) {
         ClienteRequest clienteRequest = getClienteByFacebookId(clientFacebookId).orElseThrow(RuntimeException::new);
-        String url = properties.getUrl() + properties.getUriProblemas() + "/" + clienteRequest.getId();
+        String url = properties.getUrl() + properties.getUriCliente() + "/" + clienteRequest.getId() + "/problemas";
         return List.of(Objects.requireNonNull(restTemplate.getForEntity(url, ProblemaDoCliente[].class).getBody()));
     }
 

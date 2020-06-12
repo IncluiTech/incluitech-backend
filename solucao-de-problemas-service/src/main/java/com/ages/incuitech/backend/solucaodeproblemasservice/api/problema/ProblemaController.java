@@ -22,9 +22,4 @@ public class ProblemaController {
     public ProblemaResponse save(@RequestBody ProblemaRequest request) {
         return this.service.save(request);
     }
-
-    @GetMapping("/{clientId}")
-    public List<ProblemaResponse> problemas(@PathVariable("clientId") Integer clientId) {
-        return this.service.findAllOf(clientId);
-    }
 }
