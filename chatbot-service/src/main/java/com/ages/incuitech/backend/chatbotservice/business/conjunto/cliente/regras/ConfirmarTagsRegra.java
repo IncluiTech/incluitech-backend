@@ -63,7 +63,7 @@ public class ConfirmarTagsRegra implements RegraDoBot {
         message.getContexto().removeIfExists("clienteConfirmandoTags");
         message.getContexto().put("clienteEstáPreenchendoTags", true);
         return new BotMessage(message.getContexto()).withMessages(
-                new TextComponentBotMessage("Por favor, selecione abaixo quais são as areas que você atua")
+                new TextComponentBotMessage("Por favor, selecione abaixo quais são as areas que você precisa de ajuda")
         );
     }
 
