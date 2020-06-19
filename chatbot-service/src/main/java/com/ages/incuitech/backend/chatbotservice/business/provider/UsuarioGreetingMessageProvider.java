@@ -25,7 +25,7 @@ public class UsuarioGreetingMessageProvider implements BotMessageProvider<TipoUs
                     .collect(Collectors.toList());
             return new BotMessage(contexto).withMessages(
                     new QuickReplyComponentBotMessage(
-                            "Você quer especificar a area em que trabalha?",
+                            "Você quer especificar a area em que precisa de ajuda?",
                             buttons
                     )
             );
