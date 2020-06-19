@@ -131,6 +131,7 @@ public class MessageMapper {
     }
 
     private static boolean hasAttachment(Messaging messaging) {
-        return messaging.getMessage().getAttachments() != null && !messaging.getMessage().getAttachments().isEmpty();
+        return messaging.getMessage().getAttachments() != null && !messaging.getMessage().getAttachments().isEmpty() &&
+                messaging.getMessage().getAttachments().get(0).getPayload() != null;
     }
 }
