@@ -1,15 +1,14 @@
 package com.ages.incuitech.backend.solucaodeproblemasservice;
 
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.cliente.*;
-import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.*;
-import com.google.gson.*;
-import lombok.*;
-import lombok.extern.slf4j.*;
-import org.springframework.http.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.client.*;
+import com.ages.incuitech.backend.solucaodeproblemasservice.api.solucionador.SolucionadorRequest;
+import com.google.gson.Gson;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestTemplate;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 @Slf4j
 @Component
