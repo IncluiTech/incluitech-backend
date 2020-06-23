@@ -138,4 +138,12 @@ public class SolucionadorService extends GenericCRUDService<Solucionador, Long, 
                 "\nGostaríamos de informar que um novo solucionador se cadastrou no sistema da IncluiTec e está aguardando" +
                 "a sua aprovação no painel administrativo.");
     }
+
+    public List<SolucionadorResponse> findCadastroAprovado() {
+        List<Solucionador> aprovados = this.repository.findByStatusCadastro(StatusCadastro.A.name());
+        Map<Long, List<String>> solucionadorTagMap = this.buscarTodasAsTagsDosSolucionadores();
+        return aprovados.stream()
+                .map(solucionador -> mapToResponseWithTags(solucionador, solucionadorTagMap.get(solucionador.getId())))
+                .collect(toList());
+    }
 }
